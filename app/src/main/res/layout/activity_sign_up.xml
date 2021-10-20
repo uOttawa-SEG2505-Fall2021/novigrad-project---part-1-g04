@@ -33,12 +33,13 @@
         android:id="@+id/passwordField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="12dp"
         android:ems="10"
         android:hint="Password"
+        android:textColorHint="#757575"
         android:inputType="textPassword"
         android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword"
         app:layout_constraintStart_toStartOf="@+id/usernameField"
         app:layout_constraintTop_toBottomOf="@+id/usernameField" />
 
@@ -46,12 +47,12 @@
         android:id="@+id/button"
         android:layout_width="208dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="214dp"
-        android:text="Login"
+        android:layout_marginBottom="151dp"
+        android:text="Sign Up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordField" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
 
     <EditText
         android:id="@+id/usernameField"
@@ -71,14 +72,27 @@
         android:id="@+id/loginTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="130dp"
-        android:layout_marginBottom="79dp"
-        android:text="Login Page"
+        android:layout_marginTop="128dp"
+        android:layout_marginBottom="80dp"
+        android:text="Sign Up Page"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/userTypeTextField"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextTextPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:ems="10"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintStart_toStartOf="@+id/passwordField"
+        app:layout_constraintTop_toBottomOf="@+id/passwordField" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

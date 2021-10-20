@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="90dp"
-        android:text="Welcome <username>"
+        android:text='Welcome "username"'
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
