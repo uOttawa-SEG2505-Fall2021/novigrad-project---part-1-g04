@@ -91,7 +91,7 @@
             android:minHeight="48dp" />
 
         <EditText
-            android:id="@+id/editTextTextPassword"
+            android:id="@+id/confirmPasswordField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -100,13 +100,11 @@
             android:minHeight="48dp" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/signup_page_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginTop="40dp"
-            android:gravity="center"
-            android:text="Sign up" />
+            android:text="Sign Up" />
 
     </LinearLayout>
 
