@@ -13,7 +13,7 @@
             android:name=".Sign_up"
             android:exported="true" />
         <activity
-            android:name=".welcome_user"
+            android:name=".welcomePage_admin"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
