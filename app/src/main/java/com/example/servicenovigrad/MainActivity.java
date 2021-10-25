@@ -53,9 +53,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onClick(View v) {
                 //CHECK CREDENTIALS OF ADMIN
-                if(username.getText().toString().equals("admin") && password.getText().toString().equals("admin") ) { //NEED TO CHECK IS SPINNER == ADMIN
+                if(username.getText().toString().equals("admin") && password.getText().toString().equals("admin")) { //NEED TO CHECK IS SPINNER == ADMIN
                     //DISPLAY "LOGIN SUCCESSFUL FOR ADMIN
                     Toast.makeText(MainActivity.this,"Login successful",Toast.LENGTH_SHORT).show();
+
                     //GO TO WELCOME PAGE OF ADMIN
                     onWelcomePageAdmin(v);
                 }
@@ -93,15 +94,31 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // TODO Auto-generated method stub
     }
 
-    //SWITCH TO SIGN_UP ACTIVITY
+    //SWITCH TO SIGN UP ACTIVITY
     public void onSignupPage(View view) {
         Intent intent = new Intent(getApplicationContext(), Sign_up.class);
         startActivityForResult(intent,0);
     }
 
-    //SWITCH TO WELCOMEPAGE_ADMIN ACTIVITY
+    //SWITCH TO WELCOME PAGE FOR ADMIN ACTIVITY
     public void onWelcomePageAdmin(View view) {
         Intent intent = new Intent(getApplicationContext(), welcomePage_admin.class);
+        intent.putExtra("USERNAME",username.getText().toString());
         startActivityForResult(intent,0);
     }
+
+    //SWITCH TO WELCOME PAGE FOR USER ACTIVITY
+    public void onWelcomePageUser(View view) {
+        Intent intent = new Intent(getApplicationContext(), welcomePage_user.class);
+        intent.putExtra("USERNAME",username.getText().toString());
+        startActivityForResult(intent,0);
+    }
+
+    //SWITCH TO WELCOME PAGE FOR EMPLOYEE ACTIVITY
+    public void onWelcomePageEmployee(View view) {
+        Intent intent = new Intent(getApplicationContext(), welcomePage_employee.class);
+        intent.putExtra("USERNAME",username.getText().toString());
+        startActivityForResult(intent,0);
+    }
+
 }
