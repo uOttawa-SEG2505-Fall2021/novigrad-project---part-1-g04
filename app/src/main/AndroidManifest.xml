@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ServiceNovigrad">
         <activity
+            android:name=".welcomePage_employee"
+            android:exported="true" />
+        <activity
+            android:name=".welcomePage_user"
+            android:exported="true" />
+        <activity
             android:name=".Sign_up"
             android:exported="true" />
         <activity
