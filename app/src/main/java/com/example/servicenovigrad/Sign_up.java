@@ -13,9 +13,12 @@ import android.widget.EditText;
 
 import android.os.Bundle;
 
+import java.util.ArrayList;
+
 public class Sign_up extends AppCompatActivity {
 
     private static final String[] users = {"Admin", "Employee", "Client"};
+
     Spinner spinner_su;
     EditText username_su, password_su, confirmPassword_su;
     Button signupBtn_su;

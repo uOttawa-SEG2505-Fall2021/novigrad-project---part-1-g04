@@ -12,6 +12,8 @@ import android.widget.Spinner;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private static final String[] users = {"Admin", "Employee", "Client"};
@@ -64,6 +66,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
 
         });
+
+
+
     }
 
     @Override
