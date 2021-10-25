@@ -12,8 +12,6 @@ import android.widget.Spinner;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private static final String[] users = {"Admin", "Employee", "Client"};
@@ -60,6 +58,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     //GO TO WELCOME PAGE OF ADMIN
                     onWelcomePageAdmin(v);
                 }
+                if(username.getText().toString().equals("bob") && password.getText().toString().equals("bob")) { //NEED TO CHECK IS SPINNER == ADMIN
+                    //DISPLAY "LOGIN SUCCESSFUL FOR ADMIN
+                    Toast.makeText(MainActivity.this,"Login successful",Toast.LENGTH_SHORT).show();
+
+                    //GO TO WELCOME PAGE OF ADMIN
+                    onWelcomePageClient(v);
+                }
+
                 else {
                     //DISPLAY "LOGIN SUCCESSFUL FOR ADMIN
                     Toast.makeText(MainActivity.this,"Login failed",Toast.LENGTH_SHORT).show();
@@ -108,8 +114,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     //SWITCH TO WELCOME PAGE FOR USER ACTIVITY
-    public void onWelcomePageUser(View view) {
-        Intent intent = new Intent(getApplicationContext(), welcomePage_user.class);
+    public void onWelcomePageClient(View view) {
+        Intent intent = new Intent(getApplicationContext(), welcomePage_client.class);
         intent.putExtra("USERNAME",username.getText().toString());
         startActivityForResult(intent,0);
     }
