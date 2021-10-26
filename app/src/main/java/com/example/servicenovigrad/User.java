@@ -2,6 +2,7 @@ package com.example.servicenovigrad;
 
 public class User {
 
+    private String email;
     private String username;
     private String password;
     private char role;
@@ -24,8 +25,9 @@ public class User {
         return username;
     }
 
-    public String getPassword() {return password; }
+    public String getPassword() { return password; }
 
-    public char getRole() {return role; }
+    public char getRole() { return role; }
 
+    public Object getEmail() { return email; }
 }
