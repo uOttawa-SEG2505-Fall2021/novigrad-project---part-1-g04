@@ -2,7 +2,7 @@ package com.example.servicenovigrad;
 
 public class Client extends User {
 
-    public Client(String username, String password, char role) {
-        super(username, password, 'c');
+    public Client(String email, String username, String password) {
+        super(email, username, password, 'c');
     }
 }

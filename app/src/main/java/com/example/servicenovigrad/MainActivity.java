@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         password = findViewById(R.id.passwordField);
 
         //PRE-CREATED ADMIN CREDENTIALS
-        userList.add(new User("admin", "admin", 'a'));
+        userList.add(new User("admin@domain.com", "admin", "admin", 'a'));
 
 
         //GO TO SIGN UP PAGE
