@@ -27,10 +27,6 @@ public class Sign_up extends AppCompatActivity {
     EditText username_su, password_su, confirmPassword_su;
     Button signupBtn_su;
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +38,9 @@ public class Sign_up extends AppCompatActivity {
         password_su = findViewById(R.id.passwordField);
         confirmPassword_su = findViewById(R.id.confirmPasswordField);
 
+
+
+
         //ADD SPINNER
 
         //GO TO WELCOME PAGE AFTER CLICKING "SIGN UP"
@@ -51,26 +50,27 @@ public class Sign_up extends AppCompatActivity {
                 //CHECK IF CLIENT EXISTS OR NOT (IF CLIENT HAS ROLE, THEN IT EXISTS)
                 if(authentication() == 'z') {
                     //VERIFY IF PASSWORD MATCHES CONFIRMED PASSWORD
-                    if(password_su.getText().toString().equals(confirmPassword_su.getText().toString())) {
-                        User client = new User(username_su.getText().toString(), password_su.getText().toString(), 'e');
-                        userList.add(client);
+                    if (password_su.getText().toString().equals(confirmPassword_su.getText().toString())) {
+                        userList.add(new User(username_su.getText().toString(), password_su.getText().toString(), 'c')); //VERIFY OPTION SELECTED FROM SPINNER
                         onWelcomePageClient(v);
                         Toast.makeText(Sign_up.this, "Sign up successful.", Toast.LENGTH_SHORT).show();
                     }
                     //DISPLAY MESSAGE THAT SAYS PASSWORDS DON'T MATCH
-                    else {
+                    else if (!password_su.getText().toString().equals(confirmPassword_su.getText().toString())) {
                         Toast.makeText(Sign_up.this, "Please make sure you passwords match.", Toast.LENGTH_SHORT).show();
                     }
                 }
+                //DISPLAY MESSAGE THAT SAYS USERNAME ALREADY EXISTS
+                else if(authentication() == 'y') {
+                    Toast.makeText(Sign_up.this, "Username already exists.", Toast.LENGTH_SHORT).show();
+                }
+
                 //DISPLAYS MESSAGE THAT USER ALREADY EXISTS
                 else {
                     Toast.makeText(Sign_up.this,"User already exists. Try login in.",Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
-
-        //ADD SPINNER
 
     }
 
@@ -79,6 +79,7 @@ public class Sign_up extends AppCompatActivity {
         char role = 'z';
         for(int i=0; i<userList.size(); i++) {
             if(username_su.getText().toString().equals(userList.get(i).getUsername().toString())) {
+                role = 'y';
                 if(password_su.getText().toString().equals(userList.get(i).getPassword().toString())) {
                     role = userList.get(i).getRole();
                 }
@@ -100,6 +101,4 @@ public class Sign_up extends AppCompatActivity {
         intent.putExtra("USERNAME",username_su.getText().toString());
         startActivityForResult(intent,0);
     }
-
-
 }
