@@ -28,8 +28,9 @@ public class User {
         return username;
     }
 
-    public String getPassword() {return password; }
+    public String getPassword() { return password; }
 
-    public char getRole() {return role; }
+    public char getRole() { return role; }
 
+    public Object getEmail() { return email; }
 }
