@@ -38,10 +38,9 @@ public class Sign_up extends AppCompatActivity {
         password_su = findViewById(R.id.passwordField);
         confirmPassword_su = findViewById(R.id.confirmPasswordField);
 
-        //create an adapter to describe how the items are displayed, adapters are used in several places in android.
-        //There are multiple variations of this, but this is the basic variant.
+        // Create an adapter to describe how the items are displayed
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, users);
-        //set the spinners adapter to the previously created one.
+        // Set the spinner's adapter to the previously created one
         spinner_su.setAdapter(adapter);
 
         //GO TO WELCOME PAGE AFTER CLICKING "SIGN UP"
