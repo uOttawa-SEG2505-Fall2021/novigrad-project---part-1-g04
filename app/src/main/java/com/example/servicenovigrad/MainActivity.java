@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
                 //DISPLAY "LOGIN FAILED" IF CREDENTIALS DON'T MATCH ANY USER
                 else {
-                    //DISPLAY "LOGIN SUCCESSFUL FOR ADMIN
                     Toast.makeText(MainActivity.this,"Login failed.",Toast.LENGTH_SHORT).show();
                 }
             }
