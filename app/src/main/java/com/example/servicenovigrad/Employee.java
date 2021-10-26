@@ -2,5 +2,15 @@ package com.example.servicenovigrad;
 
 public class Employee extends User {
 
-    public Employee(String username, String password, char role) { super(username, password, 'r'); }
+    private String email;
+
+    public Employee(String email, String username, String password, char role) {
+        super(username, password, 'r');
+        this.email = email;
+    }
+
+    public void setEmail(String email) { this.email = email; }
+
+    public String getEmail() { return email; }
+
 }

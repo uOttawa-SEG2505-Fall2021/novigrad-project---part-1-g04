@@ -16,10 +16,11 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity<id> extends AppCompatActivity {
 
     EditText username, password;
     Button loginBtn, signupBtn;
+    private int id = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +33,8 @@ public class MainActivity extends AppCompatActivity {
         password = findViewById(R.id.passwordField);
 
         //PRE-CREATED ADMIN CREDENTIALS
-        userList.add(new User("admin", "admin", 'a'));
-
-
+        userList.add(new Admin("admin", "admin", 'a'));
+        
         //GO TO SIGN UP PAGE
         signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,46 +46,42 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //VERIFY CREDENTIALS OF ADMIN AND REDIRECT TO ADMIN WELCOME PAGE
-                if(authentication() == 'a') {
+                if(userList.get(clientNumber()).getRole() == 'a') {
                     onWelcomePageAdmin(v);
                     //DISPLAY "LOGIN SUCCESSFUL" FOR ADMIN
                     Toast.makeText(MainActivity.this,"Login successful.",Toast.LENGTH_SHORT).show();
                 }
 
                 //VERIFY CREDENTIALS OF EMPLOYEE AND REDIRECT TO EMPLOYEE WELCOME PAGE
-                else if(authentication() == 'e') {
+                else if(userList.get(clientNumber()).getRole() == 'e') {
                     onWelcomePageEmployee(v);
                     Toast.makeText(MainActivity.this,"Login successful.",Toast.LENGTH_SHORT).show();
                 }
 
                 //VERIFY CREDENTIALS OF CLIENT AND REDIRECT TO CLIENT WELCOME PAGE
-                else if(authentication() == 'c') {
+                else if(userList.get(clientNumber()).getRole() == 'c') {
                     onWelcomePageClient(v);
                     Toast.makeText(MainActivity.this,"Login successful.",Toast.LENGTH_SHORT).show();
                 }
 
-                //DISPLAY "LOGIN FAILED" IF CREDENTIALS DON'T MATCH ANY USER
+                //DISPLAY "LOGIN FAILED" IF CREDENTIALS DON'T MATCH ANY USER (ID = -1)
                 else {
                     Toast.makeText(MainActivity.this,"Login failed.",Toast.LENGTH_SHORT).show();
                 }
             }
-
         });
-
     }
 
-    //RETURN ROLE OF USER OR 'Z' IF NON EXISTENT
-    public char authentication() {
-        char role = 'z';
+    //RETURN INDEX OF THE POSITION OF USER IN THE USER LIST OR -1 IF USER DOESN'T EXIST
+    public int clientNumber() {
         for(int i=0; i<userList.size(); i++) {
-            if(username.getText().toString().equals(userList.get(i).getUsername().toString())) {
+            if(username.getText().toString().equals(userList.get(i).getUsername().toString()) || username.getText().toString().equals(userList.get(i).getEmail().toString())) {
                 if(password.getText().toString().equals(userList.get(i).getPassword().toString())) {
-                    role = userList.get(i).getRole();
-
+                    id = i;
                 }
             }
         }
-        return role;
+        return id;
     }
 
     //SWITCH TO SIGN UP ACTIVITY
@@ -97,21 +93,21 @@ public class MainActivity extends AppCompatActivity {
     //SWITCH TO WELCOME PAGE FOR ADMIN ACTIVITY
     public void onWelcomePageAdmin(View view) {
         Intent intent = new Intent(getApplicationContext(), welcomePage_admin.class);
-        intent.putExtra("USERNAME",username.getText().toString());
+        intent.putExtra("USERNAME", userList.get(clientNumber()).getUsername());
         startActivityForResult(intent,0);
     }
 
     //SWITCH TO WELCOME PAGE FOR USER ACTIVITY
     public void onWelcomePageClient(View view) {
         Intent intent = new Intent(getApplicationContext(), welcomePage_client.class);
-        intent.putExtra("USERNAME",username.getText().toString());
+        intent.putExtra("USERNAME", userList.get(clientNumber()).getUsername());
         startActivityForResult(intent,0);
     }
 
     //SWITCH TO WELCOME PAGE FOR EMPLOYEE ACTIVITY
     public void onWelcomePageEmployee(View view) {
         Intent intent = new Intent(getApplicationContext(), welcomePage_employee.class);
-        intent.putExtra("USERNAME",username.getText().toString());
+        intent.putExtra("USERNAME", userList.get(clientNumber()).getUsername());
         startActivityForResult(intent,0);
     }
 
