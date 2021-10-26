@@ -2,7 +2,7 @@ package com.example.servicenovigrad;
 
 public class Admin extends User {
 
-    public Admin(String username, String password, char role) {
-        super(username, password, 'a');
+    public Admin(String email, String username, String password) {
+        super(email, username, password, 'a');
     }
 }

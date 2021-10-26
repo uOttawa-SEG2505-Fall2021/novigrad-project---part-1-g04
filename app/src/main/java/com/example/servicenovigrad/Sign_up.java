@@ -18,13 +18,13 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class Sign_up extends AppCompatActivity {
-
+public class Sign_up extends AppCompatActivity //implements AdapterView.OnItemSelectedListener {
+{
     private static final String[] users = {"Employee", "Client"};
     static ArrayList<User> userList = new ArrayList<>();
 
     Spinner spinner_su;
-    EditText username_su, password_su, confirmPassword_su;
+    EditText email_su, username_su, password_su, confirmPassword_su;
     Button signupBtn_su;
 
     @Override
@@ -34,6 +34,7 @@ public class Sign_up extends AppCompatActivity {
 
         spinner_su = findViewById(R.id.spinner);
         signupBtn_su = findViewById(R.id.signup_page_button);
+        email_su = findViewById(R.id.emailField);
         username_su = findViewById(R.id.usernameField);
         password_su = findViewById(R.id.passwordField);
         confirmPassword_su = findViewById(R.id.confirmPasswordField);
@@ -42,6 +43,8 @@ public class Sign_up extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, users);
         // Set the spinner's adapter to the previously created one
         spinner_su.setAdapter(adapter);
+        // Save first letter of role
+        char role = spinner_su.getSelectedItem().toString().toLowerCase().charAt(0);
 
         //GO TO WELCOME PAGE AFTER CLICKING "SIGN UP"
         signupBtn_su.setOnClickListener(new View.OnClickListener() {
@@ -51,7 +54,7 @@ public class Sign_up extends AppCompatActivity {
                 if(authentication() == 'z') {
                     //VERIFY IF PASSWORD MATCHES CONFIRMED PASSWORD
                     if (password_su.getText().toString().equals(confirmPassword_su.getText().toString())) {
-                        userList.add(new User(username_su.getText().toString(), password_su.getText().toString(), 'c')); //VERIFY OPTION SELECTED FROM SPINNER
+                        userList.add(new User(email_su.getText().toString(), username_su.getText().toString(), password_su.getText().toString(), role)); //VERIFY OPTION SELECTED FROM SPINNER
                         onWelcomePageClient(v);
                         Toast.makeText(Sign_up.this, "Sign up successful.", Toast.LENGTH_SHORT).show();
                     }
@@ -67,7 +70,7 @@ public class Sign_up extends AppCompatActivity {
 
                 //DISPLAYS MESSAGE THAT USER ALREADY EXISTS
                 else {
-                    Toast.makeText(Sign_up.this,"User already exists. Try login in.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Sign_up.this,"User already exists. Try logging in.",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -101,4 +104,14 @@ public class Sign_up extends AppCompatActivity {
         intent.putExtra("USERNAME",username_su.getText().toString());
         startActivityForResult(intent,0);
     }
+
+//    @Override
+//    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+//        Toast.makeText(parent.getContext(), parent.getItemAtPosition(pos).toString(),
+//                Toast.LENGTH_SHORT).show();
+//    }
+//
+//    @Override
+//    public void onNothingSelected(AdapterView<?> adapterView) {
+//    }
 }
