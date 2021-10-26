@@ -18,12 +18,10 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    private static final String[] users = {"Admin", "Employee", "Client"};
 
 
     EditText username, password;
     Button loginBtn, signupBtn;
-    Spinner spinner;
 
 
 
@@ -33,19 +31,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        spinner = findViewById(R.id.spinner);
         loginBtn = findViewById(R.id.login_button);
         signupBtn = findViewById(R.id.signup_button);
         username = findViewById(R.id.usernameField);
         password = findViewById(R.id.passwordField);
 
+        userList.add(new User("admin", "admin", 'a'));
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this,
-                android.R.layout.simple_spinner_item, users);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
 
         //GO TO SIGN UP PAGE
         signupBtn.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onClick(View v) {
                 //VERIFY CREDENTIALS OF ADMIN AND REDIRECT TO ADMIN WELCOME PAGE
-                if(username.getText().toString().equals("admin") && password.getText().toString().equals("admin")) {
+                if(authentication() == 'a') {
                     onWelcomePageAdmin(v);
                     //DISPLAY "LOGIN SUCCESSFUL" FOR ADMIN
                     Toast.makeText(MainActivity.this,"Login successful.",Toast.LENGTH_SHORT).show();
