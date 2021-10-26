@@ -1,5 +1,7 @@
 package com.example.servicenovigrad;
 
+import static com.example.servicenovigrad.Sign_up.userList;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,13 +14,18 @@ import android.widget.Spinner;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private static final String[] users = {"Admin", "Employee", "Client"};
 
+
     EditText username, password;
     Button loginBtn, signupBtn;
     Spinner spinner;
+
+
 
 
     @Override
@@ -50,32 +57,48 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //CHECK CREDENTIALS OF ADMIN
-                if(username.getText().toString().equals("admin") && password.getText().toString().equals("admin")) { //NEED TO CHECK IS SPINNER == ADMIN
-                    //DISPLAY "LOGIN SUCCESSFUL FOR ADMIN
-                    Toast.makeText(MainActivity.this,"Login successful",Toast.LENGTH_SHORT).show();
-
-                    //GO TO WELCOME PAGE OF ADMIN
+                //VERIFY CREDENTIALS OF ADMIN AND REDIRECT TO ADMIN WELCOME PAGE
+                if(username.getText().toString().equals("admin") && password.getText().toString().equals("admin")) {
                     onWelcomePageAdmin(v);
+                    //DISPLAY "LOGIN SUCCESSFUL" FOR ADMIN
+                    Toast.makeText(MainActivity.this,"Login successful.",Toast.LENGTH_SHORT).show();
                 }
-                if(username.getText().toString().equals("bob") && password.getText().toString().equals("bob")) { //NEED TO CHECK IS SPINNER == ADMIN
-                    //DISPLAY "LOGIN SUCCESSFUL FOR ADMIN
-                    Toast.makeText(MainActivity.this,"Login successful",Toast.LENGTH_SHORT).show();
 
-                    //GO TO WELCOME PAGE OF ADMIN
+                //VERIFY CREDENTIALS OF EMPLOYEE AND REDIRECT TO EMPLOYEE WELCOME PAGE
+                else if(authentication() == 'e') {
+                    onWelcomePageEmployee(v);
+                    Toast.makeText(MainActivity.this,"Login successful.",Toast.LENGTH_SHORT).show();
+                }
+
+                //VERIFY CREDENTIALS OF CLIENT AND REDIRECT TO CLIENT WELCOME PAGE
+                else if(authentication() == 'c') {
                     onWelcomePageClient(v);
+                    Toast.makeText(MainActivity.this,"Login successful.",Toast.LENGTH_SHORT).show();
                 }
 
+                //DISPLAY "LOGIN FAILED" IF CREDENTIALS DON'T MATCH ANY USER
                 else {
                     //DISPLAY "LOGIN SUCCESSFUL FOR ADMIN
-                    Toast.makeText(MainActivity.this,"Login failed",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,"Login failed.",Toast.LENGTH_SHORT).show();
                 }
             }
 
         });
 
+    }
 
+    //RETURN ROLE OF USER OR 'Z' IF NON EXISTENT
+    public char authentication() {
+        char role = 'z';
+        for(int i=0; i<userList.size(); i++) {
+            if(username.getText().toString().equals(userList.get(i).getUsername().toString())) {
+                if(password.getText().toString().equals(userList.get(i).getPassword().toString())) {
+                    role = userList.get(i).getRole();
 
+                }
+            }
+        }
+        return role;
     }
 
     @Override
