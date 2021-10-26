@@ -16,15 +16,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-
-
+public class MainActivity extends AppCompatActivity {
 
     EditText username, password;
     Button loginBtn, signupBtn;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         username = findViewById(R.id.usernameField);
         password = findViewById(R.id.passwordField);
 
+        //PRE-CREATED ADMIN CREDENTIALS
         userList.add(new User("admin", "admin", 'a'));
 
 
@@ -90,28 +86,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         }
         return role;
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
-
-        switch (position) {
-            case 0:
-                // Whatever you want to happen when the first item gets selected
-                break;
-            case 1:
-                // Whatever you want to happen when the second item gets selected
-                break;
-            case 2:
-                // Whatever you want to happen when the third item gets selected
-                break;
-
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-        // TODO Auto-generated method stub
     }
 
     //SWITCH TO SIGN UP ACTIVITY
