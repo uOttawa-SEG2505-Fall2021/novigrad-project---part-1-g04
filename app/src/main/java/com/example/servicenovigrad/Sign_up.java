@@ -81,7 +81,7 @@ public class Sign_up extends AppCompatActivity {
                     }
                     //DISPLAY MESSAGE THAT SAYS PASSWORDS DON'T MATCH
                     else {
-                        Toast.makeText(Sign_up.this, "Sign up failed. Please make sure you passwords match.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Sign_up.this, "Sign up failed. Please make sure your passwords match.", Toast.LENGTH_SHORT).show();
                     }
                 }
                 //DISPLAY SIGN UP FAILED BASE ON VALUE OF AUTHENTICATION
