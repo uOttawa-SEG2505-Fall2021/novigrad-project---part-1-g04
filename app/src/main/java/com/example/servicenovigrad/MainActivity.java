@@ -107,14 +107,14 @@ public class MainActivity extends AppCompatActivity {
     //SWITCH TO WELCOME PAGE FOR USER ACTIVITY
     public void onWelcomePageClient(View view) {
         Intent intent = new Intent(getApplicationContext(), welcomePage_client.class);
-        intent.putExtra("USERNAME", userList.get(clientNumber()).getUsername());
+        intent.putExtra("USERNAME", userList.get(clientNumber()).getFirstName());
         startActivityForResult(intent, 0);
     }
 
     //SWITCH TO WELCOME PAGE FOR EMPLOYEE ACTIVITY
     public void onWelcomePageEmployee(View view) {
         Intent intent = new Intent(getApplicationContext(), welcomePage_employee.class);
-        intent.putExtra("USERNAME", userList.get(clientNumber()).getUsername());
+        intent.putExtra("USERNAME", userList.get(clientNumber()).getFirstName());
         startActivityForResult(intent, 0);
     }
 

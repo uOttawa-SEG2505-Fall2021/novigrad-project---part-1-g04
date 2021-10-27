@@ -20,14 +20,14 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Sign_up extends AppCompatActivity //implements AdapterView.OnItemSelectedListener {
-{
+public class Sign_up extends AppCompatActivity {
+  
     private static final String[] users = {"Employee", "Client"};
     static ArrayList<User> userList = new ArrayList<>();
     private int id;
 
     Spinner spinner_su;
-    EditText email_su, username_su, password_su, confirmPassword_su;
+    EditText email_su, username_su, password_su, confirmPassword_su, firstName, lastName;
     Button signupBtn_su;
 
     @Override
@@ -41,6 +41,8 @@ public class Sign_up extends AppCompatActivity //implements AdapterView.OnItemSe
         username_su = findViewById(R.id.usernameField);
         password_su = findViewById(R.id.passwordField);
         confirmPassword_su = findViewById(R.id.confirmPasswordField);
+        firstName = findViewById(R.id.firstNameField);
+        lastName = findViewById(R.id.lastNameField);
 
         // Create an adapter to describe how the items are displayed
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, users);
@@ -135,24 +137,14 @@ public class Sign_up extends AppCompatActivity //implements AdapterView.OnItemSe
     //SWITCH TO WELCOME PAGE FOR USER ACTIVITY
     public void onWelcomePageClient(View view) {
         Intent intent = new Intent(getApplicationContext(), welcomePage_client.class);
-        intent.putExtra("USERNAME", username_su.getText().toString());
+        intent.putExtra("USERNAME", firstName.getText().toString());
         startActivityForResult(intent, 0);
     }
 
     //SWITCH TO WELCOME PAGE FOR EMPLOYEE ACTIVITY
     public void onWelcomePageEmployee(View view) {
         Intent intent = new Intent(getApplicationContext(), welcomePage_employee.class);
-        intent.putExtra("USERNAME", username_su.getText().toString());
+        intent.putExtra("USERNAME", firstName.getText().toString());
         startActivityForResult(intent, 0);
     }
-
-//    @Override
-//    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-//        Toast.makeText(parent.getContext(), parent.getItemAtPosition(pos).toString(),
-//                Toast.LENGTH_SHORT).show();
-//    }
-//
-//    @Override
-//    public void onNothingSelected(AdapterView<?> adapterView) {
-//    }
 }

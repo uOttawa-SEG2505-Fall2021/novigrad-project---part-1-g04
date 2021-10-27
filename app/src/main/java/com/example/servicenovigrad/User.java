@@ -8,11 +8,15 @@ public class User {
     private String email;
     private String username;
     private String password;
+    private String firstName;
+    private String lastName;
 
-    public User(String email, String username, String password) {
+    public User(String email, String username, String password, String firstName, String lastName, char role) {
         this.email = email;
         this.username = username;
         this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public User(String username, String password) {
@@ -26,12 +30,20 @@ public class User {
 
     public void setPassword(String password) { this.password = password; }
 
+    public void setFirstName(String firstName) {this.firstName = firstName; }
+
+    public void setLastName(String lastName) {this.lastName = lastName; }
+
     public String getEmail() { return email; }
 
     public String getUsername() { return username; }
 
     public String getPassword() { return password; }
+  
+    public String getFirstName() {return firstName; }
 
+    public String getLastName() {return lastName; }
+  
     public String getRole() {
         // String representation of the user (ex: Admin@7cc355be)
         String userToStr = this.toString();
