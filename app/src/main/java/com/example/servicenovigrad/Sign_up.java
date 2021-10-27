@@ -27,7 +27,7 @@ public class Sign_up extends AppCompatActivity {
     private int id;
 
     Spinner spinner_su;
-    EditText email_su, username_su, password_su, confirmPassword_su, firstName, lastName;
+    EditText email_su, username_su, password_su, confirmPassword_su, firstName_su, lastName_su;
     Button signupBtn_su;
 
     @Override
@@ -41,8 +41,8 @@ public class Sign_up extends AppCompatActivity {
         username_su = findViewById(R.id.usernameField);
         password_su = findViewById(R.id.passwordField);
         confirmPassword_su = findViewById(R.id.confirmPasswordField);
-        firstName = findViewById(R.id.firstNameField);
-        lastName = findViewById(R.id.lastNameField);
+        firstName_su = findViewById(R.id.firstNameField);
+        lastName_su = findViewById(R.id.lastNameField);
 
         // Create an adapter to describe how the items are displayed
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, users);
@@ -54,11 +54,13 @@ public class Sign_up extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Credentials of new user
+                String role = spinner_su.getSelectedItem().toString();
                 String email = email_su.getText().toString();
                 String username = username_su.getText().toString();
                 String password = password_su.getText().toString();
                 String confirmPassword = confirmPassword_su.getText().toString();
-                String role = spinner_su.getSelectedItem().toString();
+                String firstName = firstName_su.getText().toString();
+                String lastName = lastName_su.getText().toString();
 
                 //CHECK IF CLIENT EXISTS OR NOT
                 if (authentication() == -1) {
@@ -67,11 +69,11 @@ public class Sign_up extends AppCompatActivity {
                         //VERIFY OPTION SELECTED FROM SPINNER
                         if (role.equals("Client")) {
                             // Add new Client to userList
-                            userList.add(new Client(email, username, password));
+                            userList.add(new Client(email, username, password, firstName, lastName));
                             onWelcomePageClient(v);
                         } else {
                             // Add new Client to userList
-                            userList.add(new Employee(email, username, password));
+                            userList.add(new Employee(email, username, password, firstName, lastName));
                             onWelcomePageEmployee(v);
                         }
                         Toast.makeText(Sign_up.this, "Sign up successful.", Toast.LENGTH_SHORT).show();
@@ -137,14 +139,14 @@ public class Sign_up extends AppCompatActivity {
     //SWITCH TO WELCOME PAGE FOR USER ACTIVITY
     public void onWelcomePageClient(View view) {
         Intent intent = new Intent(getApplicationContext(), welcomePage_client.class);
-        intent.putExtra("USERNAME", firstName.getText().toString());
+        intent.putExtra("USERNAME", firstName_su.getText().toString());
         startActivityForResult(intent, 0);
     }
 
     //SWITCH TO WELCOME PAGE FOR EMPLOYEE ACTIVITY
     public void onWelcomePageEmployee(View view) {
         Intent intent = new Intent(getApplicationContext(), welcomePage_employee.class);
-        intent.putExtra("USERNAME", firstName.getText().toString());
+        intent.putExtra("USERNAME", firstName_su.getText().toString());
         startActivityForResult(intent, 0);
     }
 }
