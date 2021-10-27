@@ -61,11 +61,31 @@
             android:id="@+id/emailField"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="5dp"
             android:ems="10"
             android:hint="Email"
             android:inputType="textPersonName"
             android:minWidth="240dp"
+            android:minHeight="48dp"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/firstNameField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="First Name"
+            android:inputType="textPersonName"
+            android:minHeight="48dp"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/lastNameField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Last Name"
+            android:inputType="textPersonName"
             android:minHeight="48dp"
             android:textSize="15sp" />
 
@@ -106,7 +126,7 @@
             android:id="@+id/signup_page_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="85dp"
+            android:layout_marginTop="45dp"
             android:text="Sign Up" />
 
     </LinearLayout>

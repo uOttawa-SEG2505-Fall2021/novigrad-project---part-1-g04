@@ -27,7 +27,7 @@ public class Sign_up extends AppCompatActivity //implements AdapterView.OnItemSe
     private int id;
 
     Spinner spinner_su;
-    EditText email_su, username_su, password_su, confirmPassword_su;
+    EditText email_su, username_su, password_su, confirmPassword_su, firstName, lastName;
     Button signupBtn_su;
 
     @Override
@@ -41,6 +41,8 @@ public class Sign_up extends AppCompatActivity //implements AdapterView.OnItemSe
         username_su = findViewById(R.id.usernameField);
         password_su = findViewById(R.id.passwordField);
         confirmPassword_su = findViewById(R.id.confirmPasswordField);
+        firstName = findViewById(R.id.firstNameField);
+        lastName = findViewById(R.id.lastNameField);
 
         // Create an adapter to describe how the items are displayed
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, users);
@@ -59,7 +61,7 @@ public class Sign_up extends AppCompatActivity //implements AdapterView.OnItemSe
                 if (authentication() == -1) {
                     //VERIFY IF PASSWORD MATCHES CONFIRMED PASSWORD
                     if (password_su.getText().toString().equals(confirmPassword_su.getText().toString())) {
-                        userList.add(new User(email_su.getText().toString(), username_su.getText().toString(), password_su.getText().toString(), role)); //VERIFY OPTION SELECTED FROM SPINNER
+                        userList.add(new User(email_su.getText().toString(), username_su.getText().toString(), password_su.getText().toString(), firstName.getText().toString(), lastName.getText().toString(), role)); //VERIFY OPTION SELECTED FROM SPINNER
                         if (role == 'c') {
                             onWelcomePageClient(v);
                         } else {
@@ -128,14 +130,14 @@ public class Sign_up extends AppCompatActivity //implements AdapterView.OnItemSe
     //SWITCH TO WELCOME PAGE FOR USER ACTIVITY
     public void onWelcomePageClient(View view) {
         Intent intent = new Intent(getApplicationContext(), welcomePage_client.class);
-        intent.putExtra("USERNAME", username_su.getText().toString());
+        intent.putExtra("USERNAME", firstName.getText().toString());
         startActivityForResult(intent, 0);
     }
 
     //SWITCH TO WELCOME PAGE FOR EMPLOYEE ACTIVITY
     public void onWelcomePageEmployee(View view) {
         Intent intent = new Intent(getApplicationContext(), welcomePage_employee.class);
-        intent.putExtra("USERNAME", username_su.getText().toString());
+        intent.putExtra("USERNAME", firstName.getText().toString());
         startActivityForResult(intent, 0);
     }
 
