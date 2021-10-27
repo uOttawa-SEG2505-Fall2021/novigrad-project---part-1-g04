@@ -53,20 +53,20 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 //VERIFY CREDENTIALS OF ADMIN AND REDIRECT TO ADMIN WELCOME PAGE
-                else if (userList.get(clientNumber()).getRole() == 'a') {
+                else if (userList.get(clientNumber()).getRole().equals("Admin")) {
                     onWelcomePageAdmin(v);
                     //DISPLAY "LOGIN SUCCESSFUL" FOR ADMIN
                     Toast.makeText(MainActivity.this, "Login successful.", Toast.LENGTH_SHORT).show();
                 }
 
                 //VERIFY CREDENTIALS OF EMPLOYEE AND REDIRECT TO EMPLOYEE WELCOME PAGE
-                else if (userList.get(clientNumber()).getRole() == 'e') {
+                else if (userList.get(clientNumber()).getRole().equals("Employee")) {
                     onWelcomePageEmployee(v);
                     Toast.makeText(MainActivity.this, "Login successful.", Toast.LENGTH_SHORT).show();
                 }
 
                 //VERIFY CREDENTIALS OF CLIENT AND REDIRECT TO CLIENT WELCOME PAGE
-                else if (userList.get(clientNumber()).getRole() == 'c') {
+                else if (userList.get(clientNumber()).getRole().equals("Client")) {
                     onWelcomePageClient(v);
                     Toast.makeText(MainActivity.this, "Login successful.", Toast.LENGTH_SHORT).show();
                 }
