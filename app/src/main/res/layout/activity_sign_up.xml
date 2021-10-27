@@ -59,12 +59,15 @@
 
         <EditText
             android:id="@+id/emailField"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
             android:ems="10"
             android:hint="Email"
             android:inputType="textPersonName"
-            android:minHeight="48dp" />
+            android:minWidth="240dp"
+            android:minHeight="48dp"
+            android:textSize="15sp" />
 
         <EditText
             android:id="@+id/usernameField"
@@ -73,7 +76,9 @@
             android:ems="10"
             android:hint="Username"
             android:inputType="textPersonName"
-            android:minHeight="48dp" />
+            android:minWidth="240dp"
+            android:minHeight="48dp"
+            android:textSize="15sp" />
 
         <EditText
             android:id="@+id/passwordField"
@@ -82,22 +87,26 @@
             android:ems="10"
             android:hint="Password"
             android:inputType="textPassword"
-            android:minHeight="48dp" />
+            android:minWidth="240dp"
+            android:minHeight="48dp"
+            android:textSize="15sp" />
 
         <EditText
             android:id="@+id/confirmPasswordField"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Confirm Password"
             android:inputType="textPassword"
-            android:minHeight="48dp" />
+            android:minWidth="240dp"
+            android:minHeight="48dp"
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/signup_page_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="85dp"
             android:text="Sign Up" />
 
     </LinearLayout>
