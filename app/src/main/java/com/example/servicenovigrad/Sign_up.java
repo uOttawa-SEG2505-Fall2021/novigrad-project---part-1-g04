@@ -21,13 +21,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Sign_up extends AppCompatActivity {
-  
+
     private static final String[] users = {"Employee", "Client"};
     static ArrayList<User> userList = new ArrayList<>();
     private int id;
 
     Spinner spinner_su;
-    EditText email_su, username_su, password_su, confirmPassword_su, firstName, lastName;
+    EditText email_su, username_su, password_su, confirmPassword_su, firstName_su, lastName_su;
     Button signupBtn_su;
 
     @Override
@@ -41,8 +41,8 @@ public class Sign_up extends AppCompatActivity {
         username_su = findViewById(R.id.usernameField);
         password_su = findViewById(R.id.passwordField);
         confirmPassword_su = findViewById(R.id.confirmPasswordField);
-        firstName = findViewById(R.id.firstNameField);
-        lastName = findViewById(R.id.lastNameField);
+        firstName_su = findViewById(R.id.firstNameField);
+        lastName_su = findViewById(R.id.lastNameField);
 
         // Create an adapter to describe how the items are displayed
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, users);
@@ -58,6 +58,8 @@ public class Sign_up extends AppCompatActivity {
                 String username = username_su.getText().toString();
                 String password = password_su.getText().toString();
                 String confirmPassword = confirmPassword_su.getText().toString();
+                String firstName = firstName_su.getText().toString();
+                String lastName = lastName_su.getText().toString();
                 String role = spinner_su.getSelectedItem().toString();
 
                 //CHECK IF CLIENT EXISTS OR NOT
@@ -67,27 +69,25 @@ public class Sign_up extends AppCompatActivity {
                         //VERIFY OPTION SELECTED FROM SPINNER
                         if (role.equals("Client")) {
                             // Add new Client to userList
-                            userList.add(new Client(email, username, password));
+                            userList.add(new Client(email, username, password, firstName, lastName));
                             onWelcomePageClient(v);
                         } else {
-                            // Add new Client to userList
-                            userList.add(new Employee(email, username, password));
+                            // Add new Employee to userList
+                            userList.add(new Employee(email, username, password, firstName, lastName));
                             onWelcomePageEmployee(v);
                         }
+                        //DISPLAY MESSAGE OF SUCCESSFUL SIGN UP
                         Toast.makeText(Sign_up.this, "Sign up successful.", Toast.LENGTH_SHORT).show();
                     }
                     //DISPLAY MESSAGE THAT SAYS PASSWORDS DON'T MATCH
                     else {
-                        Toast.makeText(Sign_up.this, "Please make sure you passwords match.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Sign_up.this, "Sign up failed. Please make sure you passwords match.", Toast.LENGTH_SHORT).show();
                     }
                 }
-                //DISPLAY MESSAGE THAT SAYS USERNAME ALREADY EXISTS
+                //DISPLAY SIGN UP FAILED BASE ON VALUE OF AUTHENTICATION
                 else if (authentication() == -2) {
                     Toast.makeText(Sign_up.this, "Sign up failed. Username and email already exist.", Toast.LENGTH_SHORT).show();
-                }
-
-                //DISPLAYS MESSAGE THAT USER ALREADY EXISTS
-                else if (authentication() == -3) {
+                } else if (authentication() == -3) {
                     Toast.makeText(Sign_up.this, "Sign up failed. Email already exists.", Toast.LENGTH_SHORT).show();
                 } else if (authentication() == -4) {
                     Toast.makeText(Sign_up.this, "Sign up failed. Username already exists.", Toast.LENGTH_SHORT).show();
@@ -98,10 +98,9 @@ public class Sign_up extends AppCompatActivity {
                 }
             }
         });
-
     }
 
-    //RETURN ROLE OF USER OR 'Z' IF NON EXISTENT
+    //EVALUATES EVERY FIELD IN SIGN UP PAGE
     public int authentication() {
         for (int i = 0; i < userList.size(); i++) {
             //RETURN -2 IF BOTH USERNAME AND EMAIL ALREADY EXISTS
@@ -116,9 +115,10 @@ public class Sign_up extends AppCompatActivity {
             else if (username_su.getText().toString().equals(userList.get(i).getUsername())) {
                 return -4;
             }
-            //VERIFY IF ANY FIELDS ARE EMPTY
-            else if (username_su.getText().toString().equals("") || email_su.getText().toString().equals("") || password_su.getText().toString().equals("") || confirmPassword_su.getText().toString().equals("")) {
+            //RETURN -5 IF AT LEAST ONE FIELD IS MISSING
+            else if (username_su.getText().toString().trim().equals("") || email_su.getText().toString().trim().equals("") || password_su.getText().toString().trim().equals("") || confirmPassword_su.getText().toString().trim().equals("") || firstName_su.getText().toString().trim().equals("") || lastName_su.getText().toString().trim().equals("")) {
                 return -5;
+            //RETURN -6 IF EMAIL IS NOT STANDARD
             } else if (!verifyEmail(email_su.getText().toString())) {
                 return -6;
             }
@@ -131,20 +131,19 @@ public class Sign_up extends AppCompatActivity {
         Pattern pattern = Pattern.compile("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
-
     }
 
     //SWITCH TO WELCOME PAGE FOR USER ACTIVITY
     public void onWelcomePageClient(View view) {
         Intent intent = new Intent(getApplicationContext(), welcomePage_client.class);
-        intent.putExtra("USERNAME", firstName.getText().toString());
+        intent.putExtra("USERNAME", firstName_su.getText().toString());
         startActivityForResult(intent, 0);
     }
 
     //SWITCH TO WELCOME PAGE FOR EMPLOYEE ACTIVITY
     public void onWelcomePageEmployee(View view) {
         Intent intent = new Intent(getApplicationContext(), welcomePage_employee.class);
-        intent.putExtra("USERNAME", firstName.getText().toString());
+        intent.putExtra("USERNAME", firstName_su.getText().toString());
         startActivityForResult(intent, 0);
     }
 }
