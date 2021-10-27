@@ -54,13 +54,13 @@ public class Sign_up extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Credentials of new user
+                String role = spinner_su.getSelectedItem().toString();
                 String email = email_su.getText().toString();
                 String username = username_su.getText().toString();
                 String password = password_su.getText().toString();
                 String confirmPassword = confirmPassword_su.getText().toString();
                 String firstName = firstName_su.getText().toString();
                 String lastName = lastName_su.getText().toString();
-                String role = spinner_su.getSelectedItem().toString();
 
                 //CHECK IF CLIENT EXISTS OR NOT
                 if (authentication() == -1) {
