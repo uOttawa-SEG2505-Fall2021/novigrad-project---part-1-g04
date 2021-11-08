@@ -6,14 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class welcomePage_employee extends AppCompatActivity {
+public class WelcomePageClient extends AppCompatActivity {
 
     TextView displayUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome_page_employee);
+        setContentView(R.layout.activity_welcome_page_client);
 
         displayUsername = findViewById(R.id.usernameTextView);
 
