@@ -122,5 +122,8 @@ public class MainActivity extends AppCompatActivity {
 //        intent.putExtra("USERNAME", userList.get(clientNumber()).getFirstName());
 //        startActivityForResult(intent, 0);
 //    }
-    
+
+    public void updateUI(FirebaseUser user) {
+
+    }
 }
