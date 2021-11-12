@@ -3,6 +3,8 @@ package com.example.servicenovigrad;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.google.firebase.auth.FirebaseUser;
+
 public class User {
 
     private String email;
@@ -54,6 +56,7 @@ public class User {
         // Create Matcher object
         Matcher m = p.matcher(userToStr);
         // Verify if pattern matches
+        //noinspection ResultOfMethodCallIgnored
         m.find();
         // Return capture group
         return m.group(1);
