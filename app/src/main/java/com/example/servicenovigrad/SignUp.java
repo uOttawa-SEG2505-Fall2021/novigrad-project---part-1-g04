@@ -171,21 +171,9 @@ public class SignUp extends AppCompatActivity {
             return;
         }
 
-        if (username.isEmpty()) {
-            usernameField.setError("Username is required!");
-            usernameField.requestFocus();
-            return;
-        }
-
-        if (password.isEmpty()) {
-            passwordField.setError("Password is required!");
-            passwordField.requestFocus();
-            return;
-        }
-
-        if (confirmPassword.isEmpty()) {
-            confirmPasswordField.setError("Confirm password is required!");
-            confirmPasswordField.requestFocus();
+        if (!isValidEmail(email)) {
+            emailField.setError("Please provide valid email!");
+            emailField.requestFocus();
             return;
         }
 
@@ -201,9 +189,21 @@ public class SignUp extends AppCompatActivity {
             return;
         }
 
-        if (!isValidEmail(email)) {
-            emailField.setError("Please provide valid email!");
-            emailField.requestFocus();
+        if (username.isEmpty()) {
+            usernameField.setError("Username is required!");
+            usernameField.requestFocus();
+            return;
+        }
+
+        if (password.trim().isEmpty()) {
+            passwordField.setError("Password is required!");
+            passwordField.requestFocus();
+            return;
+        }
+
+        if (!password.equals(confirmPassword)) {
+            confirmPasswordField.setError("Confirm password does not match password!");
+            confirmPasswordField.requestFocus();
             return;
         }
 
