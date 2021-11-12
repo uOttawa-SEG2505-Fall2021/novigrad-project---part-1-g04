@@ -10,16 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ServiceNovigrad">
         <activity
-            android:name=".welcomePage_employee"
+            android:name=".WelcomePageEmployee"
             android:exported="true" />
         <activity
-            android:name=".welcomePage_client"
+            android:name=".WelcomePageClient"
             android:exported="true" />
         <activity
-            android:name=".Sign_up"
+            android:name=".SignUp"
             android:exported="true" />
         <activity
-            android:name=".welcomePage_admin"
+            android:name=".WelcomePageAdmin"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

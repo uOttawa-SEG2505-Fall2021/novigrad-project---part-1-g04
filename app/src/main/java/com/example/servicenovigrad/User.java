@@ -30,9 +30,9 @@ public class User {
 
     public void setPassword(String password) { this.password = password; }
 
-    public void setFirstName(String firstName) {this.firstName = firstName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
 
-    public void setLastName(String lastName) {this.lastName = lastName; }
+    public void setLastName(String lastName) { this.lastName = lastName; }
 
     public String getEmail() { return email; }
 
@@ -40,9 +40,9 @@ public class User {
 
     public String getPassword() { return password; }
   
-    public String getFirstName() {return firstName; }
+    public String getFirstName() { return firstName; }
 
-    public String getLastName() {return lastName; }
+    public String getLastName() { return lastName; }
   
     public String getRole() {
         // String representation of the user (ex: Admin@7cc355be)

@@ -62,16 +62,16 @@
             android:textSize="15sp" />
 
         <Button
-            android:id="@+id/login_button"
+            android:id="@+id/logInButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="85dp"
             android:gravity="center"
-            android:text="Login" />
+            android:text="Log In" />
 
         <Button
-            android:id="@+id/signup_button"
+            android:id="@+id/signUpPageButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sign up" />
