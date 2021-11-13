@@ -209,7 +209,7 @@ public class SignUp extends AppCompatActivity {
 
         // [START create_user_with_email]
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -226,16 +226,14 @@ public class SignUp extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(SignUp.this,
-                                                "Sign up successful!",
-                                                Toast.LENGTH_LONG).show();
+                                        Toast.makeText(SignUp.this,"Sign up successful!", Toast.LENGTH_LONG).show();
                                     } else {
-                                        Toast.makeText(SignUp.this,
-                                                "Sign up failed!",
-                                                Toast.LENGTH_LONG).show();
+                                        Toast.makeText(SignUp.this, "Sign up failed!", Toast.LENGTH_LONG).show();
                                     }
                                 }
                             });
+                        } else {
+                            Toast.makeText(SignUp.this, "Sign up failed!", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
