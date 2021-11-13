@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -67,6 +68,14 @@ public class SignUp extends AppCompatActivity {
                 android.R.layout.simple_spinner_dropdown_item, new String[] {"Employee", "Client"});
         // Set the spinner's adapter to the previously created one
         spinner.setAdapter(adapter);
+
+        //GO TO WELCOME PAGE AFTER CLICKING "SIGN UP"
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                registerUser();
+            }
+        });
     }
 
     public boolean isValidEmail(String email) {
@@ -162,21 +171,9 @@ public class SignUp extends AppCompatActivity {
             return;
         }
 
-        if (username.isEmpty()) {
-            usernameField.setError("Username is required!");
-            usernameField.requestFocus();
-            return;
-        }
-
-        if (password.isEmpty()) {
-            passwordField.setError("Password is required!");
-            passwordField.requestFocus();
-            return;
-        }
-
-        if (confirmPassword.isEmpty()) {
-            confirmPasswordField.setError("Confirm password is required!");
-            confirmPasswordField.requestFocus();
+        if (!isValidEmail(email)) {
+            emailField.setError("Please provide valid email!");
+            emailField.requestFocus();
             return;
         }
 
@@ -192,9 +189,21 @@ public class SignUp extends AppCompatActivity {
             return;
         }
 
-        if (!isValidEmail(email)) {
-            emailField.setError("Please provide valid email!");
-            emailField.requestFocus();
+        if (username.isEmpty()) {
+            usernameField.setError("Username is required!");
+            usernameField.requestFocus();
+            return;
+        }
+
+        if (password.trim().isEmpty()) {
+            passwordField.setError("Password is required!");
+            passwordField.requestFocus();
+            return;
+        }
+
+        if (!password.equals(confirmPassword)) {
+            confirmPasswordField.setError("Confirm password does not match password!");
+            confirmPasswordField.requestFocus();
             return;
         }
 
@@ -212,7 +221,7 @@ public class SignUp extends AppCompatActivity {
                                 user = new Employee(email, username, password, firstName, lastName);
                             }
 
-                            databaseUsers.child(mAuth.getCurrentUser().getUid()).setValue(user)
+                            databaseUsers.child(Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).setValue(user)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
@@ -221,7 +230,8 @@ public class SignUp extends AppCompatActivity {
                                                 "Sign up successful!",
                                                 Toast.LENGTH_LONG).show();
                                     } else {
-                                        Toast.makeText(SignUp.this, "Sign up failed!",
+                                        Toast.makeText(SignUp.this,
+                                                "Sign up failed!",
                                                 Toast.LENGTH_LONG).show();
                                     }
                                 }
