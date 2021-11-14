@@ -17,6 +17,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -233,6 +236,21 @@ public class SignUp extends AppCompatActivity {
                                 }
                             });
                         } else {
+                            try {
+                                throw task.getException();
+                            } catch(FirebaseAuthWeakPasswordException e) {
+                                passwordField.setError("Password is weak!");
+                                passwordField.requestFocus();
+                            } catch(FirebaseAuthInvalidCredentialsException e) {
+                                emailField.setError("Invalid email");
+                                emailField.requestFocus();
+                            } catch(FirebaseAuthUserCollisionException e) {
+                                emailField.setError("User already exists");
+                                emailField.requestFocus();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
                             Toast.makeText(SignUp.this, "Sign up failed!", Toast.LENGTH_LONG).show();
                         }
                     }
