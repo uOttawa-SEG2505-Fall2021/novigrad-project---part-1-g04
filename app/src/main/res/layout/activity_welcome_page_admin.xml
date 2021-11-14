@@ -4,25 +4,103 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#607D8B"
     tools:context=".WelcomePageAdmin">
 
-    <TextView
-        android:id="@+id/usernameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="90dp"
-        android:textSize="25sp"
-        android:textStyle="bold"
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="352dp"
+        android:layout_height="190dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo"
+        android:layout_marginTop="32dp"/>
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="You are connected as an admin"
+        android:text="Hi, you are connected as an admin"
+        android:textColor="#FFF"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/usernameTextView"
-        app:layout_constraintTop_toBottomOf="@+id/usernameTextView" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        android:layout_marginTop="24dp"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="What would you like to do today?"
+        android:textColor="#FFF"
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <LinearLayout
+        android:id="@+id/btnLinearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:baselineAligned="true"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintHorizontal_bias="0.463"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.359">
+
+
+        <Button
+            android:id="@+id/btnAddService"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FF03DAC5"
+            android:text="Add service"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="395dp" />
+
+        <Button
+            android:id="@+id/btnUpdateService"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="#FF03DAC5"
+            android:text="Update service"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="471dp" />
+
+        <Button
+            android:id="@+id/btnDeleteService"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="#FF03DAC5"
+            android:text="Delete service"
+            tools:layout_editor_absoluteX="-16dp"
+            tools:layout_editor_absoluteY="575dp" />
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnLogOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FF03DAC5"
+        android:text="Log out"
+        app:layout_constraintEnd_toEndOf="@+id/btnLinearLayout"
+        app:layout_constraintStart_toStartOf="@+id/btnLinearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/btnLinearLayout"
+        android:layout_marginTop="60dp"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
