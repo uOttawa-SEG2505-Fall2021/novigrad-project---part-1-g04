@@ -6,9 +6,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class WelcomePageAdmin extends AppCompatActivity {
 
     TextView displayUsername;
+    DatabaseReference databaseServices;
+    List<Service> services;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +29,8 @@ public class WelcomePageAdmin extends AppCompatActivity {
         String username = intent.getStringExtra("USERNAME");
         displayUsername.setText("Welcome "+ username);
 
+        databaseServices = FirebaseDatabase.getInstance().getReference("Services");
+        services = new ArrayList<>();
 
     }
 }

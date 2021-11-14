@@ -20,16 +20,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class SignUp extends AppCompatActivity {
 
@@ -49,7 +45,7 @@ public class SignUp extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         // Initialize users List
-        users = new ArrayList<User>();
+        users = new ArrayList<>();
 
         // Initialize Firebase Reference
         databaseUsers = FirebaseDatabase.getInstance().getReference("Users");
@@ -80,84 +76,6 @@ public class SignUp extends AppCompatActivity {
             }
         });
     }
-
-    public boolean isValidEmail(String email) {
-        Pattern pattern = Pattern.compile("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\." +
-                "[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
-    }
-
-    //SWITCH TO WELCOME PAGE FOR USER ACTIVITY
-    public void onWelcomePageClient(View view) {
-        Intent intent = new Intent(getApplicationContext(), WelcomePageClient.class);
-        intent.putExtra("USERNAME", firstNameField.getText().toString());
-        startActivityForResult(intent, 0);
-    }
-
-    //SWITCH TO WELCOME PAGE FOR EMPLOYEE ACTIVITY
-    public void onWelcomePageEmployee(View view) {
-        Intent intent = new Intent(getApplicationContext(), WelcomePageEmployee.class);
-        intent.putExtra("USERNAME", firstNameField.getText().toString());
-        startActivityForResult(intent, 0);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            reload();
-        }
-    }
-
-    private void reload() {
-    }
-
-//    private void addUser() {
-//        //getting the values to save
-//        String role = spinner.getSelectedItem().toString().trim();
-//        String email = emailField.getText().toString().trim();
-//        String username = usernameField.getText().toString().trim();
-//        String password = passwordField.getText().toString();
-//        String confirmPassword = confirmPasswordField.getText().toString();
-//        String firstName = firstNameField.getText().toString().trim();
-//        String lastName = lastNameField.getText().toString().trim();
-//
-//        // checking if the values are provided and password and confirmPassword are equal
-//        if ((!TextUtils.isEmpty(email)
-//                && !TextUtils.isEmpty(username)
-//                && !TextUtils.isEmpty(password)
-//                && !TextUtils.isEmpty(confirmPassword)
-//                && !TextUtils.isEmpty(firstName)
-//                && !TextUtils.isEmpty(lastName))
-//                && (password.equals(confirmPassword))) {
-//
-//            //getting a unique id using push().getKey() method
-//            //it will create a unique id and we will use it as the Primary key for our User
-//            String id = databaseUsers.push().getKey();
-//
-//            //creating a User Object
-//            User user;
-//
-//            if (role.equals("Client")) {
-//                user = new Client(email, username, password, firstName, lastName);
-//            } else {
-//                user = new Employee(email, username, password, firstName, lastName);
-//            }
-//
-//            // Saving the User
-//            assert id != null;
-//            databaseUsers.child(id).setValue(user);
-//
-//            //displaying a success toast
-//            Toast.makeText(this, "User added", Toast.LENGTH_LONG).show();
-//        } else {
-//            //if the value is not given displaying a toast
-//            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_LONG).show();
-//        }
-//    }
 
     private void registerUser() {
         String role = spinner.getSelectedItem().toString().trim();
@@ -223,7 +141,15 @@ public class SignUp extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(SignUp.this,"Sign up successful!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(SignUp.this,"Sign up successful!", Toast.LENGTH_LONG).show();                                        if (role.equals("Client")) {
+                                            Intent intent = new Intent(getApplicationContext(), WelcomePageClient.class);
+                                            intent.putExtra("USERNAME", firstName);
+                                            startActivityForResult(intent, 0);
+                                        } else {
+                                            Intent intent = new Intent(getApplicationContext(), WelcomePageEmployee.class);
+                                            intent.putExtra("USERNAME", firstName);
+                                            startActivityForResult(intent, 0);
+                                        }
                                     } else {
                                         Toast.makeText(SignUp.this, "Sign up failed!", Toast.LENGTH_LONG).show();
                                     }
