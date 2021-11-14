@@ -1,7 +1,7 @@
 package com.example.servicenovigrad;
 
-import static com.example.servicenovigrad.SignUp.databaseUsers;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,16 +11,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText usernameField, passwordField;
+    EditText EmailField, passwordField;
     Button logInButton, signUpPageButton;
 //    private int id;
 
     private FirebaseAuth mAuth;
+    private FirebaseUser user;
+    private DatabaseReference reference;
+    private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,16 +38,11 @@ public class MainActivity extends AppCompatActivity {
 
         logInButton = findViewById(R.id.logInButton);
         signUpPageButton = findViewById(R.id.signUpPageButton);
-        usernameField = findViewById(R.id.usernameField);
+        EmailField = findViewById(R.id.usernameField);
         passwordField = findViewById(R.id.passwordField);
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-
-        //PRE-CREATED ADMIN CREDENTIALS
-        /* ADD HERE */
-
-//        String id = databaseUsers.push().getKey();
 
         //GO TO SIGN UP PAGE
         signUpPageButton.setOnClickListener(new View.OnClickListener() {
@@ -48,82 +52,83 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        //GO TO WELCOME PAGE AFTER CLICKING "LOGIN"
-//        logInButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (clientNumber() == -1) {
-//                    Toast.makeText(MainActivity.this, "Login failed.", Toast.LENGTH_SHORT).show();
-//                }
-//
-//                //VERIFY CREDENTIALS OF ADMIN AND REDIRECT TO ADMIN WELCOME PAGE
-//                else if (userList.get(clientNumber()).getRole().equals("Admin")) {
-//                    onWelcomePageAdmin(v);
-//                    //DISPLAY "LOGIN SUCCESSFUL" FOR ADMIN
-//                    Toast.makeText(MainActivity.this, "Login successful.", Toast.LENGTH_SHORT).show();
-//                }
-//
-//                //VERIFY CREDENTIALS OF EMPLOYEE AND REDIRECT TO EMPLOYEE WELCOME PAGE
-//                else if (userList.get(clientNumber()).getRole().equals("Employee")) {
-//                    onWelcomePageEmployee(v);
-//                    Toast.makeText(MainActivity.this, "Login successful.", Toast.LENGTH_SHORT).show();
-//                }
-//
-//                //VERIFY CREDENTIALS OF CLIENT AND REDIRECT TO CLIENT WELCOME PAGE
-//                else if (userList.get(clientNumber()).getRole().equals("Client")) {
-//                    onWelcomePageClient(v);
-//                    Toast.makeText(MainActivity.this, "Login successful.", Toast.LENGTH_SHORT).show();
-//                }
-//
-//                //DISPLAY "LOGIN FAILED" IF CREDENTIALS DON'T MATCH ANY USER
-//                else {
-//                    Toast.makeText(MainActivity.this, "Login failed.", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
+
+        //GO TO WELCOME PAGE AFTER CLICKING "LOGIN"
+        logInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userLogin();
+
+            }
+        });
     }
 
-//    //RETURN INDEX OF THE POSITION OF USER IN THE USER LIST OR -1 IF USER DOESN'T EXIST
-//    public int clientNumber() {
-//        for (int i = 0; i < userList.size(); i++) {
-//            if (usernameField.getText().toString().equals(userList.get(i).getUsername())
-//                    || usernameField.getText().toString().equals(userList.get(i).getEmail())) {
-//                if (passwordField.getText().toString().equals(userList.get(i).getPassword())) {
-//                    return i;
-//                }
-//            }
-//        }
-//        return -1;
-//    }
+    public void userLogin() {
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+        userID = user.getUid();
+        String email = EmailField.getText().toString().trim();
+        String password = passwordField.getText().toString();
+
+        if (email.isEmpty()) {
+            EmailField.setError("Email is required!");
+            EmailField.requestFocus();
+            return;
+        }
+
+        if (password.isEmpty()) {
+            passwordField.setError("Password is required");
+            passwordField.requestFocus();
+            return;
+        }
+
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    reference.child(userID).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                if (task.getResult().exists()) {
+
+                                    DataSnapshot dataSnapshot = task.getResult();
+                                    String username = String.valueOf(dataSnapshot.child("username").getValue());
+                                    String role = String.valueOf(dataSnapshot.child("role").getValue());
+
+                                    if (role.equals("Client")) {
+                                        Intent intent = new Intent(getApplicationContext(), WelcomePageClient.class);
+                                        intent.putExtra("USERNAME", username);
+                                        startActivityForResult(intent, 0);
+                                    } else if (role.equals("Employee")) {
+                                        Intent intent = new Intent(getApplicationContext(), WelcomePageEmployee.class);
+                                        intent.putExtra("USERNAME", username);
+                                        startActivityForResult(intent, 0);
+                                    } else {
+                                        Intent intent = new Intent(getApplicationContext(), WelcomePageAdmin.class);
+                                        intent.putExtra("USERNAME", username);
+                                        startActivityForResult(intent, 0);
+                                    }
+                                    Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(MainActivity.this, "User doesn't exist", Toast.LENGTH_LONG).show();
+                                }
+                            } else {
+                                Toast.makeText(MainActivity.this, "Login failed", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+
+                } else {
+                    Toast.makeText(MainActivity.this, "Login failed!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 
     //SWITCH TO SIGN UP ACTIVITY
     public void onSignUpPage(View view) {
         Intent intent = new Intent(getApplicationContext(), SignUp.class);
         startActivityForResult(intent, 0);
-    }
-
-//    //SWITCH TO WELCOME PAGE FOR ADMIN ACTIVITY
-//    public void onWelcomePageAdmin(View view) {
-//        Intent intent = new Intent(getApplicationContext(), WelcomePageAdmin.class);
-//        intent.putExtra("USERNAME", userList.get(clientNumber()).getUsername());
-//        startActivityForResult(intent, 0);
-//    }
-//
-//    //SWITCH TO WELCOME PAGE FOR USER ACTIVITY
-//    public void onWelcomePageClient(View view) {
-//        Intent intent = new Intent(getApplicationContext(), WelcomePageClient.class);
-//        intent.putExtra("USERNAME", userList.get(clientNumber()).getFirstName());
-//        startActivityForResult(intent, 0);
-//    }
-//
-//    //SWITCH TO WELCOME PAGE FOR EMPLOYEE ACTIVITY
-//    public void onWelcomePageEmployee(View view) {
-//        Intent intent = new Intent(getApplicationContext(), WelcomePageEmployee.class);
-//        intent.putExtra("USERNAME", userList.get(clientNumber()).getFirstName());
-//        startActivityForResult(intent, 0);
-//    }
-
-    public void updateUI(FirebaseUser user) {
-
     }
 }
