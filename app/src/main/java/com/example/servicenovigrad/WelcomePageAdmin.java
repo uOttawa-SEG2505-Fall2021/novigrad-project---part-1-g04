@@ -15,8 +15,6 @@ import java.util.List;
 public class WelcomePageAdmin extends AppCompatActivity {
 
     TextView displayUsername;
-    DatabaseReference databaseServices;
-    List<Service> services;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +27,7 @@ public class WelcomePageAdmin extends AppCompatActivity {
         String username = intent.getStringExtra("USERNAME");
         displayUsername.setText("Welcome "+ username);
 
-        databaseServices = FirebaseDatabase.getInstance().getReference("Services");
-        services = new ArrayList<>();
+
 
     }
 }
