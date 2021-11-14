@@ -23,8 +23,6 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class SignUp extends AppCompatActivity {
@@ -34,18 +32,13 @@ public class SignUp extends AppCompatActivity {
             confirmPasswordField, firstNameField, lastNameField;
     Button signUpButton;
 
-    List<User> users;
     static DatabaseReference databaseUsers;
     private FirebaseAuth mAuth;
-//    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
-        // Initialize users List
-        users = new ArrayList<>();
 
         // Initialize Firebase Reference
         databaseUsers = FirebaseDatabase.getInstance().getReference("Users");
@@ -157,7 +150,7 @@ public class SignUp extends AppCompatActivity {
                             });
                         } else {
                             try {
-                                throw task.getException();
+                                throw Objects.requireNonNull(task.getException());
                             } catch(FirebaseAuthWeakPasswordException e) {
                                 passwordField.setError("Password is weak!");
                                 passwordField.requestFocus();
