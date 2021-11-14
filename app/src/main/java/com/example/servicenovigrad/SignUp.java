@@ -174,12 +174,6 @@ public class SignUp extends AppCompatActivity {
             return;
         }
 
-        if (!isValidEmail(email)) {
-            emailField.setError("Please provide valid email!");
-            emailField.requestFocus();
-            return;
-        }
-
         if (firstName.isEmpty()) {
             firstNameField.setError("First name is required!");
             firstNameField.requestFocus();
@@ -242,16 +236,14 @@ public class SignUp extends AppCompatActivity {
                                 passwordField.setError("Password is weak!");
                                 passwordField.requestFocus();
                             } catch(FirebaseAuthInvalidCredentialsException e) {
-                                emailField.setError("Invalid email");
+                                emailField.setError("Invalid email!");
                                 emailField.requestFocus();
                             } catch(FirebaseAuthUserCollisionException e) {
-                                emailField.setError("User already exists");
+                                emailField.setError("User already exists!");
                                 emailField.requestFocus();
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-
-                            Toast.makeText(SignUp.this, "Sign up failed!", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
