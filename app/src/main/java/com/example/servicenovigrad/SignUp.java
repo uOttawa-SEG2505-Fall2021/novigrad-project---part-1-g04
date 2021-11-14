@@ -7,10 +7,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -68,6 +70,22 @@ public class SignUp extends AppCompatActivity {
                 android.R.layout.simple_spinner_dropdown_item, new String[] {"Employee", "Client"});
         // Set the spinner's adapter to the previously created one
         spinner.setAdapter(adapter);
+
+
+        //Change the color of selected item on the spinner
+        AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView) parent.getChildAt(0)).setTextColor(0xFF03DAC5);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        };
+
+        spinner.setOnItemSelectedListener(listener);
 
         //GO TO WELCOME PAGE AFTER CLICKING "SIGN UP"
         signUpButton.setOnClickListener(new View.OnClickListener() {
@@ -208,8 +226,7 @@ public class SignUp extends AppCompatActivity {
         }
 
         // [START create_user_with_email]
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
