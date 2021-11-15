@@ -51,7 +51,7 @@ public class SignUp extends AppCompatActivity {
         spinner = findViewById(R.id.spinner);
         signUpButton = findViewById(R.id.signup_page_button);
         emailField = findViewById(R.id.emailField);
-        usernameField = findViewById(R.id.usernameField);
+        usernameField = findViewById(R.id.EmailField);
         passwordField = findViewById(R.id.passwordField);
         confirmPasswordField = findViewById(R.id.confirmPasswordField);
         firstNameField = findViewById(R.id.firstNameField);

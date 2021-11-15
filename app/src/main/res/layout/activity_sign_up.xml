@@ -90,7 +90,7 @@
             android:textSize="15sp" />
 
         <EditText
-            android:id="@+id/usernameField"
+            android:id="@+id/EmailField"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
