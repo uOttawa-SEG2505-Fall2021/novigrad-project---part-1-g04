@@ -64,9 +64,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void userLogin() {
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("Users");
-        userID = user.getUid();
         String email = EmailField.getText().toString().trim();
         String password = passwordField.getText().toString();
 
@@ -81,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
             passwordField.requestFocus();
             return;
         }
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+        userID = user.getUid();
 
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
