@@ -15,10 +15,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -104,17 +109,26 @@ public class MainActivity extends AppCompatActivity {
                                         intent.putExtra("USERNAME", username);
                                         startActivityForResult(intent, 0);
                                     }
-                                    Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(MainActivity.this, "User doesn't exist", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(MainActivity.this, "User doesn't exist", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
-                                Toast.makeText(MainActivity.this, "Login failed", Toast.LENGTH_LONG).show();
+                                Toast.makeText(MainActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
 
                 } else {
+                    try {
+                        throw Objects.requireNonNull(task.getException());
+                    } catch(FirebaseAuthInvalidCredentialsException e) {
+                        EmailField.setError("Invalid email!");
+                        EmailField.requestFocus();
+                        return;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     Toast.makeText(MainActivity.this, "Login failed!", Toast.LENGTH_SHORT).show();
                 }
             }
