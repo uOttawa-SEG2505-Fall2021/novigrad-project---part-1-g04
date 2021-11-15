@@ -4,35 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#607D8B"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="94dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hi,"
-            android:textColor="#FFF"
-            android:textSize="34sp"
-            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/loginTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Please Sign up"
-            android:textColor="#FFF"
+            android:text="Sign Up Page"
             android:textSize="34sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -57,8 +46,7 @@
             android:layout_marginTop="-5dp"
             android:layout_marginEnd="1dp"
             android:layout_marginBottom="2dp"
-            android:text="Select your role"
-            android:textColor="#FFF"/>
+            android:text="Please select your role" />
 
         <Spinner
             android:id="@+id/spinner"
@@ -79,9 +67,7 @@
             android:inputType="textPersonName"
             android:minWidth="240dp"
             android:minHeight="48dp"
-            android:textSize="15sp"
-            android:textColorHint="#FFF"
-            android:textColor="#FFF"/>
+            android:textSize="15sp" />
 
         <EditText
             android:id="@+id/firstNameField"
@@ -91,9 +77,7 @@
             android:hint="First Name"
             android:inputType="textPersonName"
             android:minHeight="48dp"
-            android:textSize="15sp"
-            android:textColorHint="#FFF"
-            android:textColor="#FFF"/>
+            android:textSize="15sp" />
 
         <EditText
             android:id="@+id/lastNameField"
@@ -103,9 +87,7 @@
             android:hint="Last Name"
             android:inputType="textPersonName"
             android:minHeight="48dp"
-            android:textSize="15sp"
-            android:textColorHint="#FFF"
-            android:textColor="#FFF"/>
+            android:textSize="15sp" />
 
         <EditText
             android:id="@+id/usernameField"
@@ -116,9 +98,7 @@
             android:inputType="textPersonName"
             android:minWidth="240dp"
             android:minHeight="48dp"
-            android:textSize="15sp"
-            android:textColorHint="#FFF"
-            android:textColor="#FFF"/>
+            android:textSize="15sp" />
 
         <EditText
             android:id="@+id/passwordField"
@@ -129,9 +109,7 @@
             android:inputType="textPassword"
             android:minWidth="240dp"
             android:minHeight="48dp"
-            android:textSize="15sp"
-            android:textColorHint="#FFF"
-            android:textColor="#FFF"/>
+            android:textSize="15sp" />
 
         <EditText
             android:id="@+id/confirmPasswordField"
@@ -142,17 +120,14 @@
             android:inputType="textPassword"
             android:minWidth="240dp"
             android:minHeight="48dp"
-            android:textSize="15sp"
-            android:textColorHint="#FFF"
-            android:textColor="#FFF"/>
+            android:textSize="15sp" />
 
         <Button
-            android:id="@+id/signUpButton"
+            android:id="@+id/signup_page_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="45dp"
-            android:text="Sign Up"
-            android:backgroundTint="#FF03DAC5"/>
+            android:text="Sign Up" />
 
     </LinearLayout>
 
