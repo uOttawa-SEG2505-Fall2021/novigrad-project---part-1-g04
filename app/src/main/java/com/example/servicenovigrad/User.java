@@ -24,6 +24,8 @@ public class User {
         this.password = password;
     }
 
+    public User() {}
+
     public void setEmail(String email) { this.email = email; }
 
     public void setUsername(String username) { this.username = username; }

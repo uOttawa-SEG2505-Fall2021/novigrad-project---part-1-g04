@@ -15,10 +15,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,9 +28,6 @@ public class MainActivity extends AppCompatActivity {
 //    private int id;
 
     private FirebaseAuth mAuth;
-    private FirebaseUser user;
-    private DatabaseReference reference;
-    private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         logInButton = findViewById(R.id.login_button);
         signUpPageButton = findViewById(R.id.signup_button);
-        EmailField = findViewById(R.id.usernameField);
+        EmailField = findViewById(R.id.EmailField);
         passwordField = findViewById(R.id.passwordField);
 
         // Initialize Firebase Auth
@@ -64,9 +62,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void userLogin() {
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("Users");
-        userID = user.getUid();
         String email = EmailField.getText().toString().trim();
         String password = passwordField.getText().toString();
 
@@ -86,7 +81,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    reference.child(userID).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser()
+                            .getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
                             if (task.isSuccessful()) {
@@ -109,17 +105,26 @@ public class MainActivity extends AppCompatActivity {
                                         intent.putExtra("USERNAME", username);
                                         startActivityForResult(intent, 0);
                                     }
-                                    Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(MainActivity.this, "User doesn't exist", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(MainActivity.this, "User doesn't exist", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
-                                Toast.makeText(MainActivity.this, "Login failed", Toast.LENGTH_LONG).show();
+                                Toast.makeText(MainActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
 
                 } else {
+                    try {
+                        throw Objects.requireNonNull(task.getException());
+                    } catch(FirebaseAuthInvalidCredentialsException e) {
+                        EmailField.setError("Invalid email!");
+                        EmailField.requestFocus();
+                        return;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     Toast.makeText(MainActivity.this, "Login failed!", Toast.LENGTH_SHORT).show();
                 }
             }

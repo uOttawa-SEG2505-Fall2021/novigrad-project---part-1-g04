@@ -51,7 +51,7 @@ public class SignUp extends AppCompatActivity {
         spinner = findViewById(R.id.spinner);
         signUpButton = findViewById(R.id.signup_page_button);
         emailField = findViewById(R.id.emailField);
-        usernameField = findViewById(R.id.usernameField);
+        usernameField = findViewById(R.id.EmailField);
         passwordField = findViewById(R.id.passwordField);
         confirmPasswordField = findViewById(R.id.confirmPasswordField);
         firstNameField = findViewById(R.id.firstNameField);
@@ -151,7 +151,7 @@ public class SignUp extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(SignUp.this,"Sign up successful!", Toast.LENGTH_LONG).show();                                        if (role.equals("Client")) {
+                                        Toast.makeText(SignUp.this,"Sign up successful!", Toast.LENGTH_SHORT).show();                                        if (role.equals("Client")) {
                                             Intent intent = new Intent(getApplicationContext(), WelcomePageClient.class);
                                             intent.putExtra("USERNAME", firstName);
                                             startActivityForResult(intent, 0);
@@ -161,7 +161,7 @@ public class SignUp extends AppCompatActivity {
                                             startActivityForResult(intent, 0);
                                         }
                                     } else {
-                                        Toast.makeText(SignUp.this, "Sign up failed!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(SignUp.this, "Sign up failed!", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });

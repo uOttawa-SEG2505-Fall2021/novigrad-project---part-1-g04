@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ServiceNovigrad">
         <activity
+            android:name=".userListAdapter"
+            android:exported="true" />
+        <activity
+            android:name=".UserList"
+            android:exported="true" />
+        <activity
+            android:name=".ServicePage"
+            android:exported="true" />
+        <activity
             android:name=".WelcomePageEmployee"
             android:exported="true" />
         <activity
