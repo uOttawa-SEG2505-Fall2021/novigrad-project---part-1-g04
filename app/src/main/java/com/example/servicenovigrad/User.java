@@ -3,8 +3,6 @@ package com.example.servicenovigrad;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.google.firebase.auth.FirebaseUser;
-
 public class User {
 
     private String email;
