@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".WelcomePageAdmin">
 
+    <Button
+        android:id="@+id/users_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="62dp"
+        android:layout_marginBottom="320dp"
+        android:text="Users"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/services_button"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
     <TextView
         android:id="@+id/usernameTextView"
         android:layout_width="wrap_content"
@@ -21,10 +33,13 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="123dp"
+        android:layout_marginBottom="193dp"
         android:text="You are connected as an admin"
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintStart_toStartOf="@+id/usernameTextView"
-        app:layout_constraintTop_toBottomOf="@+id/usernameTextView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/signout_button"
@@ -37,4 +52,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.931" />
+
+    <Button
+        android:id="@+id/services_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="59dp"
+        android:layout_marginEnd="30dp"
+        android:text="Services"
+        app:layout_constraintBottom_toBottomOf="@+id/users_button"
+        app:layout_constraintEnd_toStartOf="@+id/users_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Access user list"
+        app:layout_constraintBottom_toTopOf="@+id/users_button"
+        app:layout_constraintEnd_toEndOf="@+id/users_button"
+        app:layout_constraintStart_toStartOf="@+id/users_button"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Access services"
+        app:layout_constraintBottom_toTopOf="@+id/users_button"
+        app:layout_constraintEnd_toEndOf="@+id/services_button"
+        app:layout_constraintStart_toStartOf="@+id/services_button" />
 </androidx.constraintlayout.widget.ConstraintLayout>
