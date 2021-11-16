@@ -1,15 +1,26 @@
 package com.example.servicenovigrad;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,9 +32,12 @@ import java.util.List;
 
 public class UserList extends AppCompatActivity {
 
-    ListView userListView;
-    List<User> userList;
-    DatabaseReference databaseReference;
+    private ListView userListView;
+    private List<User> userList;
+    private DatabaseReference databaseReference;
+    private FirebaseAuth mAuth;
+    private FirebaseUser firebaseUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,16 +69,65 @@ public class UserList extends AppCompatActivity {
             }
         });
 
+
+
+
         userListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ;
+                TextView emailField = (TextView) view.findViewById(R.id.textViewEmail);
+                TextView passwordField = (TextView) view.findViewById(R.id.textViewPassword);
+
+                String userEmail = emailField.getText().toString().trim();
+                String userPassword = passwordField.getText().toString();
+                System.out.println(userEmail);
+                System.out.println(userPassword);
+                mAuth = FirebaseAuth.getInstance();
+                System.out.println(userEmail.equals("admin@admin.com"));
+
+
+                if(!userEmail.equals("admin@admin.com")) {
+                    mAuth.signInWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                String id = databaseReference.push().getKey();
+                                databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().
+                                        getCurrentUser().getUid());
+                                databaseReference.removeValue();
+                                FirebaseAuth.getInstance().getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(UserList.this, "Delete user successfully", Toast.LENGTH_SHORT).show();
+
+//                                        userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//                                        DatabaseReference drUser = databaseReference.child(userID);
+//                                        drUser.removeValue();
+
+
+                                        } else {
+                                            Toast.makeText(UserList.this, "Failed to delete user", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+
+                            } else {
+                                Toast.makeText(UserList.this, "Failed to delete user", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                } else {
+                    Toast.makeText(UserList.this, "Cannot delete admin account", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
     }
 
     public void deleteUser() {
+
     }
 
 }
