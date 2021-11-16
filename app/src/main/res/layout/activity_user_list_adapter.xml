@@ -17,3 +17,7 @@
         android:text="Password"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
 </LinearLayout>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 95682cd02fdbdf6842e5625313fabab5b3147927
