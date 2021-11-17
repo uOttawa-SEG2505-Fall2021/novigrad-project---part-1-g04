@@ -34,7 +34,7 @@ public class SignUp extends AppCompatActivity {
             confirmPasswordField, firstNameField, lastNameField;
     Button signUpButton;
 
-    static DatabaseReference databaseUsers;
+    private DatabaseReference databaseUsers;
     private FirebaseAuth mAuth;
 
     @Override

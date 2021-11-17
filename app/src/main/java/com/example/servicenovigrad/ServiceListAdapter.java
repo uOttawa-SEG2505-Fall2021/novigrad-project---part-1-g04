@@ -2,9 +2,11 @@ package com.example.servicenovigrad;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +15,15 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class userListAdapter extends ArrayAdapter {
+public class ServiceListAdapter extends ArrayAdapter {
 
     private final Activity context;
-    List<User> userList;
+    List<Service> serviceList;
 
-    public userListAdapter(Activity context, List<User> userList) {
-        super(context, R.layout.activity_user_list_adapter, userList);
+    public ServiceListAdapter(Activity context, List<Service> serviceList) {
+        super(context, R.layout.activity_service_list_adapter, serviceList);
         this.context = context;
-        this.userList = userList;
+        this.serviceList = serviceList;
     }
 
     @NonNull
@@ -30,13 +32,11 @@ public class userListAdapter extends ArrayAdapter {
         LayoutInflater inflater = context.getLayoutInflater();
         @SuppressLint("ViewHolder") View listItemView = inflater.inflate(R.layout.activity_user_list_adapter, null, true);
 
-        TextView userEmail = listItemView.findViewById(R.id.textViewEmail);
-        TextView userPassword = listItemView.findViewById(R.id.textViewPassword);
+        TextView serviceName = listItemView.findViewById(R.id.textViewServiceName);
 
-        User user = userList.get(position);
+        Service service = serviceList.get(position);
 
-        userEmail.setText(user.getEmail());
-        userPassword.setText(user.getPassword());
+        serviceName.setText(service.getServiceName());
 
         return listItemView;
     }
