@@ -21,7 +21,7 @@ public class WelcomePageEmployee extends AppCompatActivity {
         setContentView(R.layout.activity_welcome_page_employee);
 
         displayUsername = findViewById(R.id.usernameTextView);
-        signOutButton = findViewById(R.id.signout_button);
+        signOutButton = findViewById(R.id.signOutButton);
 
         //DISPLAY USERNAME
         Intent intent = getIntent();

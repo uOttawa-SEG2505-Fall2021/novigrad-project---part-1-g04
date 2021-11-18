@@ -22,7 +22,7 @@ public class SignUpButton {
 
     @Test
     public void testLaunch() {
-        View view = mActivity.findViewById(R.id.signup_button);
+        View view = mActivity.findViewById(R.id.signUpButton);
         assertNotNull(view);
     }
 

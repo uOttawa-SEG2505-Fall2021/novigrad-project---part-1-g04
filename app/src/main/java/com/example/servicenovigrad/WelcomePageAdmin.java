@@ -9,11 +9,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class WelcomePageAdmin extends AppCompatActivity {
 
@@ -26,9 +21,9 @@ public class WelcomePageAdmin extends AppCompatActivity {
         setContentView(R.layout.activity_welcome_page_admin);
 
         displayUsername = findViewById(R.id.usernameTextView);
-        signOutButton = findViewById(R.id.signout_button);
-        serviceButton = findViewById(R.id.services_button);
-        usersButton = findViewById(R.id.users_button);
+        signOutButton = findViewById(R.id.signOutButton);
+        serviceButton = findViewById(R.id.servicesButton);
+        usersButton = findViewById(R.id.usersButton);
 
         Intent intent = getIntent();
         String username = intent.getStringExtra("USERNAME");
