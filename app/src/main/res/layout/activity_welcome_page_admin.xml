@@ -8,22 +8,22 @@
 
     <Button
         android:id="@+id/usersButton"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="62dp"
-        android:layout_marginBottom="320dp"
+        android:layout_width="102dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="79dp"
+        android:layout_marginBottom="326dp"
         android:text="Users"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/servicesButton"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <TextView
         android:id="@+id/usernameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="80dp"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,10 +34,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="123dp"
-        android:layout_marginBottom="193dp"
+        android:layout_marginBottom="212dp"
         android:text="You are connected as an admin"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintBottom_toTopOf="@+id/usersButton"
         app:layout_constraintStart_toStartOf="@+id/usernameTextView"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,12 +55,11 @@
 
     <Button
         android:id="@+id/servicesButton"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="59dp"
-        android:layout_marginEnd="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="75dp"
+        android:layout_marginEnd="51dp"
         android:text="Services"
-        app:layout_constraintBottom_toBottomOf="@+id/usersButton"
         app:layout_constraintEnd_toStartOf="@+id/usersButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -72,8 +71,10 @@
         android:text="Access user list"
         app:layout_constraintBottom_toTopOf="@+id/usersButton"
         app:layout_constraintEnd_toEndOf="@+id/usersButton"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/usersButton"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView3"

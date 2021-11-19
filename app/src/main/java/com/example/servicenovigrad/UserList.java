@@ -3,10 +3,12 @@ package com.example.servicenovigrad;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,7 +34,7 @@ public class UserList extends AppCompatActivity {
     private List<User> userList;
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
-    private FirebaseUser firebaseUser;
+    private Button goBackButton;
 
 
     @Override
@@ -41,6 +43,7 @@ public class UserList extends AppCompatActivity {
         setContentView(R.layout.activity_user_list);
 
         userListView = findViewById(R.id.userListView);
+        goBackButton = findViewById(R.id.goBack_button);
         userList = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 
@@ -120,10 +123,18 @@ public class UserList extends AppCompatActivity {
             }
         });
 
+        goBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onGoBack(v);
+            }
+        });
+
     }
 
-    public void deleteUser() {
-
+    public void onGoBack(View view) {
+        Intent intent = new Intent(getApplicationContext(), WelcomePageAdmin.class);
+        startActivityForResult(intent, 0);
     }
 
 }
