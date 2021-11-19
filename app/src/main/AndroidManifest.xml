@@ -13,7 +13,7 @@
             android:name=".ServiceListAdapter"
             android:exported="false" />
         <activity
-            android:name=".userListAdapter"
+            android:name=".UserListAdapter"
             android:exported="true" />
         <activity
             android:name=".UserList"

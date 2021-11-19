@@ -13,12 +13,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class userListAdapter extends ArrayAdapter {
+public class UserListAdapter extends ArrayAdapter {
 
     private final Activity context;
     List<User> userList;
 
-    public userListAdapter(Activity context, List<User> userList) {
+    public UserListAdapter(Activity context, List<User> userList) {
         super(context, R.layout.activity_user_list_adapter, userList);
         this.context = context;
         this.userList = userList;

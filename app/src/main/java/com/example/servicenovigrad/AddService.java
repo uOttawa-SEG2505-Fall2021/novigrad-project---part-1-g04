@@ -47,11 +47,15 @@ public class AddService extends AppCompatActivity {
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, documents);
         documentsListView.setAdapter(adapter);
 
-        optionsSelected = new ArrayList<String >();
+        optionsSelected = new ArrayList<String>();
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // clear documents in optionsSelected
+                optionsSelected.clear();
+                // reset boolean values
+                proofOfResidence = proofOfStatus = photoID = false;
 
                 serviceRef = serviceName.getText().toString().trim();
 
@@ -59,8 +63,6 @@ public class AddService extends AppCompatActivity {
                     if (documentsListView.isItemChecked(i)) {
                         optionsSelected.add(documentsListView.getItemAtPosition(i).toString());
                         System.out.println(documentsListView.getItemAtPosition(i).toString());
-                    } else {
-                        optionsSelected.add("");
                     }
                 }
 
@@ -75,15 +77,12 @@ public class AddService extends AppCompatActivity {
                         case "Photo ID":
                             photoID = true;
                             break;
-                        default:
-                            proofOfResidence = proofOfStatus = photoID = false;
-                            break;
                     }
                 }
 
                 if (!proofOfResidence && !proofOfStatus && !photoID) {
                     Toast.makeText(AddService.this, "Please select at least one document", Toast.LENGTH_SHORT).show();
-                } else if (serviceName.getText().toString().trim().equals("")){
+                } else if (serviceName.getText().toString().trim().equals("")) {
                     Toast.makeText(AddService.this, "Please enter a service name", Toast.LENGTH_SHORT).show();
                 } else {
                     Service service = new Service(serviceRef, proofOfResidence, proofOfStatus, photoID);

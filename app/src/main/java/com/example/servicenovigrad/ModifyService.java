@@ -48,19 +48,22 @@ public class ModifyService extends AppCompatActivity {
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, documents);
         documentsListView.setAdapter(adapter);
 
-        optionsSelected = new ArrayList<String >();
+        optionsSelected = new ArrayList<String>();
 
         modifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // clear documents in optionsSelected
+                optionsSelected.clear();
+                // reset boolean values
+                proofOfResidence = proofOfStatus = photoID = false;
+
                 serviceRef = modifyServiceName.getText().toString().trim();
 
                 for (int i = 0; i < documentsListView.getCount(); i++) {
                     if (documentsListView.isItemChecked(i)) {
                         optionsSelected.add(documentsListView.getItemAtPosition(i).toString());
                         System.out.println(documentsListView.getItemAtPosition(i).toString());
-                    } else {
-                        optionsSelected.add("");
                     }
                 }
 
@@ -74,9 +77,6 @@ public class ModifyService extends AppCompatActivity {
                             break;
                         case "Photo ID":
                             photoID = true;
-                            break;
-                        default:
-                            proofOfResidence = proofOfStatus = photoID = false;
                             break;
                     }
                 }
@@ -107,35 +107,6 @@ public class ModifyService extends AppCompatActivity {
                         }
                     });
                 }
-            }
-        });
-
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                serviceRef = modifyServiceName.getText().toString().trim();
-
-
-                firebaseDatabase = FirebaseDatabase.getInstance();
-                databaseReference = firebaseDatabase.getReference("Services");
-
-                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.hasChild(serviceRef)) {
-                            databaseReference = FirebaseDatabase.getInstance().getReference("Services").child(serviceRef);
-                            databaseReference.removeValue();
-                            Toast.makeText(ModifyService.this, "Deleted service successfully.", Toast.LENGTH_SHORT).show();
-                            onDone(v);
-                        } else {
-                            Toast.makeText(ModifyService.this, "Cannot delete this service. It doesn't exist.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                    }
-                });
             }
         });
     }
