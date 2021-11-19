@@ -86,9 +86,9 @@ public class AddService extends AppCompatActivity {
                     Toast.makeText(AddService.this, "Please enter a service name", Toast.LENGTH_SHORT).show();
                 } else {
                     Service service = new Service(serviceRef, proofOfResidence, proofOfStatus, photoID);
+
                     firebaseDatabase = FirebaseDatabase.getInstance();
                     databaseReference = firebaseDatabase.getReference("Services");
-
                     databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {

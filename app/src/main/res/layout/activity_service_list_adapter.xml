@@ -8,8 +8,9 @@
 
     <TextView
         android:id="@+id/textViewServiceName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="413dp"
+        android:layout_height="51dp"
+        android:gravity="center_vertical"
         android:text="Service Name"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"

@@ -50,6 +50,13 @@ public class ModifyService extends AppCompatActivity {
 
         optionsSelected = new ArrayList<String>();
 
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onGoBack(v);
+            }
+        });
+
         modifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,8 +102,7 @@ public class ModifyService extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if(snapshot.hasChild(serviceRef)) {
                                 databaseReference.child(serviceRef).setValue(service);
-                                Toast.makeText(ModifyService.this, "Added service successfully.", Toast.LENGTH_SHORT).show();
-                                onDone(v);
+                                Toast.makeText(ModifyService.this, "Modified service successfully.", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(ModifyService.this, "This service doesn't exist.", Toast.LENGTH_SHORT).show();
                             }
@@ -111,7 +117,7 @@ public class ModifyService extends AppCompatActivity {
         });
     }
 
-    public void onDone(View view) {
+    public void onGoBack(View view) {
         Intent intent = new Intent(getApplicationContext(), ServicePage.class);
         startActivityForResult(intent, 0);
     }

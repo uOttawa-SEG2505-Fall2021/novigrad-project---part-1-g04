@@ -24,7 +24,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="211dp"
         android:layout_marginBottom="27dp"
-        android:text="Cancel" />
+        android:text="Go back" />
 
     <ListView
         android:id="@+id/documentsListView"
@@ -49,16 +49,17 @@
 
     <EditText
         android:id="@+id/serviceNameText"
-        android:layout_width="409dp"
-        android:layout_height="57dp"
+        android:layout_width="359dp"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/textView6"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="2dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="-333dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="-321dp"
         android:ems="10"
-        android:hint="Enter the name of the service you want to modify"
-        android:inputType="textPersonName" />
+        android:hint="Enter the name of the service to modify"
+        android:inputType="textPersonName"
+        android:minHeight="48dp" />
 
 </RelativeLayout>

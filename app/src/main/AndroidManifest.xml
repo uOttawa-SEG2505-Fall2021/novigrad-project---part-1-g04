@@ -19,6 +19,9 @@
             android:name=".UserList"
             android:exported="true" />
         <activity
+            android:name=".ModifyService"
+            android:exported="true" />
+        <activity
             android:name=".ServicePage"
             android:exported="true" />
         <activity

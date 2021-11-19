@@ -10,8 +10,12 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,7 +28,7 @@ import java.util.List;
 public class ServicePage extends AppCompatActivity {
 
     private ListView serviceListView;
-    private Button addServiceButton;
+    private Button addServiceButton, modifyButton;
     private Button goBackButton;
     private List<Service> serviceList;
     private DatabaseReference databaseReference;
@@ -38,6 +42,7 @@ public class ServicePage extends AppCompatActivity {
         serviceListView = findViewById(R.id.serviceListView);
         addServiceButton = findViewById(R.id.confirm_button);
         goBackButton = findViewById(R.id.cancel_button);
+        modifyButton = findViewById(R.id.modifyButton);
         serviceList = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference("Services");
 
@@ -70,25 +75,18 @@ public class ServicePage extends AppCompatActivity {
         serviceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String serviceName = serviceList.get(position).toString();
+                TextView service = (TextView) view.findViewById(R.id.textViewServiceName);
 
-                firebaseDatabase = FirebaseDatabase.getInstance();
-                databaseReference = firebaseDatabase.getReference("Services");
-
-                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                String serviceName = service.getText().toString().trim();
+                databaseReference = FirebaseDatabase.getInstance().getReference("Services").child(serviceName);
+                databaseReference.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.hasChild(serviceName)) {
-                            databaseReference = FirebaseDatabase.getInstance().getReference("Services").child(serviceName);
-                            databaseReference.removeValue();
-                            Toast.makeText(ServicePage.this, "Deleted service successfully.", Toast.LENGTH_SHORT).show();
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()) {
+                            Toast.makeText(ServicePage.this, "Deleted service successfully", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(ServicePage.this, "Cannot delete this service. It doesn't exist.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ServicePage.this, "Failed to delete service.", Toast.LENGTH_SHORT).show();
                         }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
                     }
                 });
             }
@@ -109,6 +107,13 @@ public class ServicePage extends AppCompatActivity {
                 onGoBack(v);
             }
         });
+
+        modifyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onModify(v);
+            }
+        });
     }
 
     public void onAddService(View view) {
@@ -118,6 +123,11 @@ public class ServicePage extends AppCompatActivity {
 
     public void onGoBack(View view) {
         Intent intent = new Intent(getApplicationContext(), WelcomePageAdmin.class);
+        startActivityForResult(intent, 0);
+    }
+
+    public void onModify(View view) {
+        Intent intent = new Intent(getApplicationContext(), ModifyService.class);
         startActivityForResult(intent, 0);
     }
 }
