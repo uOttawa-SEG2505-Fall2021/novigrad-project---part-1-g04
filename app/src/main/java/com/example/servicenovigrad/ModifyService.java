@@ -12,7 +12,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class modifyService extends AppCompatActivity {
+public class ModifyService extends AppCompatActivity {
 
     private ListView documentsListView;
     Button cancelButton, modifyButton, deleteButton;
@@ -56,7 +55,7 @@ public class modifyService extends AppCompatActivity {
             public void onClick(View v) {
                 serviceRef = modifyServiceName.getText().toString().trim();
 
-                for(int i=0; i<documentsListView.getCount(); i++) {
+                for (int i = 0; i < documentsListView.getCount(); i++) {
                     if (documentsListView.isItemChecked(i)) {
                         optionsSelected.add(documentsListView.getItemAtPosition(i).toString());
                         System.out.println(documentsListView.getItemAtPosition(i).toString());
@@ -65,27 +64,28 @@ public class modifyService extends AppCompatActivity {
                     }
                 }
 
-                for(int i=0; i<optionsSelected.size(); i++) {
-                    if(optionsSelected.get(i) == "Proof of residence") {
-                        proofOfResidence = true;
-                    } else if(optionsSelected.get(i) == "Proof of status") {
-                        proofOfStatus = true;
-                    } else if (optionsSelected.get(i) == "Photo ID"){
-                        photoID = true;
-                    } else {
-                        proofOfResidence = proofOfStatus = photoID = false;
+                for (int i = 0; i < optionsSelected.size(); i++) {
+                    switch (optionsSelected.get(i)) {
+                        case "Proof of residence":
+                            proofOfResidence = true;
+                            break;
+                        case "Proof of status":
+                            proofOfStatus = true;
+                            break;
+                        case "Photo ID":
+                            photoID = true;
+                            break;
+                        default:
+                            proofOfResidence = proofOfStatus = photoID = false;
+                            break;
                     }
                 }
 
-                if(proofOfResidence == false && proofOfStatus == false && photoID == false) {
-                    Toast.makeText(modifyService.this, "Please select at least one document", Toast.LENGTH_SHORT).show();
-                    return;
-                } else if(modifyServiceName.getText().toString().trim().equals("")){
-                    Toast.makeText(modifyService.this, "Please the service name you would like to modify.", Toast.LENGTH_SHORT).show();
-                    return;
+                if (!proofOfResidence && !proofOfStatus && !photoID) {
+                    Toast.makeText(ModifyService.this, "Please select at least one document", Toast.LENGTH_SHORT).show();
+                } else if (modifyServiceName.getText().toString().trim().equals("")) {
+                    Toast.makeText(ModifyService.this, "Please the service name you would like to modify.", Toast.LENGTH_SHORT).show();
                 } else {
-
-
                     Service service = new Service(serviceRef, proofOfResidence, proofOfStatus, photoID);
                     firebaseDatabase = FirebaseDatabase.getInstance();
                     databaseReference = firebaseDatabase.getReference("Services");
@@ -95,10 +95,10 @@ public class modifyService extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if(snapshot.hasChild(serviceRef)) {
                                 databaseReference.child(serviceRef).setValue(service);
-                                Toast.makeText(modifyService.this, "Added service successfully.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ModifyService.this, "Added service successfully.", Toast.LENGTH_SHORT).show();
                                 onDone(v);
                             } else {
-                                Toast.makeText(modifyService.this, "This service doesn't exist.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ModifyService.this, "This service doesn't exist.", Toast.LENGTH_SHORT).show();
                             }
                         }
 
@@ -125,10 +125,10 @@ public class modifyService extends AppCompatActivity {
                         if(snapshot.hasChild(serviceRef)) {
                             databaseReference = FirebaseDatabase.getInstance().getReference("Services").child(serviceRef);
                             databaseReference.removeValue();
-                            Toast.makeText(modifyService.this, "Deleted service successfully.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ModifyService.this, "Deleted service successfully.", Toast.LENGTH_SHORT).show();
                             onDone(v);
                         } else {
-                            Toast.makeText(modifyService.this, "Cannot delete this service. It doesn't exist.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ModifyService.this, "Cannot delete this service. It doesn't exist.", Toast.LENGTH_SHORT).show();
                         }
                     }
 
