@@ -3,12 +3,10 @@ package com.example.servicenovigrad;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -39,7 +37,6 @@ public class ServicePage extends AppCompatActivity {
         addServiceButton = findViewById(R.id.confirm_button);
         goBackButton = findViewById(R.id.cancel_button);
         serviceList = new ArrayList<>();
-
         databaseReference = FirebaseDatabase.getInstance().getReference("Services");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -82,11 +79,8 @@ public class ServicePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onGoBack(v);
-                finish();
             }
         });
-
-
     }
 
     public void onAddService(View view) {
