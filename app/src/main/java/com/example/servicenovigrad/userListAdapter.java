@@ -3,6 +3,7 @@ package com.example.servicenovigrad;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class userListAdapter extends ArrayAdapter {
 
-    private Activity context;
+    private final Activity context;
     List<User> userList;
 
     public userListAdapter(Activity context, List<User> userList) {
@@ -27,17 +28,16 @@ public class userListAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
-        View listItemView = inflater.inflate(R.layout.activity_user_list_adapter, null, true);
+        @SuppressLint("ViewHolder") View listItemView = inflater.inflate(R.layout.activity_user_list_adapter, null, true);
 
         TextView userEmail = listItemView.findViewById(R.id.textViewEmail);
         TextView userPassword = listItemView.findViewById(R.id.textViewPassword);
 
-        User users = userList.get(position);
+        User user = userList.get(position);
 
-        userEmail.setText(users.getEmail());
-        userPassword.setText(users.getPassword());
+        userEmail.setText(user.getEmail());
+        userPassword.setText(user.getPassword());
 
         return listItemView;
-
     }
 }

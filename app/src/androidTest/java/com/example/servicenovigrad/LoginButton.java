@@ -21,7 +21,7 @@ public class LoginButton {
 
     @Test
     public void testLaunch() {
-        View view = mActivity.findViewById(R.id.login_button);
+        View view = mActivity.findViewById(R.id.logInButton);
         assertNotNull(view);
     }
 

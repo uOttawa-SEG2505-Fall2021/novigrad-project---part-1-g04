@@ -8,7 +8,7 @@
     tools:context=".UserList">
 
     <ListView
-        android:id="@+id/user_listView"
+        android:id="@+id/userListView"
         android:layout_width="match_parent"
         android:layout_height="539dp"
         android:layout_gravity="center" />

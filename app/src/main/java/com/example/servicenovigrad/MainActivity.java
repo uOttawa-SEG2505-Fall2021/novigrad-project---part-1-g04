@@ -17,6 +17,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     EditText EmailField, passwordField;
     Button logInButton, signUpPageButton;
 
+    private DatabaseReference databaseUsers;
     private FirebaseAuth mAuth;
 
     @Override
@@ -33,10 +35,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        logInButton = findViewById(R.id.login_button);
-        signUpPageButton = findViewById(R.id.signup_button);
+        logInButton = findViewById(R.id.logInButton);
+        signUpPageButton = findViewById(R.id.signUpButton);
         EmailField = findViewById(R.id.EmailField);
         passwordField = findViewById(R.id.passwordField);
+
+        // Initialize Firebase Reference
+        databaseUsers = FirebaseDatabase.getInstance().getReference("Users");
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -80,12 +85,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser()
-                            .getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    databaseUsers.child(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())
+                            .get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
                             if (task.isSuccessful()) {
-                                if (task.getResult().exists()) {
+                                if (Objects.requireNonNull(task.getResult()).exists()) {
 
                                     DataSnapshot dataSnapshot = task.getResult();
                                     String username = String.valueOf(dataSnapshot.child("username").getValue());
