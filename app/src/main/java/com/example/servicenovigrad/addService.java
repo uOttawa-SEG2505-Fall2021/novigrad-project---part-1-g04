@@ -44,11 +44,6 @@ public class addService extends AppCompatActivity {
         cancelButton = findViewById(R.id.cancel_button);
         serviceName = findViewById(R.id.serviceNameText);
 
-
-
-
-
-
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, documents);
         documentsListView.setAdapter(adapter);
 
@@ -129,9 +124,6 @@ public class addService extends AppCompatActivity {
                 onConfirmCancel(v);
             }
         });
-
-
-
     }
 
 

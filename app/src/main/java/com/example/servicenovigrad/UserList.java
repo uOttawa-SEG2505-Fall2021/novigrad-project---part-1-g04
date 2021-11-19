@@ -89,7 +89,6 @@ public class UserList extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                String id = databaseReference.push().getKey();
                                 databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().
                                         getCurrentUser().getUid());
                                 databaseReference.removeValue();
