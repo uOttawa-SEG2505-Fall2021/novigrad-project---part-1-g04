@@ -102,6 +102,7 @@ public class addService extends AppCompatActivity {
                                 Toast.makeText(addService.this, "This service already exists. Try to modify or delete it.", Toast.LENGTH_SHORT).show();
                             } else {
                                 databaseReference.child(serviceRef).setValue(service);
+                                Toast.makeText(addService.this, "Added service successfully.", Toast.LENGTH_SHORT).show();
                                 onConfirmCancel(v);
                             }
                         }
