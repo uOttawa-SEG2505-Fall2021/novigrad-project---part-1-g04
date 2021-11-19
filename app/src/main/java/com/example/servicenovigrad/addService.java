@@ -45,9 +45,7 @@ public class addService extends AppCompatActivity {
         cancelButton = findViewById(R.id.cancel_button);
         serviceName = findViewById(R.id.serviceNameText);
 
-        proofOfResidence = false;
-        proofOfStatus = false;
-        photoID = false;
+
 
 
 
@@ -61,15 +59,30 @@ public class addService extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                serviceRef = serviceName.getText().toString().trim();
+
                 for(int i=0; i<documentsListView.getCount(); i++) {
                     if (documentsListView.isItemChecked(i)) {
                         optionsSelected.add(documentsListView.getItemAtPosition(i).toString());
                         System.out.println(documentsListView.getItemAtPosition(i).toString());
+                    } else {
+                        optionsSelected.add("");
                     }
                 }
 
+                for(int i=0; i<optionsSelected.size(); i++) {
+                    if(optionsSelected.get(i) == "Proof of residence") {
+                        proofOfResidence = true;
+                    } else if(optionsSelected.get(i) == "Proof of status") {
+                        proofOfStatus = true;
+                    } else if (optionsSelected.get(i) == "Photo ID"){
+                        photoID = true;
+                    } else {
+                        proofOfResidence = proofOfStatus = photoID = false;
+                    }
+                }
 
-                if(optionsSelected.isEmpty()) {
+                if(proofOfResidence == false && proofOfStatus == false && photoID == false) {
                     Toast.makeText(addService.this, "Please select at least one document", Toast.LENGTH_SHORT).show();
                     return;
                 } else if(serviceName.getText().toString().trim().equals("")){
@@ -77,26 +90,31 @@ public class addService extends AppCompatActivity {
                     return;
                 } else {
 
-                    serviceRef = serviceName.getText().toString().trim();
 
-
-
-
-                    for(int i=0; i<optionsSelected.size(); i++) {
-                        if(optionsSelected.get(i) == "Proof of residence") {
-                            proofOfResidence = true;
-                        } else if(optionsSelected.get(i) == "Proof of status") {
-                            proofOfStatus = true;
-                        } else {
-                            photoID = true;
-                        }
-                    }
                     Service service = new Service(serviceRef, proofOfResidence, proofOfStatus, photoID);
                     firebaseDatabase = FirebaseDatabase.getInstance();
                     databaseReference = firebaseDatabase.getReference("Services");
-                    databaseReference.child(serviceRef).setValue(service);
 
-                    onConfirmCancel(v);
+                    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.hasChild(serviceRef)) {
+                                Toast.makeText(addService.this, "This service already exists. Try to modify or delete it.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                databaseReference.child(serviceRef).setValue(service);
+                                onConfirmCancel(v);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+
+
+
 
                 }
 
