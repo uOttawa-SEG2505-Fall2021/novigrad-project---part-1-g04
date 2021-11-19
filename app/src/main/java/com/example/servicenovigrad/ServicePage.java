@@ -42,14 +42,20 @@ public class ServicePage extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //clearing the previous List
                 serviceList.clear();
 
+                //iterating through all the nodes
                 for (DataSnapshot serviceDatasnap : snapshot.getChildren()) {
+                    //getting service
                     Service service = serviceDatasnap.getValue(Service.class);
+                    //adding service to the List
                     serviceList.add(service);
                 }
 
+                //creating adapter
                 ListAdapter adapter = new ServiceListAdapter(ServicePage.this, serviceList);
+                //attaching adapter to the ListView
                 serviceListView.setAdapter(adapter);
             }
 
@@ -62,7 +68,8 @@ public class ServicePage extends AppCompatActivity {
         serviceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                
+                Service service = serviceList.get(position);
+
             }
         });
 
@@ -84,7 +91,7 @@ public class ServicePage extends AppCompatActivity {
     }
 
     public void onAddService(View view) {
-        Intent intent = new Intent(getApplicationContext(), addService.class);
+        Intent intent = new Intent(getApplicationContext(), AddService.class);
         startActivityForResult(intent, 0);
     }
 

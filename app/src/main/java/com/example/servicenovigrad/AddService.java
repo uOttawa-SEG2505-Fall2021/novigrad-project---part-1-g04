@@ -20,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class addService extends AppCompatActivity {
+public class AddService extends AppCompatActivity {
 
     private ListView documentsListView;
     private Button confirmButton, cancelButton;
@@ -55,7 +55,7 @@ public class addService extends AppCompatActivity {
 
                 serviceRef = serviceName.getText().toString().trim();
 
-                for(int i=0; i<documentsListView.getCount(); i++) {
+                for (int i = 0; i < documentsListView.getCount(); i++) {
                     if (documentsListView.isItemChecked(i)) {
                         optionsSelected.add(documentsListView.getItemAtPosition(i).toString());
                         System.out.println(documentsListView.getItemAtPosition(i).toString());
@@ -64,27 +64,28 @@ public class addService extends AppCompatActivity {
                     }
                 }
 
-                for(int i=0; i<optionsSelected.size(); i++) {
-                    if(optionsSelected.get(i) == "Proof of residence") {
-                        proofOfResidence = true;
-                    } else if(optionsSelected.get(i) == "Proof of status") {
-                        proofOfStatus = true;
-                    } else if (optionsSelected.get(i) == "Photo ID"){
-                        photoID = true;
-                    } else {
-                        proofOfResidence = proofOfStatus = photoID = false;
+                for (int i = 0; i < optionsSelected.size(); i++) {
+                    switch (optionsSelected.get(i)) {
+                        case "Proof of residence":
+                            proofOfResidence = true;
+                            break;
+                        case "Proof of status":
+                            proofOfStatus = true;
+                            break;
+                        case "Photo ID":
+                            photoID = true;
+                            break;
+                        default:
+                            proofOfResidence = proofOfStatus = photoID = false;
+                            break;
                     }
                 }
 
-                if(proofOfResidence == false && proofOfStatus == false && photoID == false) {
-                    Toast.makeText(addService.this, "Please select at least one document", Toast.LENGTH_SHORT).show();
-                    return;
-                } else if(serviceName.getText().toString().trim().equals("")){
-                    Toast.makeText(addService.this, "Please enter a service name", Toast.LENGTH_SHORT).show();
-                    return;
+                if (!proofOfResidence && !proofOfStatus && !photoID) {
+                    Toast.makeText(AddService.this, "Please select at least one document", Toast.LENGTH_SHORT).show();
+                } else if (serviceName.getText().toString().trim().equals("")){
+                    Toast.makeText(AddService.this, "Please enter a service name", Toast.LENGTH_SHORT).show();
                 } else {
-
-
                     Service service = new Service(serviceRef, proofOfResidence, proofOfStatus, photoID);
                     firebaseDatabase = FirebaseDatabase.getInstance();
                     databaseReference = firebaseDatabase.getReference("Services");
@@ -92,11 +93,11 @@ public class addService extends AppCompatActivity {
                     databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if(snapshot.hasChild(serviceRef)) {
-                                Toast.makeText(addService.this, "This service already exists. Try to modify or delete it.", Toast.LENGTH_SHORT).show();
+                            if (snapshot.hasChild(serviceRef)) {
+                                Toast.makeText(AddService.this, "This service already exists. Try to modify or delete it.", Toast.LENGTH_SHORT).show();
                             } else {
                                 databaseReference.child(serviceRef).setValue(service);
-                                Toast.makeText(addService.this, "Added service successfully.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddService.this, "Added service successfully.", Toast.LENGTH_SHORT).show();
                                 onConfirmCancel(v);
                             }
                         }
@@ -106,15 +107,7 @@ public class addService extends AppCompatActivity {
 
                         }
                     });
-
-
-
-
-
                 }
-
-
-
             }
         });
 
