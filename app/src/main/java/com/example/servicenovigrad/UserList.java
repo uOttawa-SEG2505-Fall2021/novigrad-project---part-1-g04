@@ -59,7 +59,6 @@ public class UserList extends AppCompatActivity {
 
                 ListAdapter adapter = new userListAdapter(UserList.this, userList);
                 userListView.setAdapter(adapter);
-
             }
 
             @Override

@@ -5,8 +5,9 @@ public class Service {
     private String serviceName, userFirstName, userLastName, userDateOfBirth, userAddress;;
     private boolean proofOfResidence, proofOfStatus, photoID;
 
-    public Service(String serviceName, String userFirstName, String userLastName, String userDateOfBirth, String userAddress,
-                   boolean proofOfResidence, boolean proofOfStatus, boolean photoID) {
+    public Service(String serviceName, String userFirstName, String userLastName,
+                   String userDateOfBirth, String userAddress, boolean proofOfResidence,
+                   boolean proofOfStatus, boolean photoID) {
         this.serviceName = serviceName;
         this.userFirstName = userFirstName;
         this.userLastName = userLastName;
@@ -17,7 +18,8 @@ public class Service {
         this.photoID = photoID;
     }
 
-    public Service(String serviceName, boolean proofOfResidence, boolean proofOfStatus, boolean photoID) {
+    public Service(String serviceName, boolean proofOfResidence,
+                   boolean proofOfStatus, boolean photoID) {
         this.serviceName = serviceName;
         this.proofOfResidence = proofOfResidence;
         this.proofOfStatus = proofOfStatus;
