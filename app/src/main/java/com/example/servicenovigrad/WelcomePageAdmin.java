@@ -27,7 +27,7 @@ public class WelcomePageAdmin extends AppCompatActivity {
 
         Intent intent = getIntent();
         String username = intent.getStringExtra("USERNAME");
-        displayUsername.setText("Welcome "+ username);
+        displayUsername.setText("Welcome "+ "Admin");
 
         signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
