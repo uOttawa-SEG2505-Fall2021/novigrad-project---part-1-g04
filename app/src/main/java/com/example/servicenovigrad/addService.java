@@ -19,7 +19,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class addService extends AppCompatActivity {
 
@@ -40,7 +39,7 @@ public class addService extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_service);
 
-        documentsListView = findViewById(R.id.documentsListView);
+        documentsListView = findViewById(R.id.serviceListView);
         confirmButton = findViewById(R.id.confirm_button);
         cancelButton = findViewById(R.id.cancel_button);
         serviceName = findViewById(R.id.serviceNameText);

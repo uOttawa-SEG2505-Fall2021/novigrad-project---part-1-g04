@@ -30,7 +30,9 @@ public class ServiceListAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
-        @SuppressLint("ViewHolder") View listItemView = inflater.inflate(R.layout.activity_service_list_adapter, null, true);
+        @SuppressLint("ViewHolder") View listItemView = inflater.inflate(
+                R.layout.activity_service_list_adapter,
+                null, true);
 
         TextView serviceName = listItemView.findViewById(R.id.textViewServiceName);
 
