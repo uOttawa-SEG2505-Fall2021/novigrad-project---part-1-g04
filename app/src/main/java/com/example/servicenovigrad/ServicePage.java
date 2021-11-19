@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,6 +28,7 @@ public class ServicePage extends AppCompatActivity {
     private Button goBackButton;
     private List<Service> serviceList;
     private DatabaseReference databaseReference;
+    private FirebaseDatabase firebaseDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +70,27 @@ public class ServicePage extends AppCompatActivity {
         serviceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Service service = serviceList.get(position);
+                String serviceName = serviceList.get(position).toString();
 
+                firebaseDatabase = FirebaseDatabase.getInstance();
+                databaseReference = firebaseDatabase.getReference("Services");
+
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.hasChild(serviceName)) {
+                            databaseReference = FirebaseDatabase.getInstance().getReference("Services").child(serviceName);
+                            databaseReference.removeValue();
+                            Toast.makeText(ServicePage.this, "Deleted service successfully.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(ServicePage.this, "Cannot delete this service. It doesn't exist.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
             }
         });
 
