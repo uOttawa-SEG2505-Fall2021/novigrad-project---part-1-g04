@@ -26,6 +26,8 @@ public class Service {
         this.photoID = photoID;
     }
 
+    public Service() {}
+
     public void setServiceName(String serviceName) {
         this.serviceName = serviceName;
     }
