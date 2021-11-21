@@ -10,6 +10,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ServiceNovigrad">
         <activity
+            android:name=".ViewRequests"
+            android:exported="false" />
+        <activity
+            android:name=".BranchListAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".DeleteBranch"
+            android:exported="false" />
+        <activity
+            android:name=".ModifyBranch"
+            android:exported="false" />
+        <activity
+            android:name=".AddBranch"
+            android:exported="false" />
+        <activity
+            android:name=".ViewBranches"
+            android:exported="false" />
+        <activity
             android:name=".ServiceListAdapter"
             android:exported="false" />
         <activity

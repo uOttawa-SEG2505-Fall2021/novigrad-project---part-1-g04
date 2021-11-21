@@ -28,7 +28,8 @@ import java.util.List;
 public class ServicePage extends AppCompatActivity {
 
     private ListView serviceListView;
-    private Button addServiceButton, modifyButton;
+    private Button addServiceButton;
+    private Button modifyButton;
     private Button goBackButton;
     private List<Service> serviceList;
     private DatabaseReference databaseReference;
