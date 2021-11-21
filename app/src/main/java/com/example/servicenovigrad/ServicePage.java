@@ -72,23 +72,24 @@ public class ServicePage extends AppCompatActivity {
             }
         });
 
-        serviceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        serviceListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView service = (TextView) view.findViewById(R.id.textViewServiceName);
-
                 String serviceName = service.getText().toString().trim();
+
                 databaseReference = FirebaseDatabase.getInstance().getReference("Services").child(serviceName);
                 databaseReference.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()) {
+                        if (task.isSuccessful()) {
                             Toast.makeText(ServicePage.this, "Deleted service successfully", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(ServicePage.this, "Failed to delete service.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+                return true;
             }
         });
 

@@ -69,9 +69,9 @@ public class UserList extends AppCompatActivity {
 
 
 
-        userListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        userListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView emailField = (TextView) view.findViewById(R.id.textViewEmail);
                 TextView passwordField = (TextView) view.findViewById(R.id.textViewPassword);
 
@@ -83,7 +83,7 @@ public class UserList extends AppCompatActivity {
                 System.out.println(userEmail.equals("admin@admin.com"));
 
 
-                if(!userEmail.equals("admin@admin.com")) {
+                if (!userEmail.equals("admin@admin.com")) {
                     mAuth.signInWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -116,7 +116,7 @@ public class UserList extends AppCompatActivity {
                 } else {
                     Toast.makeText(UserList.this, "Cannot delete admin account", Toast.LENGTH_SHORT).show();
                 }
-
+                return true;
             }
         });
 
