@@ -85,6 +85,12 @@ public class AddBranch extends AppCompatActivity {
         return matcher.matches();
     }
 
+    public boolean validateAddress(String address) {
+        Pattern pattern = Pattern.compile("^(\\d+) +([A-Za-zÀ-ÿ '-]+), *([A-Za-zÀ-ÿ '-]+), *([A-Za-zÀ-ÿ '-]+)$");
+        Matcher matcher = pattern.matcher(address);
+        return matcher.matches();
+    }
+
     public void onGoBack(View view) {
         Intent intent = new Intent(getApplicationContext(), WelcomePageEmployee.class);
         startActivityForResult(intent, 0);
