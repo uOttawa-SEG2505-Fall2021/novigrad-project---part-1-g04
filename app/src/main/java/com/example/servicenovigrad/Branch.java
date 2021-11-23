@@ -1,6 +1,7 @@
 package com.example.servicenovigrad;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Branch {
 
@@ -11,10 +12,8 @@ public class Branch {
 
     public Branch() {}
 
-    public Branch(String branchName, String address, String phoneNumber,
-                  int startHour, int startMinute, int endHour, int endMinute,
-                  boolean monday, boolean tuesday, boolean wednesday, boolean thursday, boolean friday, boolean saturday, boolean sunday,
-                  ArrayList<String> services) {
+    public Branch(String branchName, String address, String phoneNumber, int startHour, int startMinute, int endHour, int endMinute,
+                  boolean mon, boolean tue, boolean wed, boolean thu, boolean fri, boolean sat, boolean sun, ArrayList<String> servicesForBranch) {
         this.branchName = branchName;
         this.address = address;
         this.phoneNumber = phoneNumber;
@@ -31,6 +30,8 @@ public class Branch {
         this.sunday = sunday;
         this.services = services;
     }
+
+
 
     public String getBranchName() {
         return branchName;

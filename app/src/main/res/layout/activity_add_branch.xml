@@ -108,7 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="(Use this format: 123 StreetName)"
+            android:text="(Use this format: 1234 Street, City, Province)"
             android:textSize="12sp" />
     </LinearLayout>
 
