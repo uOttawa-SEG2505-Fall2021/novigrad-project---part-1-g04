@@ -85,6 +85,7 @@ public class AddBranch extends AppCompatActivity {
         return matcher.matches();
     }
 
+    // Check if address is the following format: 1234 Street Name, City, Province
     public boolean validateAddress(String address) {
         Pattern pattern = Pattern.compile("^(\\d+) +([A-Za-zÀ-ÿ '-]+), *([A-Za-zÀ-ÿ '-]+), *([A-Za-zÀ-ÿ '-]+)$");
         Matcher matcher = pattern.matcher(address);
