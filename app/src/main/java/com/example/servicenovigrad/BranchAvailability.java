@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -22,6 +23,7 @@ public class BranchAvailability extends AppCompatActivity {
     private int startHour, startMinute, endHour, endMinute;
     private String[] daysOfTheWeek = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
     private boolean mon, tue, wed, thu, fri, sat, sun;
+    private ArrayList<String> openDays;
     private ArrayAdapter<String> adapter;
     private ArrayList<String> optionsSelected;
     private String branchName, phoneNumber, address;
@@ -37,6 +39,7 @@ public class BranchAvailability extends AppCompatActivity {
         goBackBtn = findViewById(R.id.goBack_button);
         continueBtn = findViewById(R.id.continue_button);
 
+
         //Get info from previous activity
         branchName = getIntent().getStringExtra("branchName");
         phoneNumber = getIntent().getStringExtra("phoneNumber");
@@ -44,12 +47,14 @@ public class BranchAvailability extends AppCompatActivity {
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, daysOfTheWeek);
         daysListView.setAdapter(adapter);
+        openDays = new ArrayList<String>();
         optionsSelected = new ArrayList<String>();
 
         continueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 optionsSelected.clear();
+                openDays.clear();
                 // reset boolean values
                 mon = tue = wed = thu = fri = sat = sun = false;
 
@@ -65,24 +70,31 @@ public class BranchAvailability extends AppCompatActivity {
                     switch (optionsSelected.get(i)) {
                         case "Monday":
                             mon = true;
+                            openDays.add("Monday");
                             break;
                         case "Tuesday":
                             tue = true;
+                            openDays.add("Tuesday");
                             break;
                         case "Wednesday":
                             wed = true;
+                            openDays.add("Wednesday");
                             break;
                         case "Thursday":
                             thu = true;
+                            openDays.add("Thursday");
                             break;
                         case "Friday":
                             fri = true;
+                            openDays.add("Friday");
                             break;
                         case "Saturday":
                             sat = true;
+                            openDays.add("Saturday");
                             break;
                         case "Sunday":
                             sun = true;
+                            openDays.add("Sunday");
                             break;
                     }
                 }
@@ -118,6 +130,11 @@ public class BranchAvailability extends AppCompatActivity {
                     intent.putExtra("fri", fri);
                     intent.putExtra("sat", sat);
                     intent.putExtra("sun", sun);
+
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("openDays", (Serializable) openDays);
+                    intent.putExtra("bundle", bundle);
+
                     startActivity(intent);
 
                 }

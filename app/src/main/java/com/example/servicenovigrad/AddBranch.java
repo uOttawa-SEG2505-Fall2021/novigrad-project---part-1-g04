@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,7 +17,7 @@ public class AddBranch extends AppCompatActivity {
 
     private Button continueBtn, cancelBtn;
     private EditText branchNameText, phoneNumberText, addressText;
-    private String branchName, phoneNumber, address, getBranchName, getPhoneNumber, getAddress;
+    private String branchName, phoneNumber, address, getBranchName, getPhoneNumber, getAddress, username;
     private final String spacesAndHyphenRegex = "^(1-)?\\d{3}-\\d{3}-\\d{4}$";
 
 
@@ -31,12 +32,16 @@ public class AddBranch extends AppCompatActivity {
         phoneNumberText = findViewById(R.id.phoneNumber_text);
         addressText = findViewById(R.id.address_text);
 
+        username = getIntent().getStringExtra("USERNAME");
+
         //Retrieve fields if 'Go back' is pressed on BranchAvailability
         getBranchName = getIntent().getStringExtra("getBranchName");
         getPhoneNumber = getIntent().getStringExtra("getPhoneNumber");
         getAddress = getIntent().getStringExtra("getAddress");
 
         continueBtn.setOnClickListener(new View.OnClickListener() {
+            //String addressString = eliminateSpaces(addressText.getText().toString());
+
             @Override
             public void onClick(View v) {
                 //TODO check format of address
@@ -44,6 +49,8 @@ public class AddBranch extends AppCompatActivity {
                     Toast.makeText(AddBranch.this, "Please enter a branch name", Toast.LENGTH_SHORT).show();
                 } else if(!validatePhoneNumber(phoneNumberText.getText().toString().trim())) {
                     Toast.makeText(AddBranch.this, "Please enter a valid phone number", Toast.LENGTH_SHORT).show();
+                } else if (!validateAddress(addressText.getText().toString().trim())) {
+                    Toast.makeText(AddBranch.this, "Please enter a valid address", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     //Get string for all fields
@@ -64,7 +71,9 @@ public class AddBranch extends AppCompatActivity {
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onGoBack(v);
+                Intent intent = new Intent(AddBranch.this, WelcomePageEmployee.class);
+                intent.putExtra("USERNAME", username);
+                startActivity(intent);
             }
         });
     }
@@ -76,6 +85,17 @@ public class AddBranch extends AppCompatActivity {
         branchNameText.setText(getBranchName);
         phoneNumberText.setText(getPhoneNumber);
         addressText.setText(getAddress);
+    }
+
+    public String eliminateSpaces(String string) {
+        StringTokenizer st = new StringTokenizer(string, " ");
+        StringBuffer sb = new StringBuffer();
+        while(st.hasMoreElements()) {
+            sb.append(st.nextElement()).append(" ");
+        }
+        String noSpace = sb.toString();
+        noSpace.trim();
+        return noSpace;
     }
 
     //Check if phone number is the following format: XXX-XXX-XXXX
