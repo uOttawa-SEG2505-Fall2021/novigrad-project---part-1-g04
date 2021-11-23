@@ -36,6 +36,7 @@ public class SelectServiceForBranch extends AppCompatActivity {
     private String branchName, phoneNumber, address;
     private int startHour, startMinute, endHour, endMinute;
     private boolean mon, tue, wed, thu, fri, sat, sun;
+    private ArrayList<String> openDays;
     private FirebaseDatabase firebaseDatabase;
 
     @Override
@@ -46,6 +47,7 @@ public class SelectServiceForBranch extends AppCompatActivity {
         branchServiceListView = findViewById(R.id.branchServiceListView);
         addBranchBtn = findViewById(R.id.addBranch_button);
         goBackBtn = findViewById(R.id.goBack_button);
+
 
         optionsSelected = new ArrayList<String>();
         serviceList = new ArrayList<>();
@@ -69,6 +71,10 @@ public class SelectServiceForBranch extends AppCompatActivity {
         sat = getIntent().getBooleanExtra("sat", false);
         sun = getIntent().getBooleanExtra("sun", false);
 
+        Bundle bundle = getIntent().getBundleExtra("bundle");
+        openDays = (ArrayList<String>) bundle.getSerializable("openDays");
+
+
         //Add the name of services (using a modified version of serviceListAdapter) to a listView
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -89,23 +95,6 @@ public class SelectServiceForBranch extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
         });
-
-//        branchServiceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                TextView service = (TextView) view.findViewById(R.id.ServiceNameTextBranch);
-//                String serviceName = service.getText().toString().trim();
-//
-//                servicesForBranch.add(serviceName);
-//
-//                if(servicesForBranch.contains(serviceName)) {
-//                    Toast.makeText(SelectServiceForBranch.this, "This service has already been selected. If you want to remove it, go to modify branch.", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    servicesForBranch.add(serviceName);
-//                    Toast.makeText(SelectServiceForBranch.this, "This service will be added to the branch", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
 
         branchServiceListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -136,8 +125,11 @@ public class SelectServiceForBranch extends AppCompatActivity {
                 if(servicesForBranch.isEmpty()) {
                     Toast.makeText(SelectServiceForBranch.this, "You need to select at least one service for this branch", Toast.LENGTH_SHORT).show();
                 } else {
+//                    Branch branch = new Branch(branchName, address, phoneNumber, startHour, startMinute, endHour, endMinute,
+//                            mon, tue, wed, thu, fri, sat, sun, (ArrayList<String>) servicesForBranch);
+
                     Branch branch = new Branch(branchName, address, phoneNumber, startHour, startMinute, endHour, endMinute,
-                            mon, tue, wed, thu, fri, sat, sun, (ArrayList<String>) servicesForBranch);
+                            (ArrayList<String>) servicesForBranch, openDays);
 
                     firebaseDatabase = FirebaseDatabase.getInstance();
                     databaseReference = firebaseDatabase.getReference("Branches");
@@ -149,7 +141,8 @@ public class SelectServiceForBranch extends AppCompatActivity {
                             } else {
                                 databaseReference.child(branchName).setValue(branch);
                                 Toast.makeText(SelectServiceForBranch.this, "Added branch successfully.", Toast.LENGTH_SHORT).show();
-                                onConfirm(v);
+                                Intent intent = new Intent(SelectServiceForBranch.this, WelcomePageEmployee.class);
+                                startActivity(intent);
                             }
                         }
 
