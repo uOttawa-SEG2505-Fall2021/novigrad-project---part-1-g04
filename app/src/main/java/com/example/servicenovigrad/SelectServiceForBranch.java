@@ -48,12 +48,12 @@ public class SelectServiceForBranch extends AppCompatActivity {
         goBackBtn = findViewById(R.id.goBack_button);
 
         optionsSelected = new ArrayList<String>();
-        serviceList = new ArrayList<>();
-        servicesForBranch = new ArrayList<>();
+        serviceList = new ArrayList<Service>();
+        servicesForBranch = new ArrayList<String>();
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Services");
 
-        //Get information from branchAvailability
+        //Get information from branchAvailability and addBranch
         branchName = getIntent().getStringExtra("branchName");
         phoneNumber = getIntent().getStringExtra("phoneNumber");
         address = getIntent().getStringExtra("address");
@@ -89,23 +89,6 @@ public class SelectServiceForBranch extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
         });
-
-//        branchServiceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                TextView service = (TextView) view.findViewById(R.id.ServiceNameTextBranch);
-//                String serviceName = service.getText().toString().trim();
-//
-//                servicesForBranch.add(serviceName);
-//
-//                if(servicesForBranch.contains(serviceName)) {
-//                    Toast.makeText(SelectServiceForBranch.this, "This service has already been selected. If you want to remove it, go to modify branch.", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    servicesForBranch.add(serviceName);
-//                    Toast.makeText(SelectServiceForBranch.this, "This service will be added to the branch", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
 
         branchServiceListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -149,7 +132,7 @@ public class SelectServiceForBranch extends AppCompatActivity {
                             } else {
                                 databaseReference.child(branchName).setValue(branch);
                                 Toast.makeText(SelectServiceForBranch.this, "Added branch successfully.", Toast.LENGTH_SHORT).show();
-                                onConfirmCancel(v);
+                                onConfirm(v);
                             }
                         }
 
@@ -161,10 +144,27 @@ public class SelectServiceForBranch extends AppCompatActivity {
                 }
             }
         });
+
+        goBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Save fields if go back button is pressed
+                Intent intent = new Intent(SelectServiceForBranch.this, BranchAvailability.class);
+                intent.putExtra("branchName", branchName);
+                intent.putExtra("phoneNumber", phoneNumber);
+                intent.putExtra("address", address);
+                startActivity(intent);
+            }
+        });
     }
 
-    public void onConfirmCancel(View v) {
+    public void onConfirm(View v) {
         Intent intent = new Intent(getApplicationContext(), WelcomePageEmployee.class);
+        startActivityForResult(intent, 0);
+    }
+
+    public void onGoBack(View v) {
+        Intent intent = new Intent(getApplicationContext(), BranchAvailability.class);
         startActivityForResult(intent, 0);
     }
 }

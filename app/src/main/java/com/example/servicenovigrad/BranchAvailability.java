@@ -17,7 +17,7 @@ import java.util.Locale;
 
 public class BranchAvailability extends AppCompatActivity {
 
-    private Button openTime, closeTimeBtn, continueBtn, cancelBtn;
+    private Button openTime, closeTimeBtn, continueBtn, goBackBtn;
     private ListView daysListView;
     private int startHour, startMinute, endHour, endMinute;
     private String[] daysOfTheWeek = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
@@ -34,8 +34,10 @@ public class BranchAvailability extends AppCompatActivity {
         openTime = findViewById(R.id.startTime_button);
         closeTimeBtn = findViewById(R.id.closeTime_button);
         daysListView = findViewById(R.id.daysOfTheWeekListView);
-        cancelBtn = findViewById(R.id.cancel_button);
+        goBackBtn = findViewById(R.id.goBack_button);
         continueBtn = findViewById(R.id.continue_button);
+
+        //Get info from previous activity
         branchName = getIntent().getStringExtra("branchName");
         phoneNumber = getIntent().getStringExtra("phoneNumber");
         address = getIntent().getStringExtra("address");
@@ -158,16 +160,20 @@ public class BranchAvailability extends AppCompatActivity {
             }
         });
 
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
+        goBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onGoBack(v);
+                Intent intent = new Intent(BranchAvailability.this, AddBranch.class);
+                intent.putExtra("getBranchName", branchName);
+                intent.putExtra("getPhoneNumber", phoneNumber);
+                intent.putExtra("getAddress", address);
+                startActivity(intent);
             }
         });
     }
 
     public void onGoBack(View view) {
-        Intent intent = new Intent(getApplicationContext(), WelcomePageEmployee.class);
+        Intent intent = new Intent(getApplicationContext(), AddBranch.class);
         startActivityForResult(intent, 0);
     }
 

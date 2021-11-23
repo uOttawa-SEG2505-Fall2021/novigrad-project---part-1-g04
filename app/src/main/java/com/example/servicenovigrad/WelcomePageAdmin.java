@@ -26,8 +26,6 @@ public class WelcomePageAdmin extends AppCompatActivity {
         serviceButton = findViewById(R.id.servicesButton);
         usersButton = findViewById(R.id.usersButton);
 
-        Intent intent = getIntent();
-        String username = intent.getStringExtra("USERNAME");
         displayUsername.setText("Welcome "+ "Admin");
 
         signOutButton.setOnClickListener(new View.OnClickListener() {
@@ -71,5 +69,4 @@ public class WelcomePageAdmin extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), UserList.class);
         startActivityForResult(intent, 0);
     }
-
 }
