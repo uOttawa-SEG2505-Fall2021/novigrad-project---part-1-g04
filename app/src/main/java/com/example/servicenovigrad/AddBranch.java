@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -85,10 +86,22 @@ public class AddBranch extends AppCompatActivity {
         return matcher.matches();
     }
 
-    // Check if address is the following format: 1234 Street Name, City, Province
+    // Check if address is the following format: 1234 Street, City, Province
     public boolean validateAddress(String address) {
         Pattern pattern = Pattern.compile("^(\\d+) +([A-Za-zÀ-ÿ '-]+), *([A-Za-zÀ-ÿ '-]+), *([A-Za-zÀ-ÿ '-]+)$");
         Matcher matcher = pattern.matcher(address);
+
+        if (matcher.find()) {
+            String street = Objects.requireNonNull(matcher.group(2)).trim();
+            String city = Objects.requireNonNull(matcher.group(3)).trim();
+            String province = Objects.requireNonNull(matcher.group(4)).trim();
+
+            // Return false if street, city or province is empty
+            if (street.isEmpty() || city.isEmpty() || province.isEmpty()) {
+                return false;
+            }
+        }
+        
         return matcher.matches();
     }
 
