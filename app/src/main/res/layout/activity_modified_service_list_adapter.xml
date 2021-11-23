@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ServiceListAdapter">
+    tools:context=".ModifiedServiceListAdapter">
 
     <TextView
         android:id="@+id/ServiceNameTextBranch"
-        android:layout_width="413dp"
-        android:layout_height="51dp"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
         android:gravity="center_vertical"
-        android:text="Service Name"
-        android:textSize="24sp"
+        android:text="TextView"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

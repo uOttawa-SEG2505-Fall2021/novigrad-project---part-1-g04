@@ -11,12 +11,13 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import java.util.List;
 
-public class ServiceListAdapter extends ArrayAdapter {
+public class ModifiedServiceListAdapter extends ArrayAdapter {
 
     private final Activity context;
     List<Service> serviceList;
 
-    public ServiceListAdapter(Activity context, List<Service> serviceList) {
+
+    public ModifiedServiceListAdapter(Activity context, List<Service> serviceList) {
         super(context, R.layout.activity_service_list_adapter, serviceList);
         this.context = context;
         this.serviceList = serviceList;
@@ -26,7 +27,7 @@ public class ServiceListAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
-        @SuppressLint("ViewHolder") View listItemView = inflater.inflate(R.layout.activity_service_list_adapter, null, true);
+        @SuppressLint("ViewHolder") View listItemView = inflater.inflate(R.layout.activity_modified_service_list_adapter, null, true);
 
         TextView serviceName = listItemView.findViewById(R.id.ServiceNameTextBranch);
 

@@ -32,7 +32,8 @@ public class WelcomePageEmployee extends AppCompatActivity {
         deleteBranchButton = findViewById(R.id.deleteBranchButton);
         viewRequestsButton = findViewById(R.id.viewRequestsButton);
 
-        //DISPLAY USERNAME
+
+        //TODO fix bug where if you got to a new activity, then go back, employee name is NULL
         Intent intent = getIntent();
         String username = intent.getStringExtra("USERNAME");
         displayUsername.setText("Welcome " + username);

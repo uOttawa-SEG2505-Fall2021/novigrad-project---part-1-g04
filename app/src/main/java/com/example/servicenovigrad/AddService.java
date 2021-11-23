@@ -46,7 +46,6 @@ public class AddService extends AppCompatActivity {
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, documents);
         documentsListView.setAdapter(adapter);
-
         optionsSelected = new ArrayList<String>();
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
