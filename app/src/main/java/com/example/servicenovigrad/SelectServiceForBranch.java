@@ -48,12 +48,12 @@ public class SelectServiceForBranch extends AppCompatActivity {
         goBackBtn = findViewById(R.id.goBack_button);
 
         optionsSelected = new ArrayList<String>();
-        serviceList = new ArrayList<Service>();
-        servicesForBranch = new ArrayList<String>();
+        serviceList = new ArrayList<>();
+        servicesForBranch = new ArrayList<>();
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Services");
 
-        //Get information from branchAvailability and addBranch
+        //Get information from branchAvailability
         branchName = getIntent().getStringExtra("branchName");
         phoneNumber = getIntent().getStringExtra("phoneNumber");
         address = getIntent().getStringExtra("address");
@@ -89,6 +89,23 @@ public class SelectServiceForBranch extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
         });
+
+//        branchServiceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                TextView service = (TextView) view.findViewById(R.id.ServiceNameTextBranch);
+//                String serviceName = service.getText().toString().trim();
+//
+//                servicesForBranch.add(serviceName);
+//
+//                if(servicesForBranch.contains(serviceName)) {
+//                    Toast.makeText(SelectServiceForBranch.this, "This service has already been selected. If you want to remove it, go to modify branch.", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    servicesForBranch.add(serviceName);
+//                    Toast.makeText(SelectServiceForBranch.this, "This service will be added to the branch", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
 
         branchServiceListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -163,8 +180,5 @@ public class SelectServiceForBranch extends AppCompatActivity {
         startActivityForResult(intent, 0);
     }
 
-    public void onGoBack(View v) {
-        Intent intent = new Intent(getApplicationContext(), BranchAvailability.class);
-        startActivityForResult(intent, 0);
-    }
+
 }
