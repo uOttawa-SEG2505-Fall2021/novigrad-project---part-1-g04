@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,7 +32,6 @@ public class ServicePage extends AppCompatActivity {
     private Button goBackButton;
     private List<Service> serviceList;
     private DatabaseReference databaseReference;
-    private FirebaseDatabase firebaseDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +74,7 @@ public class ServicePage extends AppCompatActivity {
         serviceListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView service = (TextView) view.findViewById(R.id.textViewServiceName);
+                TextView service = (TextView) view.findViewById(R.id.ServiceNameTextBranch);
                 String serviceName = service.getText().toString().trim();
 
                 databaseReference = FirebaseDatabase.getInstance().getReference("Services").child(serviceName);
