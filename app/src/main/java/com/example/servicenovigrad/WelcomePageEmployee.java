@@ -14,11 +14,9 @@ import com.google.firebase.auth.FirebaseAuth;
 public class WelcomePageEmployee extends AppCompatActivity {
 
     private TextView displayUsername;
-    private Button signOutButton;
-    private Button viewBranchesButton;
-    private Button addBranchButton;
-    private Button deleteBranchButton;
-    private Button viewRequestsButton;
+    private Button signOutButton, viewBranchesButton, addBranchButton, deleteBranchButton, viewRequestsButton;
+    private String username;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +32,7 @@ public class WelcomePageEmployee extends AppCompatActivity {
 
 
         //TODO fix bug where if you got to a new activity, then go back, employee name is NULL
-        Intent intent = getIntent();
-        String username = intent.getStringExtra("USERNAME");
-        displayUsername.setText("Welcome " + username);
+        username = getIntent().getStringExtra("USERNAME");
 
         signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,12 +46,19 @@ public class WelcomePageEmployee extends AppCompatActivity {
 
         viewBranchesButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { onViewBranches(v); }
+            public void onClick(View v) {
+                Intent intent = new Intent(WelcomePageEmployee.this, ViewBranches.class);
+                startActivity(intent);
+            }
         });
 
         addBranchButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { onAddBranch(v); }
+            public void onClick(View v) {
+                Intent intent = new Intent(WelcomePageEmployee.this, AddBranch.class);
+                startActivity(intent);
+
+            }
         });
 
         deleteBranchButton.setOnClickListener(new View.OnClickListener() {
@@ -69,9 +72,10 @@ public class WelcomePageEmployee extends AppCompatActivity {
         });
     }
 
-    public void onViewBranches(View view) {
-        Intent intent = new Intent(getApplicationContext(), ViewBranches.class);
-        startActivityForResult(intent, 0);
+    @Override
+    public void onResume() {
+        super.onResume();
+        displayUsername.setText("Welcome " + username);
     }
 
     public void onAddBranch(View view) {
