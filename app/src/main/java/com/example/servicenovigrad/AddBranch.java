@@ -41,7 +41,6 @@ public class AddBranch extends AppCompatActivity {
         getAddress = getIntent().getStringExtra("getAddress");
 
         continueBtn.setOnClickListener(new View.OnClickListener() {
-            //String addressString = eliminateSpaces(addressText.getText().toString());
 
             @Override
             public void onClick(View v) {
@@ -88,17 +87,6 @@ public class AddBranch extends AppCompatActivity {
         addressText.setText(getAddress);
     }
 
-    public String eliminateSpaces(String string) {
-        StringTokenizer st = new StringTokenizer(string, " ");
-        StringBuffer sb = new StringBuffer();
-        while(st.hasMoreElements()) {
-            sb.append(st.nextElement()).append(" ");
-        }
-        String noSpace = sb.toString();
-        noSpace.trim();
-        return noSpace;
-    }
-
     //Check if phone number is the following format: XXX-XXX-XXXX
     public boolean validatePhoneNumber(String phoneNumber) {
         Pattern PHONE_REGEX = Pattern.compile(spacesAndHyphenRegex);
@@ -121,12 +109,6 @@ public class AddBranch extends AppCompatActivity {
                 return false;
             }
         }
-        
         return matcher.matches();
-    }
-
-    public void onGoBack(View view) {
-        Intent intent = new Intent(getApplicationContext(), WelcomePageEmployee.class);
-        startActivityForResult(intent, 0);
     }
 }
