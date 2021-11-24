@@ -96,7 +96,7 @@ public class AddBranch extends AppCompatActivity {
 
     // Check if address is the following format: 1234 Street, City, Province
     public boolean validateAddress(String address) {
-        Pattern pattern = Pattern.compile("^(\\d+) +([A-Za-zÀ-ÿ '-]+), *([A-Za-zÀ-ÿ '-]+), *([A-Za-zÀ-ÿ '-]+)$");
+        Pattern pattern = Pattern.compile("^(\\d+) ([A-Za-zÀ-ÿ '-]+), ([A-Za-zÀ-ÿ '-]+), ([A-Za-zÀ-ÿ '-]+)$");
         Matcher matcher = pattern.matcher(address);
 
         if (matcher.find()) {
@@ -109,6 +109,10 @@ public class AddBranch extends AppCompatActivity {
                 return false;
             }
         }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 8d7a774c2e7f5d67aaebf0bcdbc7649b66931a11
         return matcher.matches();
     }
 }
