@@ -1,6 +1,5 @@
 package com.example.servicenovigrad;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -96,7 +95,7 @@ public class AddService extends AppCompatActivity {
                             } else {
                                 databaseReference.child(serviceRef).setValue(service);
                                 Toast.makeText(AddService.this, "Added service successfully.", Toast.LENGTH_SHORT).show();
-                                onConfirmCancel(v);
+                                finish();
                             }
                         }
 
@@ -112,15 +111,8 @@ public class AddService extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onConfirmCancel(v);
+                finish();
             }
         });
     }
-
-
-    public void onConfirmCancel(View view) {
-        Intent intent = new Intent(getApplicationContext(), ServicePage.class);
-        startActivityForResult(intent, 0);
-    }
-
 }
