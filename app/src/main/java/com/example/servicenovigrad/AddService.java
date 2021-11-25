@@ -91,7 +91,7 @@ public class AddService extends AppCompatActivity {
                     databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.hasChild(serviceRef)) {
+                                if (snapshot.hasChild(serviceRef)) {
                                 Toast.makeText(AddService.this, "This service already exists. Try to modify or delete it.", Toast.LENGTH_SHORT).show();
                             } else {
                                 databaseReference.child(serviceRef).setValue(service);

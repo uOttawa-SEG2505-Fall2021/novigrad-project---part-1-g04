@@ -109,7 +109,7 @@ public class SelectServiceForBranch extends AppCompatActivity {
 
 
                 if(servicesForBranch.contains(serviceName)) {
-                    Toast.makeText(SelectServiceForBranch.this, "This service has already been selected. If you want to remove it, go to modify branch.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SelectServiceForBranch.this, "This service has already been selected. If you want to remove it, go to modify branch.", Toast.LENGTH_LONG).show();
                 } else {
                     servicesForBranch.add(serviceName);
                     Toast.makeText(SelectServiceForBranch.this, "This service will be added to the branch", Toast.LENGTH_SHORT).show();
@@ -125,9 +125,6 @@ public class SelectServiceForBranch extends AppCompatActivity {
                 if(servicesForBranch.isEmpty()) {
                     Toast.makeText(SelectServiceForBranch.this, "You need to select at least one service for this branch", Toast.LENGTH_SHORT).show();
                 } else {
-//                    Branch branch = new Branch(branchName, address, phoneNumber, startHour, startMinute, endHour, endMinute,
-//                            mon, tue, wed, thu, fri, sat, sun, (ArrayList<String>) servicesForBranch);
-
                     Branch branch = new Branch(branchName, address, phoneNumber, startHour, startMinute, endHour, endMinute,
                             (ArrayList<String>) servicesForBranch, openDays);
 
@@ -167,11 +164,5 @@ public class SelectServiceForBranch extends AppCompatActivity {
             }
         });
     }
-
-    public void onConfirm(View v) {
-        Intent intent = new Intent(getApplicationContext(), WelcomePageEmployee.class);
-        startActivityForResult(intent, 0);
-    }
-
 
 }
