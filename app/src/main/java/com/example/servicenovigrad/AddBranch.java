@@ -109,10 +109,6 @@ public class AddBranch extends AppCompatActivity {
                 return false;
             }
         }
-<<<<<<< HEAD
-
-=======
->>>>>>> 8d7a774c2e7f5d67aaebf0bcdbc7649b66931a11
         return matcher.matches();
     }
 }
