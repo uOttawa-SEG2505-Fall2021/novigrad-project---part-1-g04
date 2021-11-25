@@ -11,7 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import java.util.List;
 
-public class BranchListAdapter extends ArrayAdapter {
+public class BranchListAdapter extends ArrayAdapter<Branch> {
 
     private final Activity context;
     List<Branch> branchList;

@@ -11,7 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import java.util.List;
 
-public class UserListAdapter extends ArrayAdapter {
+public class UserListAdapter extends ArrayAdapter<User> {
 
     private final Activity context;
     List<User> userList;
