@@ -4,48 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <Button
-        android:id="@+id/cancel_button"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="20dp"
-        android:layout_toEndOf="@+id/confirm_button"
-        android:text="Go back"
-        tools:ignore="DuplicateClickableBoundsCheck" />
-
-    <Button
-        android:id="@+id/modifyButton"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="115dp"
-        android:layout_marginEnd="115dp"
-        android:layout_marginBottom="81dp"
-        android:text="Modify" />
-
-    <Button
-        android:id="@+id/confirm_button"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="20dp"
-        android:text="Add service" />
-
     <ListView
         android:id="@+id/serviceListView"
         android:layout_width="match_parent"
         android:layout_height="480dp"
-        android:layout_above="@id/cancel_button"
-        android:layout_marginBottom="111dp"
+        android:layout_above="@id/buttons"
+        android:layout_below="@+id/textView4"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
         android:cacheColorHint="#00000000"
         android:drawSelectorOnTop="false" />
 
@@ -57,8 +23,45 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="54dp"
         android:text="Long click on a service to delete"
         android:textSize="24sp" />
+
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="50dp"
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints">
+
+        <Button
+            android:id="@+id/confirm_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Add service" />
+
+        <Button
+            android:id="@+id/modifyButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:text="Modify" />
+
+        <Button
+            android:id="@+id/cancel_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Go back" />
+
+    </LinearLayout>
 
 </RelativeLayout>
