@@ -104,7 +104,7 @@ public class ServicePage extends AppCompatActivity {
         goBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onGoBack(v);
+                finish();
             }
         });
 
@@ -118,11 +118,6 @@ public class ServicePage extends AppCompatActivity {
 
     public void onAddService(View view) {
         Intent intent = new Intent(getApplicationContext(), AddService.class);
-        startActivityForResult(intent, 0);
-    }
-
-    public void onGoBack(View view) {
-        Intent intent = new Intent(getApplicationContext(), WelcomePageAdmin.class);
         startActivityForResult(intent, 0);
     }
 

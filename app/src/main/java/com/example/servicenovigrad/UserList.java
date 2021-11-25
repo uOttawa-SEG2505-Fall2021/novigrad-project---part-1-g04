@@ -123,15 +123,9 @@ public class UserList extends AppCompatActivity {
         goBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onGoBack(v);
+                finish();
             }
         });
 
     }
-
-    public void onGoBack(View view) {
-        Intent intent = new Intent(getApplicationContext(), WelcomePageAdmin.class);
-        startActivityForResult(intent, 0);
-    }
-
 }

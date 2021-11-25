@@ -53,7 +53,7 @@ public class ModifyService extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onGoBack(v);
+                finish();
             }
         });
 
@@ -115,10 +115,5 @@ public class ModifyService extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    public void onGoBack(View view) {
-        Intent intent = new Intent(getApplicationContext(), ServicePage.class);
-        startActivityForResult(intent, 0);
     }
 }

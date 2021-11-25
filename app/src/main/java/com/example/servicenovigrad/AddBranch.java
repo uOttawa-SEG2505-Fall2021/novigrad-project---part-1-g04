@@ -109,6 +109,7 @@ public class AddBranch extends AppCompatActivity {
                 return false;
             }
         }
+
         return matcher.matches();
     }
 }
