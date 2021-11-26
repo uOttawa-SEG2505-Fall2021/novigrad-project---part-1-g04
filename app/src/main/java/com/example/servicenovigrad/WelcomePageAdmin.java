@@ -16,6 +16,8 @@ public class WelcomePageAdmin extends AppCompatActivity {
     TextView displayUsername;
     Button signOutButton, serviceButton, usersButton;
 
+    private FirebaseAuth auth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +28,7 @@ public class WelcomePageAdmin extends AppCompatActivity {
         serviceButton = findViewById(R.id.servicesButton);
         usersButton = findViewById(R.id.usersButton);
 
-        displayUsername.setText("Welcome "+ "Admin");
+        displayUsername.setText("Welcome Admin");
 
         signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override

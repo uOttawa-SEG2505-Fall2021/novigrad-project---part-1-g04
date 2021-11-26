@@ -45,14 +45,13 @@ public class AddBranch extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //TODO check format of address
-                if(branchNameText.getText().toString().trim().equals("")) {
+                if (branchNameText.getText().toString().trim().equals("")) {
                     Toast.makeText(AddBranch.this, "Please enter a branch name", Toast.LENGTH_SHORT).show();
-                } else if(!validatePhoneNumber(phoneNumberText.getText().toString().trim())) {
+                } else if (!validatePhoneNumber(phoneNumberText.getText().toString().trim())) {
                     Toast.makeText(AddBranch.this, "Please enter a valid phone number", Toast.LENGTH_SHORT).show();
                 } else if (!validateAddress(addressText.getText().toString().trim())) {
                     Toast.makeText(AddBranch.this, "Please enter a valid address", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     //Get string for all fields
                     branchName = branchNameText.getText().toString().trim();
                     phoneNumber = phoneNumberText.getText().toString().trim();

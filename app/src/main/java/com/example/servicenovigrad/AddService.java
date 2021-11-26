@@ -29,7 +29,7 @@ public class AddService extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private String serviceRef;
 
-    String[] documents = {"Proof of residence", "Proof of status", "Photo ID"};
+    private final String[] documents = {"Proof of residence", "Proof of status", "Photo ID"};
     ArrayAdapter<String> adapter;
     ArrayList<String> optionsSelected;
 

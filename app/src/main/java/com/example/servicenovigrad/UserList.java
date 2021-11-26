@@ -3,7 +3,6 @@ package com.example.servicenovigrad;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.View;
@@ -42,7 +41,7 @@ public class UserList extends AppCompatActivity {
         setContentView(R.layout.activity_user_list);
 
         userListView = findViewById(R.id.userListView);
-        goBackButton = findViewById(R.id.goBack_button);
+        goBackButton = findViewById(R.id.goBackButton);
         userList = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 

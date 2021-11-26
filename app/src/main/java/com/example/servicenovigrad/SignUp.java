@@ -151,15 +151,15 @@ public class SignUp extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(SignUp.this,"Sign up successful!", Toast.LENGTH_SHORT).show();                                        if (role.equals("Client")) {
-                                            Intent intent = new Intent(getApplicationContext(), WelcomePageClient.class);
-                                            intent.putExtra("USERNAME", firstName);
-                                            startActivityForResult(intent, 0);
+                                        Toast.makeText(SignUp.this,"Sign up successful!", Toast.LENGTH_SHORT).show();
+                                        Intent intent;
+                                        if (role.equals("Client")) {
+                                            intent = new Intent(getApplicationContext(), WelcomePageClient.class);
                                         } else {
-                                            Intent intent = new Intent(getApplicationContext(), WelcomePageEmployee.class);
-                                            intent.putExtra("USERNAME", firstName);
-                                            startActivityForResult(intent, 0);
+                                            intent = new Intent(getApplicationContext(), WelcomePageEmployee.class);
                                         }
+                                        intent.putExtra("USERNAME", firstName);
+                                        startActivityForResult(intent, 0);
                                     } else {
                                         Toast.makeText(SignUp.this, "Sign up failed!", Toast.LENGTH_SHORT).show();
                                     }

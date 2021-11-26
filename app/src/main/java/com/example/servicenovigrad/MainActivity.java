@@ -91,24 +91,21 @@ public class MainActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
                             if (task.isSuccessful()) {
                                 if (Objects.requireNonNull(task.getResult()).exists()) {
-
                                     DataSnapshot dataSnapshot = task.getResult();
                                     String username = String.valueOf(dataSnapshot.child("username").getValue());
                                     String role = String.valueOf(dataSnapshot.child("role").getValue());
 
+                                    Intent intent;
                                     if (role.equals("Client")) {
-                                        Intent intent = new Intent(getApplicationContext(), WelcomePageClient.class);
-                                        intent.putExtra("USERNAME", username);
-                                        startActivityForResult(intent, 0);
+                                        intent = new Intent(getApplicationContext(), WelcomePageClient.class);
                                     } else if (role.equals("Employee")) {
-                                        Intent intent = new Intent(getApplicationContext(), WelcomePageEmployee.class);
-                                        intent.putExtra("USERNAME", username);
-                                        startActivityForResult(intent, 0);
+                                        intent = new Intent(getApplicationContext(), WelcomePageEmployee.class);
                                     } else {
-                                        Intent intent = new Intent(getApplicationContext(), WelcomePageAdmin.class);
-                                        intent.putExtra("USERNAME", username);
-                                        startActivityForResult(intent, 0);
+                                        intent = new Intent(getApplicationContext(), WelcomePageAdmin.class);
                                     }
+
+                                    intent.putExtra("USERNAME", username);
+                                    startActivityForResult(intent, 0);
                                     Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                                 } else {
                                     Toast.makeText(MainActivity.this, "User doesn't exist", Toast.LENGTH_SHORT).show();
