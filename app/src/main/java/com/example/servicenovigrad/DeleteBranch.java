@@ -34,10 +34,6 @@ public class DeleteBranch extends AppCompatActivity {
         branchNameText = findViewById(R.id.deleteBranchName_text);
         phoneNumberText = findViewById(R.id.deletePhoneNumber_text);
 
-
-
-
-
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
