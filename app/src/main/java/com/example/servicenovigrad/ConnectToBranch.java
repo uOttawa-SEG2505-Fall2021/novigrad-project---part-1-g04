@@ -44,7 +44,9 @@ public class ConnectToBranch extends AppCompatActivity {
         modifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onModify(v);
+                Intent intent = new Intent(ConnectToBranch.this, ModifyBranch.class);
+                intent.putExtra("branchName", branchName);
+                startActivity(intent);
             }
         });
     }
@@ -55,8 +57,8 @@ public class ConnectToBranch extends AppCompatActivity {
         displayBranchName.setText(branchName);
     }
 
-    public void onModify(View view) {
-        Intent intent = new Intent(getApplicationContext(), ModifyBranch.class);
-        startActivityForResult(intent, 0);
-    }
+//    public void onModify(View view) {
+//        Intent intent = new Intent(getApplicationContext(), ModifyBranch.class);
+//        startActivityForResult(intent, 0);
+//    }
 }

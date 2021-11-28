@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,19 +20,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ModifyBranch extends AppCompatActivity {
 
     ListView serviceListView;
     Button confirmButton, cancelButton;
+    EditText modifyBranchName;
 
-//    private boolean proofOfResidence, proofOfStatus, photoID;
     private String branchRef; // Reference to current branch
     private List<String> serviceList;
-    private List<String> optionsSelected; // List of services selected
 
-    DatabaseReference databaseReference;
+    DatabaseReference branchesDataRef, servicesDataRef;
+    FirebaseDatabase firebaseDatabase;
 
 
     @Override
@@ -42,11 +45,16 @@ public class ModifyBranch extends AppCompatActivity {
         serviceListView = findViewById(R.id.serviceListView);
         confirmButton = findViewById(R.id.confirm_button);
         cancelButton = findViewById(R.id.cancel_button);
+        modifyBranchName = findViewById(R.id.modifyBranchName);
+
+        branchRef = getIntent().getStringExtra("branchName");
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        branchesDataRef = firebaseDatabase.getReference("Branches");
+        servicesDataRef = firebaseDatabase.getReference("Services");
 
         serviceList = new ArrayList<>();
-        databaseReference = FirebaseDatabase.getInstance().getReference("Services");
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        servicesDataRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //clearing the previous List
@@ -58,7 +66,7 @@ public class ModifyBranch extends AppCompatActivity {
                     Service service = serviceDatasnap.getValue(Service.class);
                     //adding service to the List
                     assert service != null;
-                    serviceList.add(service.getServiceName());
+                    serviceList.add(service.getServiceName().trim());
                 }
 
                 // Convert serviceList to array
@@ -91,7 +99,61 @@ public class ModifyBranch extends AppCompatActivity {
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // HashMap with service name as key and boolean value as value
+                // true if selected and false otherwise
+                Map<String, Boolean> servicesSelectedMap = new HashMap<>();
+                // ArrayList with only selected service names
+                List<String> servicesSelectedList = new ArrayList<>();
 
+                for (int i = 0; i < serviceListView.getCount(); i++) {
+                    // Name of service to be added to servicesSelected
+                    String serviceName = serviceListView.getItemAtPosition(i).toString();
+                    // Boolean value for if service was selected
+                    boolean checked = serviceListView.isItemChecked(i);
+                    // Add serviceName and checked to servicesSelectedMap
+                    servicesSelectedMap.put(serviceName, checked);
+
+                    if (checked) {
+                        // Add serviceName to servicesSelectedList if checked is true
+                        servicesSelectedList.add(serviceName);
+                    }
+                }
+
+                if (!servicesSelectedMap.containsValue(true)) {
+                    Toast.makeText(ModifyBranch.this,
+                            "Please select at least one service.", Toast.LENGTH_SHORT).show();
+                } else {
+                    branchesDataRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            // New branch name entered in modifyBranchName
+                            String newBranchRef = modifyBranchName.getText().toString().trim();
+
+                            if (!newBranchRef.equals("")) {
+                                if (snapshot.hasChild(newBranchRef)) {
+                                    modifyBranchName.setError("Branch name already exists.");
+                                    return;
+                                } else {
+                                    // Change branch name in database
+                                    branchesDataRef.child(branchRef).setValue(newBranchRef);
+                                    branchRef = newBranchRef;
+                                }
+                            }
+
+                            // Change services to selected services
+                            branchesDataRef.child(branchRef).child("services").setValue(servicesSelectedList);
+                            Toast.makeText(ModifyBranch.this,
+                                    "Modified branch successfully.", Toast.LENGTH_SHORT).show();
+                            // Return to previous page
+                            finish();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
             }
         });
     }
