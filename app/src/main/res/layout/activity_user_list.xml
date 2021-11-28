@@ -6,7 +6,7 @@
     tools:context=".UserList">>
 
     <Button
-        android:id="@+id/goBack_button"
+        android:id="@+id/goBackButton"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -21,7 +21,7 @@
         android:id="@+id/userListView"
         android:layout_width="match_parent"
         android:layout_height="394dp"
-        android:layout_above="@id/goBack_button"
+        android:layout_above="@id/goBackButton"
         android:layout_marginBottom="95dp"
         android:cacheColorHint="#00000000"
         android:choiceMode="multipleChoice"

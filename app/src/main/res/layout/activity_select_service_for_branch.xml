@@ -37,11 +37,11 @@
         android:layout_marginStart="50dp"
         android:layout_marginEnd="42dp"
         android:layout_marginBottom="45dp"
-        android:layout_toStartOf="@+id/goBack_button"
+        android:layout_toStartOf="@+id/goBackButton"
         android:text="Add branch" />
 
     <Button
-        android:id="@+id/goBack_button"
+        android:id="@+id/goBackButton"
         android:layout_width="135dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

@@ -46,7 +46,7 @@ public class SelectServiceForBranch extends AppCompatActivity {
 
         branchServiceListView = findViewById(R.id.branchServiceListView);
         addBranchBtn = findViewById(R.id.addBranch_button);
-        goBackBtn = findViewById(R.id.goBack_button);
+        goBackBtn = findViewById(R.id.goBackButton);
 
 
         optionsSelected = new ArrayList<String>();

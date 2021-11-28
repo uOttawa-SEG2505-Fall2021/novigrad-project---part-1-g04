@@ -10,11 +10,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,8 +22,9 @@ import java.util.List;
 
 public class ViewBranches extends AppCompatActivity {
 
-    private ListView branchListView;
-    private Button goBackButton;
+    ListView branchListView;
+    Button goBackButton;
+
     private List<Branch> branchList;
     private DatabaseReference databaseReference;
 
@@ -37,7 +34,7 @@ public class ViewBranches extends AppCompatActivity {
         setContentView(R.layout.activity_view_branches);
 
         branchListView = findViewById(R.id.branchListView);
-        goBackButton = findViewById(R.id.goBack_button);
+        goBackButton = findViewById(R.id.goBackButton);
         branchList = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference("Branches");
 
@@ -67,14 +64,16 @@ public class ViewBranches extends AppCompatActivity {
             }
         });
 
-//        branchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                String branchName = branchListView.getItemAtPosition(position).toString().trim();
-//
-//                databaseReference = FirebaseDatabase.getInstance().getReference("Branches").child(branchName);
-//            }
-//        });
+        branchListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Branch branch = (Branch) branchListView.getItemAtPosition(position);
+                String branchName = branch.getBranchName().trim();
+                Intent intent = new Intent(ViewBranches.this, ConnectToBranch.class);
+                intent.putExtra("branchName", branchName);
+                startActivity(intent);
+            }
+        });
 
         //GO BACK TO ADMIN WELCOME PAGE AFTER CLICKING "GO BACK"
         goBackButton.setOnClickListener(new View.OnClickListener() {

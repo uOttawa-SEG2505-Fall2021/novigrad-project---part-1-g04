@@ -11,7 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import java.util.List;
 
-public class ModifiedServiceListAdapter extends ArrayAdapter {
+public class ModifiedServiceListAdapter extends ArrayAdapter<Service> {
 
     private final Activity context;
     List<Service> serviceList;

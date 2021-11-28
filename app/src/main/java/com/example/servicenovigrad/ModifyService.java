@@ -22,9 +22,10 @@ import java.util.ArrayList;
 
 public class ModifyService extends AppCompatActivity {
 
-    private ListView documentsListView;
+    ListView documentsListView;
     Button cancelButton, modifyButton, deleteButton;
     EditText modifyServiceName;
+
     private boolean proofOfResidence, proofOfStatus, photoID;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
@@ -45,7 +46,8 @@ public class ModifyService extends AppCompatActivity {
         modifyServiceName = findViewById(R.id.serviceNameText);
 
 
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, documents);
+        adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_multiple_choice, documents);
         documentsListView.setAdapter(adapter);
 
         optionsSelected = new ArrayList<String>();

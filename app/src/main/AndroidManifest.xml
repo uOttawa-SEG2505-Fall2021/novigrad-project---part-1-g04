@@ -11,6 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ServiceNovigrad">
         <activity
+            android:name=".ModifiedBranchListAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".ConnectToBranch"
+            android:exported="false" />
+        <activity
             android:name=".ModifiedServiceListAdapter"
             android:exported="true" />
         <activity

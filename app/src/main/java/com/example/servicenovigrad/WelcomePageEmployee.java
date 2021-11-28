@@ -13,8 +13,9 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class WelcomePageEmployee extends AppCompatActivity {
 
-    private TextView displayUsername;
-    private Button signOutButton, viewBranchesButton, addBranchButton, deleteBranchButton, viewRequestsButton;
+    TextView displayUsername;
+    Button signOutButton, viewBranchesButton, addBranchButton, deleteBranchButton, viewRequestsButton;
+
     private String username;
 
 

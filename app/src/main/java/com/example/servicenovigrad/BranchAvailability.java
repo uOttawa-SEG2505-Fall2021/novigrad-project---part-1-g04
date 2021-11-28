@@ -21,7 +21,7 @@ public class BranchAvailability extends AppCompatActivity {
     private Button openTime, closeTimeBtn, continueBtn, goBackBtn;
     private ListView daysListView;
     private int startHour, startMinute, endHour, endMinute;
-    private String[] daysOfTheWeek = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+    private final String[] daysOfTheWeek = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
     private boolean mon, tue, wed, thu, fri, sat, sun;
     private ArrayList<String> openDays;
     private ArrayAdapter<String> adapter;
@@ -36,7 +36,7 @@ public class BranchAvailability extends AppCompatActivity {
         openTime = findViewById(R.id.startTime_button);
         closeTimeBtn = findViewById(R.id.closeTime_button);
         daysListView = findViewById(R.id.daysOfTheWeekListView);
-        goBackBtn = findViewById(R.id.goBack_button);
+        goBackBtn = findViewById(R.id.goBackButton);
         continueBtn = findViewById(R.id.continue_button);
 
 

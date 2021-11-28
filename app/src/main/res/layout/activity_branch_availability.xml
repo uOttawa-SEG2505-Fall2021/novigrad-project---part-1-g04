@@ -73,7 +73,7 @@
         android:text="Continue" />
 
     <Button
-        android:id="@+id/goBack_button"
+        android:id="@+id/goBackButton"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
