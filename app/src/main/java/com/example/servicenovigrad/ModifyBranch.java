@@ -134,9 +134,9 @@ public class ModifyBranch extends AppCompatActivity {
                                     modifyBranchName.setError("Branch name already exists.");
                                     return;
                                 } else {
-                                    // Change branch name in database
-                                    branchesDataRef.child(branchRef).setValue(newBranchRef);
-                                    branchRef = newBranchRef;
+//                                    // Change branch name in database
+//                                    branchesDataRef.child(branchRef).setValue(newBranchRef);
+//                                    branchRef = newBranchRef;
                                 }
                             }
 
