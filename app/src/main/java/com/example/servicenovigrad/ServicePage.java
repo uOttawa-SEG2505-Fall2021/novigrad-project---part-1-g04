@@ -41,7 +41,7 @@ public class ServicePage extends AppCompatActivity {
         serviceListView = findViewById(R.id.serviceListView);
         addServiceButton = findViewById(R.id.confirm_button);
         goBackButton = findViewById(R.id.cancel_button);
-        modifyButton = findViewById(R.id.modifyButton);
+        modifyButton = findViewById(R.id.connectButton);
         serviceList = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference("Services");
 

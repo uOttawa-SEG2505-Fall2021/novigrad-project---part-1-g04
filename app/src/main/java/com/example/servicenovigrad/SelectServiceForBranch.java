@@ -21,38 +21,40 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SelectServiceForBranch extends AppCompatActivity {
 
-    private ListView branchServiceListView;
-    private TextView addService;
-    private Button addBranchBtn, goBackBtn;
-    private ArrayAdapter<String> adapter;
-    private ArrayList<String> optionsSelected;
-    private List<Service> serviceList;
-    private List<String> servicesForBranch;
-    private DatabaseReference databaseReference;
+    ListView serviceListView;
+    TextView addService;
+    Button addBranchBtn, goBackBtn;
+
+    private List<String> serviceList;
     private String branchName, phoneNumber, address;
     private int startHour, startMinute, endHour, endMinute;
     private boolean mon, tue, wed, thu, fri, sat, sun;
     private ArrayList<String> openDays;
+    private ArrayList<String> servicesSelectedList = new ArrayList<>();
+
+    DatabaseReference branchesDataRef, servicesDataRef;
+    FirebaseDatabase firebaseDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_service_for_branch);
 
-        branchServiceListView = findViewById(R.id.branchServiceListView);
+        serviceListView = findViewById(R.id.branchServiceListView);
         addBranchBtn = findViewById(R.id.addBranch_button);
         goBackBtn = findViewById(R.id.goBackButton);
 
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        branchesDataRef = firebaseDatabase.getReference("Branches");
+        servicesDataRef = firebaseDatabase.getReference("Services");
 
-        optionsSelected = new ArrayList<String>();
         serviceList = new ArrayList<>();
-        servicesForBranch = new ArrayList<>();
-
-        databaseReference = FirebaseDatabase.getInstance().getReference("Services");
 
         //Get information from branchAvailability
         branchName = getIntent().getStringExtra("branchName");
@@ -75,7 +77,7 @@ public class SelectServiceForBranch extends AppCompatActivity {
 
 
         //Add the name of services (using a modified version of serviceListAdapter) to a listView
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        servicesDataRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 serviceList.clear();
@@ -85,48 +87,71 @@ public class SelectServiceForBranch extends AppCompatActivity {
                     //getting service
                     Service service = serviceDatasnap.getValue(Service.class);
                     //adding service to the List
-                    serviceList.add(service);
+                    assert service != null;
+                    serviceList.add(service.getServiceName());
                 }
 
-                ListAdapter adapter = new ModifiedServiceListAdapter(SelectServiceForBranch.this, serviceList);
-                branchServiceListView.setAdapter(adapter);
+                // Convert serviceList to array
+                String[] serviceArray = new String[serviceList.size()];
+                for (int i = 0; i < serviceList.size(); i++) {
+                    serviceArray[i] = serviceList.get(i);
+                }
+
+                //creating adapter
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(SelectServiceForBranch.this,
+                        android.R.layout.simple_list_item_multiple_choice, serviceArray);
+
+                //attaching adapter to the ListView
+                serviceListView.setAdapter(adapter);
             }
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
-        });
+            public void onCancelled(@NonNull DatabaseError error) {
 
-        branchServiceListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView service = (TextView) view.findViewById(R.id.ServiceNameTextBranch);
-                String serviceName = service.getText().toString().trim();
-
-                if(servicesForBranch.contains(serviceName)) {
-                    Toast.makeText(SelectServiceForBranch.this, "This service has already been selected. If you want to remove it, go to modify branch.", Toast.LENGTH_LONG).show();
-                } else {
-                    servicesForBranch.add(serviceName);
-                    Toast.makeText(SelectServiceForBranch.this, "This service will be added to the branch", Toast.LENGTH_SHORT).show();
-                }
-
-                return true;
             }
         });
 
         addBranchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(servicesForBranch.isEmpty()) {
-                    Toast.makeText(SelectServiceForBranch.this, "You need to select at least one service for this branch", Toast.LENGTH_SHORT).show();
+                // HashMap with service name as key and boolean value as value
+                // true if selected and false otherwise
+                Map<String, Boolean> servicesSelectedMap = new HashMap<>();
+
+                for (int i = 0; i < serviceListView.getCount(); i++) {
+                    // Name of service to be added to servicesSelected
+                    String serviceName = serviceListView.getItemAtPosition(i).toString();
+                    // Boolean value for if service was selected
+                    boolean checked = serviceListView.isItemChecked(i);
+                    // Add serviceName and checked to servicesSelectedMap
+                    servicesSelectedMap.put(serviceName, checked);
+
+                    if (checked) {
+                        // Add serviceName to servicesSelectedList if checked is true
+                        servicesSelectedList.add(serviceName);
+                    }
+                }
+
+                if (!servicesSelectedMap.containsValue(true)) {
+                    Toast.makeText(SelectServiceForBranch.this,
+                            "Please select at least one service.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Branch branch = new Branch(branchName, address, phoneNumber, startHour, startMinute, endHour, endMinute,
-                            (ArrayList<String>) servicesForBranch, openDays);
+                    branchesDataRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            Branch branch = new Branch(branchName, address, phoneNumber, startHour,
+                                    startMinute, endHour, endMinute, servicesSelectedList, openDays);
+                            // Change services to selected services
+                            branchesDataRef.child(branchName).child("Branches").setValue(branch);
+                            Toast.makeText(SelectServiceForBranch.this,
+                                    "Added branch successfully.", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
 
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
-                    databaseReference.child(branchName).setValue(branch);
-                    Toast.makeText(SelectServiceForBranch.this, "Added branch successfully.", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(SelectServiceForBranch.this, WelcomePageEmployee.class);
-                    startActivity(intent);
-
+                        }
+                    });
                 }
             }
         });
@@ -134,12 +159,7 @@ public class SelectServiceForBranch extends AppCompatActivity {
         goBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Save fields if go back button is pressed
-                Intent intent = new Intent(SelectServiceForBranch.this, BranchAvailability.class);
-                intent.putExtra("branchName", branchName);
-                intent.putExtra("phoneNumber", phoneNumber);
-                intent.putExtra("address", address);
-                startActivity(intent);
+                finish();
             }
         });
     }

@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -28,8 +29,9 @@ public class ModifyBranch extends AppCompatActivity {
 
     ListView serviceListView;
     Button confirmButton, cancelButton;
+    TextView displayBranchName;
 
-    private String branchRef; // Reference to current branch
+    private String branchName; // Reference to current branch
     private List<String> serviceList; // List of services in database
 
     DatabaseReference branchesDataRef, servicesDataRef;
@@ -44,8 +46,9 @@ public class ModifyBranch extends AppCompatActivity {
         serviceListView = findViewById(R.id.serviceListView);
         confirmButton = findViewById(R.id.confirm_button);
         cancelButton = findViewById(R.id.cancel_button);
+        displayBranchName = findViewById(R.id.displayBranchName);
 
-        branchRef = getIntent().getStringExtra("branchName");
+        branchName = getIntent().getStringExtra("branchName");
         firebaseDatabase = FirebaseDatabase.getInstance();
         branchesDataRef = firebaseDatabase.getReference("Branches");
         servicesDataRef = firebaseDatabase.getReference("Services");
@@ -64,7 +67,7 @@ public class ModifyBranch extends AppCompatActivity {
                     Service service = serviceDatasnap.getValue(Service.class);
                     //adding service to the List
                     assert service != null;
-                    serviceList.add(service.getServiceName().trim());
+                    serviceList.add(service.getServiceName());
                 }
 
                 // Convert serviceList to array
@@ -126,7 +129,7 @@ public class ModifyBranch extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                             // Change services to selected services
-                            branchesDataRef.child(branchRef).child("services").setValue(servicesSelectedList);
+                            branchesDataRef.child(branchName).child("services").setValue(servicesSelectedList);
                             Toast.makeText(ModifyBranch.this,
                                     "Modified branch successfully.", Toast.LENGTH_SHORT).show();
                             // Return to previous page
@@ -141,5 +144,11 @@ public class ModifyBranch extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        displayBranchName.setText(branchName);
     }
 }
