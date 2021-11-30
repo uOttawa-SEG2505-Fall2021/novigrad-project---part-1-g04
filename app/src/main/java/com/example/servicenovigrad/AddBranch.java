@@ -1,5 +1,6 @@
 package com.example.servicenovigrad;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,6 +10,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -20,6 +31,9 @@ public class AddBranch extends AppCompatActivity {
     private EditText branchNameText, phoneNumberText, addressText;
     private String branchName, phoneNumber, address, getBranchName, getPhoneNumber, getAddress, username;
     private final String spacesAndHyphenRegex = "^(1-)?\\d{3}-\\d{3}-\\d{4}$";
+    private DatabaseReference databaseReference;
+    private List<String> branchList;
+    boolean succ;
 
 
     @Override
@@ -34,6 +48,7 @@ public class AddBranch extends AppCompatActivity {
         addressText = findViewById(R.id.address_text);
 
         username = getIntent().getStringExtra("USERNAME");
+        branchList = new ArrayList<>();
 
         //Retrieve fields if 'Go back' is pressed on BranchAvailability
         getBranchName = getIntent().getStringExtra("getBranchName");
@@ -46,22 +61,65 @@ public class AddBranch extends AppCompatActivity {
             public void onClick(View v) {
                 //TODO check format of address
                 if (branchNameText.getText().toString().trim().equals("")) {
-                    Toast.makeText(AddBranch.this, "Please enter a branch name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddBranch.this, "Please enter a branch name.", Toast.LENGTH_SHORT).show();
                 } else if (!validatePhoneNumber(phoneNumberText.getText().toString().trim())) {
-                    Toast.makeText(AddBranch.this, "Please enter a valid phone number", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddBranch.this, "Please enter a valid phone number.", Toast.LENGTH_SHORT).show();
                 } else if (!validateAddress(addressText.getText().toString().trim())) {
-                    Toast.makeText(AddBranch.this, "Please enter a valid address", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddBranch.this, "Please enter a valid address.", Toast.LENGTH_SHORT).show();
                 } else {
+
                     //Get string for all fields
                     branchName = branchNameText.getText().toString().trim();
                     phoneNumber = phoneNumberText.getText().toString().trim();
                     address = addressText.getText().toString().trim();
-                    Intent intent = new Intent(AddBranch.this, BranchAvailability.class);
-                    //Save of the information for time and date
-                    intent.putExtra("branchName", branchName);
-                    intent.putExtra("phoneNumber", phoneNumber);
-                    intent.putExtra("address", address);
-                    startActivity(intent);
+
+                    databaseReference = FirebaseDatabase.getInstance().getReference("Branches");
+                    databaseReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            branchList.clear();
+                            succ = false;
+                            if(snapshot.hasChild(branchName)) {
+                                Toast.makeText(AddBranch.this, "This branch name has already been used.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                //iterating through all the nodes
+                                for (DataSnapshot branchDatasnap : snapshot.getChildren()) {
+                                    //getting branch
+                                    Branch branch = branchDatasnap.getValue(Branch.class);
+                                    //adding branch to the List
+                                    branchList.add(branch.getBranchName());
+
+                                    String confirmPhoneNumber = String.valueOf(branchDatasnap.child("phoneNumber").getValue());
+                                    if (confirmPhoneNumber.equals(phoneNumber)) {
+                                        Toast.makeText(AddBranch.this, "Phone number is already associated with a branch.", Toast.LENGTH_SHORT).show();
+                                        succ = true;
+                                    }
+
+                                }
+
+                                if(succ == false) {
+                                    Intent intent = new Intent(AddBranch.this, BranchAvailability.class);
+                                    //Save of the information for time and date
+                                    intent.putExtra("branchName", branchName);
+                                    intent.putExtra("phoneNumber", phoneNumber);
+                                    intent.putExtra("address", address);
+                                    Toast.makeText(AddBranch.this, "Works.", Toast.LENGTH_SHORT).show();
+
+                                    startActivity(intent);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+
+
+
+
                 }
             }
         });

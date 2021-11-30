@@ -13,8 +13,11 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class WelcomePageClient extends AppCompatActivity {
 
-    TextView displayUsername;
-    Button signOutButton;
+    private TextView displayUsername;
+    private Button signOutButton, selectBranch;
+    private String username, email;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,10 +26,11 @@ public class WelcomePageClient extends AppCompatActivity {
 
         displayUsername = findViewById(R.id.usernameTextView);
         signOutButton = findViewById(R.id.signOutButton);
+        selectBranch = findViewById(R.id.selectBranchClient);
 
         //DISPLAY USERNAME
-        Intent intent = getIntent();
-        String username = intent.getStringExtra("USERNAME");
+        username = getIntent().getStringExtra("USERNAME");
+        email = getIntent().getStringExtra("email");
         displayUsername.setText("Welcome " + username);
 
         signOutButton.setOnClickListener(new View.OnClickListener() {
@@ -34,9 +38,18 @@ public class WelcomePageClient extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivityForResult(intent, 0);
+                startActivity(intent);
                 Toast.makeText(WelcomePageClient.this, "Signed out successfully", Toast.LENGTH_SHORT).show();
 
+            }
+        });
+
+        selectBranch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SelectBranchForClient.class);
+                intent.putExtra("email",email);
+                startActivity(intent);
             }
         });
 
