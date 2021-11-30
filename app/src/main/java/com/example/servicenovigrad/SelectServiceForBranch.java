@@ -36,7 +36,7 @@ public class SelectServiceForBranch extends AppCompatActivity {
     private int startHour, startMinute, endHour, endMinute;
     private boolean mon, tue, wed, thu, fri, sat, sun;
     private ArrayList<String> openDays;
-    private ArrayList<String> servicesSelectedList = new ArrayList<>();
+    private ArrayList<String> servicesSelectedList;
 
     DatabaseReference branchesDataRef, servicesDataRef;
     FirebaseDatabase firebaseDatabase;
@@ -55,6 +55,7 @@ public class SelectServiceForBranch extends AppCompatActivity {
         servicesDataRef = firebaseDatabase.getReference("Services");
 
         serviceList = new ArrayList<>();
+        servicesSelectedList = new ArrayList<>();
 
         //Get information from branchAvailability
         branchName = getIntent().getStringExtra("branchName");
@@ -163,5 +164,4 @@ public class SelectServiceForBranch extends AppCompatActivity {
             }
         });
     }
-
 }

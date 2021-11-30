@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.servicenovigrad"
     android:installLocation="preferExternal" >
 
@@ -9,7 +10,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ServiceNovigrad" >
+        android:theme="@style/Theme.ServiceNovigrad"
+        tools:ignore="AllowBackup" >
         <activity
             android:name=".SelectServiceForClient"
             android:exported="true" />
@@ -21,7 +23,8 @@
             android:exported="false" />
         <activity
             android:name=".ModifiedServiceListAdapter"
-            android:exported="true" />
+            android:exported="true"
+            tools:ignore="Instantiatable" />
         <activity
             android:name=".SelectServiceForBranch"
             android:exported="true"
@@ -35,7 +38,8 @@
             android:exported="false" />
         <activity
             android:name=".BranchListAdapter"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="Instantiatable" />
         <activity
             android:name=".DeleteBranch"
             android:exported="false" />
@@ -51,10 +55,12 @@
             android:exported="false" />
         <activity
             android:name=".ServiceListAdapter"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="Instantiatable" />
         <activity
             android:name=".UserListAdapter"
-            android:exported="true" />
+            android:exported="true"
+            tools:ignore="Instantiatable" />
         <activity
             android:name=".UserList"
             android:exported="true" />
