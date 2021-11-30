@@ -37,7 +37,6 @@ public class SelectServiceForBranch extends AppCompatActivity {
     private int startHour, startMinute, endHour, endMinute;
     private boolean mon, tue, wed, thu, fri, sat, sun;
     private ArrayList<String> openDays;
-    private FirebaseDatabase firebaseDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,26 +121,12 @@ public class SelectServiceForBranch extends AppCompatActivity {
                     Branch branch = new Branch(branchName, address, phoneNumber, startHour, startMinute, endHour, endMinute,
                             (ArrayList<String>) servicesForBranch, openDays);
 
-                    firebaseDatabase = FirebaseDatabase.getInstance();
-                    databaseReference = firebaseDatabase.getReference("Branches");
-                    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.hasChild(branchName)) {
-                                Toast.makeText(SelectServiceForBranch.this, "This branch already exists. Try to modify or delete it.", Toast.LENGTH_SHORT).show();
-                            } else {
-                                databaseReference.child(branchName).setValue(branch);
-                                Toast.makeText(SelectServiceForBranch.this, "Added branch successfully.", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(SelectServiceForBranch.this, WelcomePageEmployee.class);
-                                startActivity(intent);
-                            }
-                        }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                    databaseReference.child(branchName).setValue(branch);
+                    Toast.makeText(SelectServiceForBranch.this, "Added branch successfully.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(SelectServiceForBranch.this, WelcomePageEmployee.class);
+                    startActivity(intent);
 
-                        }
-                    });
                 }
             }
         });
