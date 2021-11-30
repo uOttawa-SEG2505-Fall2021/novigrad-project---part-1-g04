@@ -117,7 +117,7 @@ public class SelectServiceForClient extends AppCompatActivity {
         String id = email + branchName + serviceName;
         for(int i=0; i<id.length(); i++) {
             //140627 is a prime number
-            h = h * 140627 + id.charAt(i);
+            h = h * 5011 + id.charAt(i);
         }
         String hash = Long.toString(h);
 
