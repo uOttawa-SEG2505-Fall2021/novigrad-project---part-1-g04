@@ -10,9 +10,9 @@
         android:id="@+id/serviceListView"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:layout_above="@+id/modifyBranchName"
+        android:layout_above="@+id/buttons"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="100dp"
         android:cacheColorHint="#00000000"
         android:choiceMode="multipleChoice"
         android:drawSelectorOnTop="false"
@@ -50,16 +50,15 @@
 
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/modifyBranchName"
-        android:layout_width="339dp"
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/buttons"
+        android:layout_above="@+id/serviceListView"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="49dp"
-        android:ems="10"
-        android:hint="Enter new branch or leave blank"
-        android:inputType="textPersonName"
-        android:minHeight="48dp" />
+        android:layout_marginTop="57dp"
+        android:layout_marginBottom="57dp"
+        android:text="Select services you would like to add to the branch" />
 
 </RelativeLayout>

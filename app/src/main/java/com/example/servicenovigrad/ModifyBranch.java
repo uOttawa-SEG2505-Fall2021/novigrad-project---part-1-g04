@@ -28,10 +28,9 @@ public class ModifyBranch extends AppCompatActivity {
 
     ListView serviceListView;
     Button confirmButton, cancelButton;
-    EditText modifyBranchName;
 
     private String branchRef; // Reference to current branch
-    private List<String> serviceList;
+    private List<String> serviceList; // List of services in database
 
     DatabaseReference branchesDataRef, servicesDataRef;
     FirebaseDatabase firebaseDatabase;
@@ -45,7 +44,6 @@ public class ModifyBranch extends AppCompatActivity {
         serviceListView = findViewById(R.id.serviceListView);
         confirmButton = findViewById(R.id.confirm_button);
         cancelButton = findViewById(R.id.cancel_button);
-        modifyBranchName = findViewById(R.id.modifyBranchName);
 
         branchRef = getIntent().getStringExtra("branchName");
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -126,19 +124,6 @@ public class ModifyBranch extends AppCompatActivity {
                     branchesDataRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            // New branch name entered in modifyBranchName
-                            String newBranchRef = modifyBranchName.getText().toString().trim();
-
-                            if (!newBranchRef.equals("")) {
-                                if (snapshot.hasChild(newBranchRef)) {
-                                    modifyBranchName.setError("Branch name already exists.");
-                                    return;
-                                } else {
-//                                    // Change branch name in database
-//                                    branchesDataRef.child(branchRef).setValue(newBranchRef);
-//                                    branchRef = newBranchRef;
-                                }
-                            }
 
                             // Change services to selected services
                             branchesDataRef.child(branchRef).child("services").setValue(servicesSelectedList);
