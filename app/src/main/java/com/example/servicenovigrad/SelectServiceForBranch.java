@@ -102,12 +102,6 @@ public class SelectServiceForBranch extends AppCompatActivity {
                 TextView service = (TextView) view.findViewById(R.id.ServiceNameTextBranch);
                 String serviceName = service.getText().toString().trim();
 
-                System.out.println(startHour);
-                System.out.println(phoneNumber);
-                System.out.println(branchName);
-
-
-
                 if(servicesForBranch.contains(serviceName)) {
                     Toast.makeText(SelectServiceForBranch.this, "This service has already been selected. If you want to remove it, go to modify branch.", Toast.LENGTH_LONG).show();
                 } else {
