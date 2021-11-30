@@ -70,9 +70,7 @@ public class AddBranch extends AppCompatActivity {
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddBranch.this, WelcomePageEmployee.class);
-                intent.putExtra("USERNAME", username);
-                startActivity(intent);
+                finish();
             }
         });
     }

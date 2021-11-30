@@ -23,6 +23,7 @@
         android:layout_height="444dp"
         android:layout_above="@+id/buttons"
         android:layout_below="@+id/textView7"
+        android:choiceMode="multipleChoice"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="50dp">
 

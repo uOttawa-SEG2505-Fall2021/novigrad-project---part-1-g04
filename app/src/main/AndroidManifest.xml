@@ -11,9 +11,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ServiceNovigrad">
         <activity
-            android:name=".ModifiedBranchListAdapter"
-            android:exported="false" />
-        <activity
             android:name=".ConnectToBranch"
             android:exported="false" />
         <activity
@@ -21,10 +18,12 @@
             android:exported="true" />
         <activity
             android:name=".SelectServiceForBranch"
-            android:exported="true" />
+            android:exported="true"
+            android:noHistory="true" />
         <activity
             android:name=".BranchAvailability"
-            android:exported="true" />
+            android:exported="true"
+            android:noHistory="true" />
         <activity
             android:name=".ViewRequests"
             android:exported="false" />
@@ -39,7 +38,8 @@
             android:exported="false" />
         <activity
             android:name=".AddBranch"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true" />
         <activity
             android:name=".ViewBranches"
             android:exported="false" />

@@ -110,7 +110,7 @@ public class BranchAvailability extends AppCompatActivity {
                     Toast.makeText(BranchAvailability.this, "Please select the opening time", Toast.LENGTH_SHORT).show();
                 } else if (closingBtnText.equalsIgnoreCase("select closing time")) {
                     Toast.makeText(BranchAvailability.this, "Please select the closing time", Toast.LENGTH_SHORT).show();
-                } else if (endHour<=startHour && endMinute<=startMinute) {
+                } else if (endHour <= startHour && endMinute <= startMinute) {
                     Toast.makeText(BranchAvailability.this, "The opening needs to be before the closing time", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(BranchAvailability.this, SelectServiceForBranch.class);
@@ -150,7 +150,7 @@ public class BranchAvailability extends AppCompatActivity {
                     public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
                         startHour = selectedHour;
                         startMinute = selectedMinute;
-                        openTime.setText(String.format(Locale.getDefault(),"%02d:%02d", startHour, startMinute));
+                        openTime.setText(String.format(Locale.getDefault(), "%02d:%02d", startHour, startMinute));
                     }
                 };
                 TimePickerDialog startTimePickerDialog = new TimePickerDialog(BranchAvailability.this, onStartTimeSetListener, startHour, startMinute, false);
@@ -168,7 +168,7 @@ public class BranchAvailability extends AppCompatActivity {
                     public void onTimeSet(TimePicker view, int startHour, int selectedMinute) {
                         endHour = startHour;
                         endMinute = selectedMinute;
-                        closeTimeBtn.setText(String.format(Locale.getDefault(),"%02d:%02d", endHour, endMinute));
+                        closeTimeBtn.setText(String.format(Locale.getDefault(), "%02d:%02d", endHour, endMinute));
                     }
                 };
                 TimePickerDialog startTimePickerDialog = new TimePickerDialog(BranchAvailability.this, onCloseTimeSetListener, endHour, endMinute, false);
@@ -180,20 +180,8 @@ public class BranchAvailability extends AppCompatActivity {
         goBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(BranchAvailability.this, AddBranch.class);
-                intent.putExtra("getBranchName", branchName);
-                intent.putExtra("getPhoneNumber", phoneNumber);
-                intent.putExtra("getAddress", address);
-                startActivity(intent);
+                finish();
             }
         });
     }
-
-    public void onGoBack(View view) {
-        Intent intent = new Intent(getApplicationContext(), AddBranch.class);
-        startActivityForResult(intent, 0);
-    }
-
-
-
 }
