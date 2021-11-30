@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                                     }
 
                                     intent.putExtra("USERNAME", username);
+                                    intent.putExtra("email", email);
                                     startActivityForResult(intent, 0);
                                     Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                                 } else {

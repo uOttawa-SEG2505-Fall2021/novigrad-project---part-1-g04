@@ -4,22 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ViewRequests">
+    tools:context=".SelectBranchForClient">
+
+    <ListView
+        android:id="@+id/BranchesForClientsListView"
+        android:layout_width="match_parent"
+        android:layout_height="477dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="109dp" />
 
     <TextView
-        android:id="@+id/textView21"
+        android:id="@+id/textView18"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="65sp"
-        android:text="Approve or deny the following requests"
+        android:layout_marginTop="65dp"
+        android:text="Select the branch to then select the services"
         android:textAlignment="center"
         android:textSize="16sp"
         android:textStyle="bold" />
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="529dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="104dp" />
 </RelativeLayout>
