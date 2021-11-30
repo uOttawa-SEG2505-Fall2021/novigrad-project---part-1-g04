@@ -159,6 +159,7 @@ public class SignUp extends AppCompatActivity {
                                             intent = new Intent(getApplicationContext(), WelcomePageEmployee.class);
                                         }
                                         intent.putExtra("USERNAME", firstName);
+                                        intent.putExtra("email", email);
                                         startActivityForResult(intent, 0);
                                     } else {
                                         Toast.makeText(SignUp.this, "Sign up failed!", Toast.LENGTH_SHORT).show();
