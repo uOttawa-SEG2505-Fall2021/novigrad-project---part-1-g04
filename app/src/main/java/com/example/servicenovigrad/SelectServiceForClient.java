@@ -76,18 +76,23 @@ public class SelectServiceForClient extends AppCompatActivity {
         servicesListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                //Get service name for listView
                 String serviceName = (String) parent.getItemAtPosition(position);
+                //Create new request
                 Request request = new Request(email, branchName, serviceName);
 
                 databaseReference = FirebaseDatabase.getInstance().getReference("Requests");
                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.hasChild("Request for branch " + branchName + "; Service " + serviceName)) {
+                        //Check if request has already been submitted by a client
+                        if(snapshot.child(branchName).hasChild(stringHash(email, branchName, serviceName))) {
 
                             Toast.makeText(SelectServiceForClient.this, "You already submitted a request for this service.", Toast.LENGTH_SHORT).show();
                         } else {
-                            databaseReference.child(Objects.requireNonNull("Request for branch " + branchName + "; Service " + serviceName)).setValue(request);
+                            //Add request to database
+                            databaseReference.child(Objects.requireNonNull(branchName)).child(stringHash(email, branchName, serviceName)).
+                                    setValue(request);
                             Toast.makeText(SelectServiceForClient.this, "Submitted request successfully.", Toast.LENGTH_SHORT).show();
 
                         }
@@ -106,13 +111,16 @@ public class SelectServiceForClient extends AppCompatActivity {
 
     }
 
-    public String stringHash(String email) {
-        int h = 7;
-        for(int i=0; i<email.length(); i++) {
-            h = h * 7919 + email.charAt(i);
+    //Generate a unique hash for a request (use email, branchName and serviceName)
+    public String stringHash(String email, String branchName, String serviceName) {
+        long h = 0;
+        String id = email + branchName + serviceName;
+        for(int i=0; i<id.length(); i++) {
+            //140627 is a prime number
+            h = h * 140627 + id.charAt(i);
         }
-        String id = Integer.toString(h);
+        String hash = Long.toString(h);
 
-        return id;
+        return hash;
     }
 }
