@@ -9,6 +9,7 @@ import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ import java.util.Objects;
 public class SelectServiceForClient extends AppCompatActivity {
 
     private ListView servicesListView;
+    private Button goBackBtn;
     private TextView displayBranchName;
     private String branchName, test, email;
     private List<String> serviceList;
@@ -44,12 +46,21 @@ public class SelectServiceForClient extends AppCompatActivity {
 
         servicesListView = findViewById(R.id.DisplayServicesListView);
         displayBranchName = findViewById(R.id.displayBranchName);
+        goBackBtn = findViewById(R.id.goBack_button);
         branchName = getIntent().getStringExtra("branchName");
         displayBranchName.setText("Branch name: " + branchName);
         email = getIntent().getStringExtra("email");
 
         serviceList = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference("Branches");
+
+        goBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         databaseReference.child(Objects.requireNonNull(branchName)).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -79,7 +90,7 @@ public class SelectServiceForClient extends AppCompatActivity {
                 //Get service name for listView
                 String serviceName = (String) parent.getItemAtPosition(position);
                 //Create new request
-                Request request = new Request(email, branchName, serviceName);
+                Request request = new Request(email, branchName, serviceName, false);
 
                 databaseReference = FirebaseDatabase.getInstance().getReference("Requests");
                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {

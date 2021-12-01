@@ -86,11 +86,11 @@ public class WelcomePageEmployee extends AppCompatActivity {
 
     public void onDeleteBranch(View view) {
         Intent intent = new Intent(getApplicationContext(), DeleteBranch.class);
-        startActivityForResult(intent, 0);
+        startActivity(intent);
     }
 
     public void onViewRequests(View view) {
-        Intent intent = new Intent(getApplicationContext(), ViewRequests.class);
-        startActivityForResult(intent, 0);
+        Intent intent = new Intent(getApplicationContext(), ConnectToViewRequest.class);
+        startActivity(intent);
     }
 }
