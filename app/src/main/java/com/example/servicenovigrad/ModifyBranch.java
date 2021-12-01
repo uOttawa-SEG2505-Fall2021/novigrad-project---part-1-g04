@@ -3,6 +3,7 @@ package com.example.servicenovigrad;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class ModifyBranch extends AppCompatActivity {
 
@@ -33,6 +35,7 @@ public class ModifyBranch extends AppCompatActivity {
 
     private String branchName; // Reference to current branch
     private List<String> serviceList; // List of services in database
+    private List<String> servicesSelectedList; // List of services selected
 
     DatabaseReference branchesDataRef, servicesDataRef;
     FirebaseDatabase firebaseDatabase;
@@ -54,6 +57,7 @@ public class ModifyBranch extends AppCompatActivity {
         servicesDataRef = firebaseDatabase.getReference("Services");
 
         serviceList = new ArrayList<>();
+        servicesSelectedList = new ArrayList<>();
 
         servicesDataRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -82,6 +86,28 @@ public class ModifyBranch extends AppCompatActivity {
 
                 //attaching adapter to the ListView
                 serviceListView.setAdapter(adapter);
+
+                branchesDataRef.child(branchName).child("services").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (int i = 0; i < serviceListView.getCount(); i++) {
+                            String serviceName = serviceListView.getItemAtPosition(i).toString();
+
+                            // Iterating through all the service nodes of branch
+                            for (DataSnapshot serviceDatasnap : snapshot.getChildren()) {
+                                if (Objects.requireNonNull(serviceDatasnap.getValue()).toString().equals(serviceName)) {
+                                    // Checkmark to checkbox if service is already selected in database
+                                    serviceListView.setItemChecked(i, true);
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
 
             @Override
@@ -103,8 +129,6 @@ public class ModifyBranch extends AppCompatActivity {
                 // HashMap with service name as key and boolean value as value
                 // true if selected and false otherwise
                 Map<String, Boolean> servicesSelectedMap = new HashMap<>();
-                // ArrayList with only selected service names
-                List<String> servicesSelectedList = new ArrayList<>();
 
                 for (int i = 0; i < serviceListView.getCount(); i++) {
                     // Name of service to be added to servicesSelected
@@ -132,8 +156,11 @@ public class ModifyBranch extends AppCompatActivity {
                             branchesDataRef.child(branchName).child("services").setValue(servicesSelectedList);
                             Toast.makeText(ModifyBranch.this,
                                     "Modified branch successfully.", Toast.LENGTH_SHORT).show();
-                            // Return to previous page
-                            finish();
+
+                            // Return to welcomePageEmployee
+                            Intent intent = new Intent(ModifyBranch.this, WelcomePageEmployee.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
                         }
 
                         @Override

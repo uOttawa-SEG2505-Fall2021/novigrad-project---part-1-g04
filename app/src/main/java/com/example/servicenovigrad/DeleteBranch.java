@@ -1,5 +1,6 @@
 package com.example.servicenovigrad;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -54,7 +55,11 @@ public class DeleteBranch extends AppCompatActivity {
                                     if(confirmPhoneNumber.equals(phoneNumber)) {
                                         Toast.makeText(DeleteBranch.this, "Deleted service successfully.", Toast.LENGTH_SHORT).show();
                                         databaseReference.child(branchName).removeValue();
-                                        finish();
+
+                                        // Return to welcomePageEmployee
+                                        Intent intent = new Intent(DeleteBranch.this, WelcomePageEmployee.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
                                     } else {
                                         Toast.makeText(DeleteBranch.this, "Phone number doesn't exist.", Toast.LENGTH_SHORT).show();
                                     }
