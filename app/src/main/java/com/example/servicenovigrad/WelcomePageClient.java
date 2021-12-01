@@ -13,11 +13,9 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class WelcomePageClient extends AppCompatActivity {
 
-    private TextView displayUsername;
-    private Button signOutButton, selectBranch;
+    TextView displayUsername;
+    Button signOutButton, selectBranch;
     private String username, email;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

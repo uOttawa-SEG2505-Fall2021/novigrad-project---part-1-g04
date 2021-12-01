@@ -1,8 +1,5 @@
 package com.example.servicenovigrad;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,14 +8,16 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import org.apache.commons.lang3.StringUtils;
-
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,6 +99,11 @@ public class ViewRequests extends AppCompatActivity {
                     databaseReference.setValue(request);
                     Toast.makeText(ViewRequests.this, "Accepted the request(s).", Toast.LENGTH_SHORT).show();
                 }
+
+                // Return to welcomePageEmployee
+                Intent intent = new Intent(ViewRequests.this, WelcomePageEmployee.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
 
@@ -126,6 +130,11 @@ public class ViewRequests extends AppCompatActivity {
                     databaseReference.removeValue();
                     Toast.makeText(ViewRequests.this, "Refused the request(s).", Toast.LENGTH_SHORT).show();
                 }
+
+                // Return to welcomePageEmployee
+                Intent intent = new Intent(ViewRequests.this, WelcomePageEmployee.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
 
