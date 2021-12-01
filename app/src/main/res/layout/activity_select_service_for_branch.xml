@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="65dp"
-        android:text="Long press the services to add to the branch "
+        android:text="Select services you would like to add to the branch"
         android:textAlignment="center"
         android:textSize="16sp"
         android:textStyle="bold" />

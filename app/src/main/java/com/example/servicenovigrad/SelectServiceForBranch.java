@@ -142,10 +142,14 @@ public class SelectServiceForBranch extends AppCompatActivity {
                             Branch branch = new Branch(branchName, address, phoneNumber, startHour,
                                     startMinute, endHour, endMinute, servicesSelectedList, openDays);
                             // Change services to selected services
-                            branchesDataRef.child(branchName).child("Branches").setValue(branch);
+                            branchesDataRef.child(branchName).setValue(branch);
                             Toast.makeText(SelectServiceForBranch.this,
                                     "Added branch successfully.", Toast.LENGTH_SHORT).show();
-                            finish();
+
+                            // Return to welcomePageEmployee
+                            Intent intent = new Intent(SelectServiceForBranch.this, WelcomePageEmployee.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
                         }
 
                         @Override

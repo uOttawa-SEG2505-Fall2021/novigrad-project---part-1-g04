@@ -61,11 +61,11 @@ public class AddBranch extends AppCompatActivity {
             public void onClick(View v) {
                 //TODO check format of address
                 if (branchNameText.getText().toString().trim().equals("")) {
-                    Toast.makeText(AddBranch.this, "Please enter a branch name.", Toast.LENGTH_SHORT).show();
+                    branchNameText.setError("Please enter a branch name.");
                 } else if (!validatePhoneNumber(phoneNumberText.getText().toString().trim())) {
-                    Toast.makeText(AddBranch.this, "Please enter a valid phone number.", Toast.LENGTH_SHORT).show();
+                    phoneNumberText.setError("Please enter a valid phone number.");
                 } else if (!validateAddress(addressText.getText().toString().trim())) {
-                    Toast.makeText(AddBranch.this, "Please enter a valid address.", Toast.LENGTH_SHORT).show();
+                    addressText.setError("Please enter a valid address.");
                 } else {
 
                     //Get string for all fields
@@ -80,24 +80,25 @@ public class AddBranch extends AppCompatActivity {
                             branchList.clear();
                             succ = false;
                             if(snapshot.hasChild(branchName)) {
-                                Toast.makeText(AddBranch.this, "This branch name has already been used.", Toast.LENGTH_SHORT).show();
+                                branchNameText.setError("This branch name has already been used.");
                             } else {
                                 //iterating through all the nodes
                                 for (DataSnapshot branchDatasnap : snapshot.getChildren()) {
                                     //getting branch
                                     Branch branch = branchDatasnap.getValue(Branch.class);
                                     //adding branch to the List
+                                    assert branch != null;
                                     branchList.add(branch.getBranchName());
 
                                     String confirmPhoneNumber = String.valueOf(branchDatasnap.child("phoneNumber").getValue());
                                     if (confirmPhoneNumber.equals(phoneNumber)) {
-                                        Toast.makeText(AddBranch.this, "Phone number is already associated with a branch.", Toast.LENGTH_SHORT).show();
+                                        phoneNumberText.setError("Phone number is already associated with a branch.");
                                         succ = true;
                                     }
 
                                 }
 
-                                if(succ == false) {
+                                if(!succ) {
                                     Intent intent = new Intent(AddBranch.this, BranchAvailability.class);
                                     //Save of the information for time and date
                                     intent.putExtra("branchName", branchName);

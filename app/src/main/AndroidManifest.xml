@@ -27,12 +27,10 @@
             tools:ignore="Instantiatable" />
         <activity
             android:name=".SelectServiceForBranch"
-            android:exported="true"
-            android:noHistory="true" />
+            android:exported="true" />
         <activity
             android:name=".BranchAvailability"
-            android:exported="true"
-            android:noHistory="true" />
+            android:exported="true" />
         <activity
             android:name=".ViewRequests"
             android:exported="false" />
@@ -48,8 +46,7 @@
             android:exported="false" />
         <activity
             android:name=".AddBranch"
-            android:exported="false"
-            android:noHistory="true" />
+            android:exported="false" />
         <activity
             android:name=".ViewBranches"
             android:exported="false" />
@@ -72,16 +69,19 @@
             android:exported="true" />
         <activity
             android:name=".WelcomePageEmployee"
-            android:exported="true" />
+            android:exported="true"
+            android:launchMode="singleTop" />
         <activity
             android:name=".WelcomePageClient"
-            android:exported="true" />
+            android:exported="true"
+            android:launchMode="singleTop" />
         <activity
             android:name=".SignUp"
             android:exported="true" />
         <activity
             android:name=".WelcomePageAdmin"
-            android:exported="true" />
+            android:exported="true"
+            android:launchMode="singleTop" />
         <activity
             android:name=".AddService"
             android:exported="true" />
