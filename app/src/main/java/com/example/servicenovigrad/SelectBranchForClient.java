@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -21,8 +22,8 @@ import java.util.List;
 
 public class SelectBranchForClient extends AppCompatActivity {
 
-    ListView branchesListView;
-
+    private ListView branchesListView;
+    private Button goBackBtn;
     private List<Branch> branchList;
     private DatabaseReference databaseReference;
     private String email;
@@ -33,9 +34,17 @@ public class SelectBranchForClient extends AppCompatActivity {
         setContentView(R.layout.activity_select_branch_for_client);
 
         branchesListView = findViewById(R.id.BranchesForClientsListView);
+        goBackBtn = findViewById(R.id.goBack_button);
         email = getIntent().getStringExtra("email");
         branchList = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference("Branches");
+
+        goBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override

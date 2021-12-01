@@ -72,7 +72,6 @@ public class ModifyService extends AppCompatActivity {
                 for (int i = 0; i < documentsListView.getCount(); i++) {
                     if (documentsListView.isItemChecked(i)) {
                         optionsSelected.add(documentsListView.getItemAtPosition(i).toString());
-                        System.out.println(documentsListView.getItemAtPosition(i).toString());
                     }
                 }
 
