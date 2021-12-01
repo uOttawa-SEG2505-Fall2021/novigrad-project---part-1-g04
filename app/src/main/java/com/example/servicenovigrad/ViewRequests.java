@@ -98,7 +98,7 @@ public class ViewRequests extends AppCompatActivity {
                     String hash = request.getHash();
                     databaseReference = FirebaseDatabase.getInstance().getReference("Requests").child(branchName).child(hash);
                     databaseReference.setValue(request);
-                    Toast.makeText(ViewRequests.this, "Accepted the request(s)", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ViewRequests.this, "Accepted the request(s).", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -124,7 +124,7 @@ public class ViewRequests extends AppCompatActivity {
                     String hash = request.getHash();
                     databaseReference = FirebaseDatabase.getInstance().getReference("Requests").child(branchName).child(hash);
                     databaseReference.removeValue();
-                    Toast.makeText(ViewRequests.this, "Refused the request(s)", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ViewRequests.this, "Refused the request(s).", Toast.LENGTH_SHORT).show();
                 }
             }
         });

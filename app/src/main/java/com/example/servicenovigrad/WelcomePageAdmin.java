@@ -35,7 +35,7 @@ public class WelcomePageAdmin extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 onSignOut(v);
-                Toast.makeText(WelcomePageAdmin.this, "Signed out successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(WelcomePageAdmin.this, "Signed out successfully.", Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -107,12 +107,12 @@ public class MainActivity extends AppCompatActivity {
                                     intent.putExtra("USERNAME", username);
                                     intent.putExtra("email", email);
                                     startActivityForResult(intent, 0);
-                                    Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.this, "Login successful.", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(MainActivity.this, "User doesn't exist", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.this, "User doesn't exist.", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
-                                Toast.makeText(MainActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "Login failed.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

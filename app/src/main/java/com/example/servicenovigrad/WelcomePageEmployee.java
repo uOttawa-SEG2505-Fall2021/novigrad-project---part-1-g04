@@ -41,7 +41,7 @@ public class WelcomePageEmployee extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivityForResult(intent, 0);
-                Toast.makeText(WelcomePageEmployee.this, "Signed out successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(WelcomePageEmployee.this, "Signed out successfully.", Toast.LENGTH_SHORT).show();
             }
         });
 

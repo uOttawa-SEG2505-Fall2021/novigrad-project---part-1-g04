@@ -104,8 +104,6 @@ public class AddBranch extends AppCompatActivity {
                                     intent.putExtra("branchName", branchName);
                                     intent.putExtra("phoneNumber", phoneNumber);
                                     intent.putExtra("address", address);
-                                    Toast.makeText(AddBranch.this, "Works.", Toast.LENGTH_SHORT).show();
-
                                     startActivity(intent);
                                 }
                             }

@@ -94,7 +94,7 @@ public class UserList extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
-                                            Toast.makeText(UserList.this, "Deleted user successfully", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(UserList.this, "Deleted user successfully.", Toast.LENGTH_SHORT).show();
 
 //                                        userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 //                                        DatabaseReference drUser = databaseReference.child(userID);
@@ -102,18 +102,18 @@ public class UserList extends AppCompatActivity {
 
 
                                         } else {
-                                            Toast.makeText(UserList.this, "Failed to delete user", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(UserList.this, "Failed to delete user.", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
 
                             } else {
-                                Toast.makeText(UserList.this, "Failed to delete user", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(UserList.this, "Failed to delete user.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
                 } else {
-                    Toast.makeText(UserList.this, "Cannot delete admin account", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserList.this, "Cannot delete admin account.", Toast.LENGTH_SHORT).show();
                 }
                 return true;
             }

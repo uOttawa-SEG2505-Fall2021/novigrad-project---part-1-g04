@@ -79,9 +79,9 @@ public class AddService extends AppCompatActivity {
                 }
 
                 if (!proofOfResidence && !proofOfStatus && !photoID) {
-                    Toast.makeText(AddService.this, "Please select at least one document", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddService.this, "Please select at least one document.", Toast.LENGTH_SHORT).show();
                 } else if (serviceName.getText().toString().trim().equals("")) {
-                    Toast.makeText(AddService.this, "Please enter a service name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddService.this, "Please enter a service name.", Toast.LENGTH_SHORT).show();
                 } else {
                     Service service = new Service(serviceRef, proofOfResidence, proofOfStatus, photoID);
 

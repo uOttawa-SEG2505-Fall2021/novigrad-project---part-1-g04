@@ -82,7 +82,7 @@ public class ServicePage extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(ServicePage.this, "Deleted service successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ServicePage.this, "Deleted service successfully.", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(ServicePage.this, "Failed to delete service.", Toast.LENGTH_SHORT).show();
                         }

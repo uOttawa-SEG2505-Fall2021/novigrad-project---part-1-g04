@@ -105,13 +105,13 @@ public class BranchAvailability extends AppCompatActivity {
 
                 //Check if elements required are goods
                 if (!mon && !tue && !wed && !thu && !fri && !sat && !sun) {
-                    Toast.makeText(BranchAvailability.this, "Please select at least one day of the week", Toast.LENGTH_SHORT).show();
-                } else if (openingBtnText.equalsIgnoreCase("select opening time")) {
-                    Toast.makeText(BranchAvailability.this, "Please select the opening time", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BranchAvailability.this, "Please select at least one day of the week.", Toast.LENGTH_SHORT).show();
+                } else if (openingBtnText.equalsIgnoreCase("select opening time.")) {
+                    Toast.makeText(BranchAvailability.this, "Please select the opening time.", Toast.LENGTH_SHORT).show();
                 } else if (closingBtnText.equalsIgnoreCase("select closing time")) {
-                    Toast.makeText(BranchAvailability.this, "Please select the closing time", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BranchAvailability.this, "Please select the closing time.", Toast.LENGTH_SHORT).show();
                 } else if (endHour <= startHour && endMinute <= startMinute) {
-                    Toast.makeText(BranchAvailability.this, "The opening needs to be before the closing time", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BranchAvailability.this, "The opening needs to be before the closing time.", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(BranchAvailability.this, SelectServiceForBranch.class);
 
