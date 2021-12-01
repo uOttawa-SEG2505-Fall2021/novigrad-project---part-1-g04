@@ -6,31 +6,9 @@ public class Branch {
 
     private String branchName, address, phoneNumber;
     private int startHour, startMinute, endHour, endMinute;
-//    private boolean monday, tuesday, wednesday, thursday, friday, saturday, sunday;
     private ArrayList<String> services, openDays;
 
     public Branch() {}
-
-//    public Branch(String branchName, String address, String phoneNumber,
-//                  int startHour, int startMinute, int endHour, int endMinute,
-//                  boolean monday, boolean tuesday, boolean wednesday, boolean thursday, boolean friday, boolean saturday, boolean sunday,
-//                  ArrayList<String> services) {
-//        this.branchName = branchName;
-//        this.address = address;
-//        this.phoneNumber = phoneNumber;
-//        this.startHour = startHour;
-//        this.startMinute = startMinute;
-//        this.endHour = endHour;
-//        this.endMinute = endMinute;
-//        this.monday = monday;
-//        this.tuesday = tuesday;
-//        this.wednesday = wednesday;
-//        this.thursday = thursday;
-//        this.friday = friday;
-//        this.saturday = saturday;
-//        this.sunday = sunday;
-//        this.services = services;
-//    }
 
     public Branch(String branchName, String address, String phoneNumber, int startHour, int startMinute, int endHour, int endMinute,
                   ArrayList<String> services, ArrayList<String> openDays) {
