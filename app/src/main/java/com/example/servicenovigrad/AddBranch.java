@@ -33,7 +33,6 @@ public class AddBranch extends AppCompatActivity {
     private final String spacesAndHyphenRegex = "^(1-)?\\d{3}-\\d{3}-\\d{4}$";
     private DatabaseReference databaseReference;
     private List<String> branchList;
-    boolean succ;
 
 
     @Override
@@ -78,7 +77,6 @@ public class AddBranch extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             branchList.clear();
-                            succ = false;
                             if(snapshot.hasChild(branchName)) {
                                 branchNameText.setError("This branch name has already been used.");
                             } else {
@@ -93,20 +91,8 @@ public class AddBranch extends AppCompatActivity {
                                     String confirmPhoneNumber = String.valueOf(branchDatasnap.child("phoneNumber").getValue());
                                     if (confirmPhoneNumber.equals(phoneNumber)) {
                                         phoneNumberText.setError("Phone number is already associated with a branch.");
-                                        succ = true;
                                     }
 
-                                }
-
-                                if(!succ) {
-                                    Intent intent = new Intent(AddBranch.this, BranchAvailability.class);
-                                    //Save of the information for time and date
-                                    intent.putExtra("branchName", branchName);
-                                    intent.putExtra("phoneNumber", phoneNumber);
-                                    intent.putExtra("address", address);
-                                    Toast.makeText(AddBranch.this, "Works.", Toast.LENGTH_SHORT).show();
-
-                                    startActivity(intent);
                                 }
                             }
                         }
@@ -116,11 +102,6 @@ public class AddBranch extends AppCompatActivity {
 
                         }
                     });
-
-
-
-
-
                 }
             }
         });
