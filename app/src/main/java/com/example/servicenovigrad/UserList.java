@@ -94,17 +94,7 @@ public class UserList extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
-<<<<<<< HEAD
                                             Toast.makeText(UserList.this, "Deleted user successfully.", Toast.LENGTH_SHORT).show();
-
-//                                        userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//                                        DatabaseReference drUser = databaseReference.child(userID);
-//                                        drUser.removeValue();
-
-
-=======
-                                            Toast.makeText(UserList.this, "Deleted user successfully", Toast.LENGTH_SHORT).show();
->>>>>>> bf405e2c3a9eabffd5424305a5315a3a4d8488bc
                                         } else {
                                             Toast.makeText(UserList.this, "Failed to delete user.", Toast.LENGTH_SHORT).show();
                                         }

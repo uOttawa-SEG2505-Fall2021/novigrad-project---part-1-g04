@@ -1,13 +1,17 @@
 package com.example.servicenovigrad;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -16,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -56,10 +61,13 @@ public class AddBranch extends AppCompatActivity {
                 //TODO check format of address
                 if (branchNameText.getText().toString().trim().equals("")) {
                     branchNameText.setError("Please enter a branch name.");
+                    branchNameText.requestFocus();
                 } else if (!validatePhoneNumber(phoneNumberText.getText().toString().trim())) {
                     phoneNumberText.setError("Please enter a valid phone number.");
+                    phoneNumberText.requestFocus();
                 } else if (!validateAddress(addressText.getText().toString().trim())) {
                     addressText.setError("Please enter a valid address.");
+                    addressText.requestFocus();
                 } else {
 
                     //Get string for all fields
@@ -74,6 +82,7 @@ public class AddBranch extends AppCompatActivity {
                             branchList.clear();
                             if(snapshot.hasChild(branchName)) {
                                 branchNameText.setError("This branch name has already been used.");
+                                branchNameText.requestFocus();
                             } else {
                                 //iterating through all the nodes
                                 for (DataSnapshot branchDatasnap : snapshot.getChildren()) {
@@ -86,21 +95,10 @@ public class AddBranch extends AppCompatActivity {
                                     String confirmPhoneNumber = String.valueOf(branchDatasnap.child("phoneNumber").getValue());
                                     if (confirmPhoneNumber.equals(phoneNumber)) {
                                         phoneNumberText.setError("Phone number is already associated with a branch.");
+                                        phoneNumberText.requestFocus();
                                     }
 
                                 }
-<<<<<<< HEAD
-
-                                if(!succ) {
-                                    Intent intent = new Intent(AddBranch.this, BranchAvailability.class);
-                                    //Save of the information for time and date
-                                    intent.putExtra("branchName", branchName);
-                                    intent.putExtra("phoneNumber", phoneNumber);
-                                    intent.putExtra("address", address);
-                                    startActivity(intent);
-                                }
-=======
->>>>>>> bf405e2c3a9eabffd5424305a5315a3a4d8488bc
                             }
                         }
 
