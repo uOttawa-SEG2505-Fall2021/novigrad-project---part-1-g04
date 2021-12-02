@@ -25,8 +25,8 @@ public class addBranchBtnOnSelectServiceForBranchPageTest {
 
     @Test
     public void launchOfServiceActivityOnButtonClick() {
-        assertNotNull(mActivity.findViewById(R.id.continue_button));
-        onView(withId(R.id.continue_button)).perform(click());
+        assertNotNull(mActivity.findViewById(R.id.cancelRequest_button));
+        onView(withId(R.id.cancelRequest_button)).perform(click());
     }
 
     @After

@@ -41,7 +41,7 @@ public class ModifyService extends AppCompatActivity {
 
         documentsListView = findViewById(R.id.documentsListView);
         modifyButton = findViewById(R.id.modify_button);
-        cancelButton = findViewById(R.id.cancel_button);
+        cancelButton = findViewById(R.id.CancelRequest_button);
         modifyServiceName = findViewById(R.id.serviceNameText);
 
 

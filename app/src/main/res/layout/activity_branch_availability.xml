@@ -76,7 +76,7 @@
         tools:ignore="MissingConstraints">>
 
         <Button
-            android:id="@+id/continue_button"
+            android:id="@+id/cancelRequest_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
