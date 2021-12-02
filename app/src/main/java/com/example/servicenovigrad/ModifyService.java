@@ -91,7 +91,8 @@ public class ModifyService extends AppCompatActivity {
                 if (!proofOfResidence && !proofOfStatus && !photoID) {
                     Toast.makeText(ModifyService.this, "Please select at least one document.", Toast.LENGTH_SHORT).show();
                 } else if (modifyServiceName.getText().toString().trim().equals("")) {
-                    Toast.makeText(ModifyService.this, "Please the service name you would like to modify.", Toast.LENGTH_SHORT).show();
+                    modifyServiceName.setError("This branch name has already been used.");
+                    modifyServiceName.requestFocus();
                 } else {
                     Service service = new Service(serviceRef, proofOfResidence, proofOfStatus, photoID);
                     firebaseDatabase = FirebaseDatabase.getInstance();

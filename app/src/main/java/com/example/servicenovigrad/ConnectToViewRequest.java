@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -58,6 +59,7 @@ public class ConnectToViewRequest extends AppCompatActivity {
                                     branchName = branch.getBranchName();
                                     found = true;
 
+                                    Toast.makeText(ConnectToViewRequest.this, "Connected to branch successfully.", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(), ViewRequests.class);
                                     intent.putExtra("branchName", branchName);
                                     startActivity(intent);

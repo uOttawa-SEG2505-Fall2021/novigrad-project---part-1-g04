@@ -33,6 +33,7 @@ public class AddBranch extends AppCompatActivity {
     private final String spacesAndHyphenRegex = "^(1-)?\\d{3}-\\d{3}-\\d{4}$";
     private DatabaseReference databaseReference;
     private List<String> branchList;
+    private boolean match, confirm;
 
 
     @Override
@@ -80,6 +81,8 @@ public class AddBranch extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             branchList.clear();
+                            confirm = true;
+                            match = false;
                             if(snapshot.hasChild(branchName)) {
                                 branchNameText.setError("This branch name has already been used.");
                                 branchNameText.requestFocus();
@@ -96,18 +99,31 @@ public class AddBranch extends AppCompatActivity {
                                     if (confirmPhoneNumber.equals(phoneNumber)) {
                                         phoneNumberText.setError("Phone number is already associated with a branch.");
                                         phoneNumberText.requestFocus();
+                                        match = true;
+                                        break;
                                     }
 
                                 }
+
+                                if(!match && confirm) {
+                                    Intent intent = new Intent(AddBranch.this, BranchAvailability.class);
+                                    //Save of the information for time and date
+                                    intent.putExtra("branchName", branchName);
+                                    intent.putExtra("phoneNumber", phoneNumber);
+                                    intent.putExtra("address", address);
+                                    //Toast.makeText(AddBranch.this, "Works.", Toast.LENGTH_SHORT).show();
+                                    startActivity(intent);
+                                }
+
                             }
                         }
-
                         @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
+                        public void onCancelled(@NonNull DatabaseError error) {}
                     });
                 }
+
+
+
             }
         });
 

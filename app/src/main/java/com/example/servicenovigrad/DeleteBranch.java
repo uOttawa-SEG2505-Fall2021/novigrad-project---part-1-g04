@@ -55,16 +55,13 @@ public class DeleteBranch extends AppCompatActivity {
                                     if(confirmPhoneNumber.equals(phoneNumber)) {
                                         Toast.makeText(DeleteBranch.this, "Deleted service successfully.", Toast.LENGTH_SHORT).show();
                                         databaseReference.child(branchName).removeValue();
-
-                                        // Return to welcomePageEmployee
-                                        Intent intent = new Intent(DeleteBranch.this, WelcomePageEmployee.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        startActivity(intent);
                                     } else {
-                                        Toast.makeText(DeleteBranch.this, "Phone number doesn't exist.", Toast.LENGTH_SHORT).show();
+                                        phoneNumberText.setError("This phone number is not associated with this branch.");
+                                        phoneNumberText.requestFocus();
                                     }
                                 } else {
-                                    Toast.makeText(DeleteBranch.this, "Branch doesn't exist.", Toast.LENGTH_SHORT).show();
+                                    branchNameText.setError("Branch doesn't exist.");
+                                    branchNameText.requestFocus();
                                 }
                             } else {
                                 Toast.makeText(DeleteBranch.this, "Failed to delete branch.", Toast.LENGTH_SHORT).show();

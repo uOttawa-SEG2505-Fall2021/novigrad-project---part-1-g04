@@ -33,7 +33,7 @@
             android:exported="true" />
         <activity
             android:name=".BranchAvailability"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".ViewRequests"
             android:exported="false" />

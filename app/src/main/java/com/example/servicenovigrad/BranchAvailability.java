@@ -110,7 +110,7 @@ public class BranchAvailability extends AppCompatActivity {
                     Toast.makeText(BranchAvailability.this, "Please select the opening time.", Toast.LENGTH_SHORT).show();
                 } else if (closingBtnText.equalsIgnoreCase("select closing time")) {
                     Toast.makeText(BranchAvailability.this, "Please select the closing time.", Toast.LENGTH_SHORT).show();
-                } else if (endHour <= startHour && endMinute <= startMinute) {
+                } else if (endHour < startHour || endHour == startHour && endMinute <= startMinute) {
                     Toast.makeText(BranchAvailability.this, "The opening needs to be before the closing time.", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(BranchAvailability.this, SelectServiceForBranch.class);

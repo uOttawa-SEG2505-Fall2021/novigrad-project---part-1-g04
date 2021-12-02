@@ -86,24 +86,25 @@ public class ViewRequests extends AppCompatActivity {
                     }
                 }
 
-                //Add selected elements to array list
-                for(int i=0; i<optionsSelected.size(); i++) {
-                    String option = optionsSelected.get(i);
-                    String email = StringUtils.substringBetween(option, "Request by ", " for service");
-                    String serviceName = StringUtils.substringAfter(option, "for service ");
+                if (optionsSelected.isEmpty()) {
+                    Toast.makeText(ViewRequests.this, "Nothing has been selected.", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
 
-                    //Get hash from request and update status of request
-                    Request request = new Request(email, branchName, serviceName, true);
-                    String hash = request.getHash();
-                    databaseReference = FirebaseDatabase.getInstance().getReference("Requests").child(branchName).child(hash);
-                    databaseReference.setValue(request);
+                    //Add selected elements to array list
+                    for (int i = 0; i < optionsSelected.size(); i++) {
+                        String option = optionsSelected.get(i);
+                        String email = StringUtils.substringBetween(option, "Request by ", " for service");
+                        String serviceName = StringUtils.substringAfter(option, "for service ");
+
+                        //Get hash from request and update status of request
+                        Request request = new Request(email, branchName, serviceName, true);
+                        String hash = request.getHash();
+                        databaseReference = FirebaseDatabase.getInstance().getReference("Requests").child(branchName).child(hash);
+                        databaseReference.setValue(request);
+                    }
                     Toast.makeText(ViewRequests.this, "Accepted the request(s).", Toast.LENGTH_SHORT).show();
                 }
-
-                // Return to welcomePageEmployee
-                Intent intent = new Intent(ViewRequests.this, WelcomePageEmployee.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
             }
         });
 
@@ -118,30 +119,36 @@ public class ViewRequests extends AppCompatActivity {
                         optionsSelected.add(requestListView.getItemAtPosition(i).toString());
                     }
                 }
-                //Get email and service name from list view
-                for(int i=0; i<optionsSelected.size(); i++) {
-                    String option = optionsSelected.get(i);
-                    String email = StringUtils.substringBetween(option, "Request by ", " for service");
-                    String serviceName = StringUtils.substringAfter(option, "for service ");
-                    //Get hash from request and delete it
-                    Request request = new Request(email, branchName, serviceName, true);
-                    String hash = request.getHash();
-                    databaseReference = FirebaseDatabase.getInstance().getReference("Requests").child(branchName).child(hash);
-                    databaseReference.removeValue();
+
+                if (optionsSelected.isEmpty()) {
+                    Toast.makeText(ViewRequests.this, "Nothing has been selected.", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+
+                    //Get email and service name from list view
+                    for (int i = 0; i < optionsSelected.size(); i++) {
+                        String option = optionsSelected.get(i);
+                        String email = StringUtils.substringBetween(option, "Request by ", " for service");
+                        String serviceName = StringUtils.substringAfter(option, "for service ");
+                        //Get hash from request and delete it
+                        Request request = new Request(email, branchName, serviceName, true);
+                        String hash = request.getHash();
+                        databaseReference = FirebaseDatabase.getInstance().getReference("Requests").child(branchName).child(hash);
+                        databaseReference.removeValue();
+
+                    }
                     Toast.makeText(ViewRequests.this, "Refused the request(s).", Toast.LENGTH_SHORT).show();
                 }
-
-                // Return to welcomePageEmployee
-                Intent intent = new Intent(ViewRequests.this, WelcomePageEmployee.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
             }
         });
 
         goBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                // Return to welcomePageEmployee
+                Intent intent = new Intent(ViewRequests.this, WelcomePageEmployee.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
 

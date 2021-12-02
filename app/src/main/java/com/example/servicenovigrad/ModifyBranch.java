@@ -116,7 +116,10 @@ public class ModifyBranch extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                // Return to welcomePageEmployee
+                Intent intent = new Intent(ModifyBranch.this, WelcomePageEmployee.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
 
