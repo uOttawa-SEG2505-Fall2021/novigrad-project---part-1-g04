@@ -45,7 +45,7 @@ public class ModifyBranch extends AppCompatActivity {
 
         serviceListView = findViewById(R.id.serviceListView);
         confirmButton = findViewById(R.id.confirm_button);
-        cancelButton = findViewById(R.id.cancel_button);
+        cancelButton = findViewById(R.id.CancelRequest_button);
         displayBranchName = findViewById(R.id.displayBranchName);
 
         branchName = getIntent().getStringExtra("branchName");

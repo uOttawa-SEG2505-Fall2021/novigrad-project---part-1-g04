@@ -8,10 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,7 +17,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -41,8 +37,8 @@ public class AddBranch extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_branch);
 
-        continueBtn = findViewById(R.id.continue_button);
-        cancelBtn = findViewById(R.id.cancel_button);
+        continueBtn = findViewById(R.id.cancelRequest_button);
+        cancelBtn = findViewById(R.id.CancelRequest_button);
         branchNameText = findViewById(R.id.branchName_text);
         phoneNumberText = findViewById(R.id.phoneNumber_text);
         addressText = findViewById(R.id.address_text);

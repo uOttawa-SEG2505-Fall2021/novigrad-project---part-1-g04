@@ -40,7 +40,7 @@ public class AddService extends AppCompatActivity {
 
         documentsListView = findViewById(R.id.serviceListView);
         confirmButton = findViewById(R.id.confirm_button);
-        cancelButton = findViewById(R.id.cancel_button);
+        cancelButton = findViewById(R.id.CancelRequest_button);
         serviceName = findViewById(R.id.serviceNameText);
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, documents);

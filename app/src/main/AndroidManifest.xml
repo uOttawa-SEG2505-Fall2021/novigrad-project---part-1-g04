@@ -13,6 +13,9 @@
         android:theme="@style/Theme.ServiceNovigrad"
         tools:ignore="AllowBackup">
         <activity
+            android:name=".ClientInformation"
+            android:exported="true" />
+        <activity
             android:name=".ConnectToViewRequest"
             android:exported="true" />
         <activity

@@ -3,7 +3,7 @@ package com.example.servicenovigrad;
 public class Request {
     String email, branchName, serviceName, hash;
     //Status il false if request is still pending, true if request has been accepted. If request is denied, it's removed from Firebase
-    boolean status;
+    boolean status, allDocuments;
 
     public Request() {}
 
@@ -13,6 +13,15 @@ public class Request {
         this.serviceName = serviceName;
         this.status = status;
         this.hash = stringHash(email,branchName,serviceName);
+    }
+
+    public Request(String email, String branchName, String serviceName, String hash, boolean status, boolean allDocuments) {
+        this.email = email;
+        this.branchName = branchName;
+        this.serviceName = serviceName;
+        this.hash = hash;
+        this.status = status;
+        this.allDocuments = allDocuments;
     }
 
     public String getEmail() {
@@ -55,6 +64,14 @@ public class Request {
         this.status = status;
     }
 
+    public boolean getAllDocuments() {
+        return allDocuments;
+    }
+
+    public void setAllDocuments(boolean allDocuments) {
+        this.allDocuments = allDocuments;
+    }
+
     public String stringHash(String email, String branchName, String serviceName) {
         long h = 0;
         String id = email + branchName + serviceName;
@@ -63,8 +80,6 @@ public class Request {
             h = h * 5011 + id.charAt(i);
         }
         String hash = Long.toString(h);
-
         return hash;
     }
-
 }

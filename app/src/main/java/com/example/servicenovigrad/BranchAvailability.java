@@ -37,7 +37,7 @@ public class BranchAvailability extends AppCompatActivity {
         closeTimeBtn = findViewById(R.id.closeTime_button);
         daysListView = findViewById(R.id.daysOfTheWeekListView);
         goBackBtn = findViewById(R.id.goBackButton);
-        continueBtn = findViewById(R.id.continue_button);
+        continueBtn = findViewById(R.id.cancelRequest_button);
 
 
         //Get info from previous activity

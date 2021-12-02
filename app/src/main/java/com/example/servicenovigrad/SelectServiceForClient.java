@@ -1,5 +1,6 @@
 package com.example.servicenovigrad;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -79,38 +80,49 @@ public class SelectServiceForClient extends AppCompatActivity {
             }
         });
 
-        servicesListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//        servicesListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//                //Get service name for listView
+//                String serviceName = (String) parent.getItemAtPosition(position);
+//                //Create new request
+//                Request request = new Request(email, branchName, serviceName, false);
+//
+//                databaseReference = FirebaseDatabase.getInstance().getReference("Requests");
+//                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        //Check if request has already been submitted by a client
+//                        if(snapshot.child(branchName).hasChild(stringHash(email, branchName, serviceName))) {
+//
+//                            Toast.makeText(SelectServiceForClient.this, "You already submitted a request for this service.", Toast.LENGTH_SHORT).show();
+//                        } else {
+//                            //Add request to database
+//                            databaseReference.child(Objects.requireNonNull(branchName)).child(stringHash(email, branchName, serviceName)).
+//                                    setValue(request);
+//                            Toast.makeText(SelectServiceForClient.this, "Submitted request successfully.", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
+//                return true;
+//            }
+//        });
+
+        servicesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                //Get service name for listView
-                String serviceName = (String) parent.getItemAtPosition(position);
-                //Create new request
-                Request request = new Request(email, branchName, serviceName, false);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String serviceName = (String) servicesListView.getItemAtPosition(position);
 
-                databaseReference = FirebaseDatabase.getInstance().getReference("Requests");
-                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        //Check if request has already been submitted by a client
-                        if(snapshot.child(branchName).hasChild(stringHash(email, branchName, serviceName))) {
-
-                            Toast.makeText(SelectServiceForClient.this, "You already submitted a request for this service.", Toast.LENGTH_SHORT).show();
-                        } else {
-                            //Add request to database
-                            databaseReference.child(Objects.requireNonNull(branchName)).child(stringHash(email, branchName, serviceName)).
-                                    setValue(request);
-                            Toast.makeText(SelectServiceForClient.this, "Submitted request successfully.", Toast.LENGTH_SHORT).show();
-
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
-                return true;
+                Intent intent = new Intent(SelectServiceForClient.this, ClientInformation.class);
+                intent.putExtra("email", email);
+                intent.putExtra("branchName", branchName);
+                intent.putExtra("serviceName", serviceName);
+                startActivity(intent);
             }
         });
 
