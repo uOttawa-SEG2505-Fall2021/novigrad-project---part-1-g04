@@ -45,6 +45,7 @@ public class ClientInformation extends AppCompatActivity {
         dateOfBirthText = findViewById(R.id.dateOfBirth_text);
         addressText = findViewById(R.id.clientAddress_text);
 
+        //Get email of client, branchName selected and serviceName selected
         email = getIntent().getStringExtra("email");
         branchName = getIntent().getStringExtra("branchName");
         serviceName = getIntent().getStringExtra("serviceName");
@@ -57,9 +58,11 @@ public class ClientInformation extends AppCompatActivity {
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if(task.isSuccessful()) {
                     DataSnapshot dataSnapshot = task.getResult();
+                    //Check if documents for service are TRUE
                     photoId = Boolean.valueOf((Boolean) dataSnapshot.child("photoID").getValue());
                     proofOfResidence = Boolean.valueOf((Boolean) dataSnapshot.child("proofOfResidence").getValue());
                     proofOfStatus = Boolean.valueOf((Boolean) dataSnapshot.child("proofOfStatus").getValue());
+                    //If document is required (true), add it to array to then add it to listview
                     if(photoId) {
                         documentList.add("Photo ID");
                     }
