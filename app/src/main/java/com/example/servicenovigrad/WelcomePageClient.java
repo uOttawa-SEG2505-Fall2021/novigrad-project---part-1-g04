@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class WelcomePageClient extends AppCompatActivity {
 
     TextView displayUsername;
-    Button signOutButton, selectBranch;
+    Button signOutBtn, selectBranchBtn, selectServiceBtn, selectTimeBtn, selectAddressBtn, rateBranchBtn;
     private String username, email;
 
     @Override
@@ -23,15 +23,19 @@ public class WelcomePageClient extends AppCompatActivity {
         setContentView(R.layout.activity_welcome_page_client);
 
         displayUsername = findViewById(R.id.usernameTextView);
-        signOutButton = findViewById(R.id.signOutButton);
-        selectBranch = findViewById(R.id.selectBranchClient);
+        signOutBtn = findViewById(R.id.signOutButton);
+        selectBranchBtn = findViewById(R.id.selectBranchClient);
+        selectServiceBtn = findViewById(R.id.viewAllServices_button);
+        selectTimeBtn = findViewById(R.id.searchByTime_button);
+        selectAddressBtn = findViewById(R.id.searchByAddress);
+        rateBranchBtn = findViewById(R.id.rateBranch);
 
         //DISPLAY USERNAME
         username = getIntent().getStringExtra("USERNAME");
         email = getIntent().getStringExtra("email");
         displayUsername.setText("Welcome " + username);
 
-        signOutButton.setOnClickListener(new View.OnClickListener() {
+        signOutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
@@ -42,11 +46,20 @@ public class WelcomePageClient extends AppCompatActivity {
             }
         });
 
-        selectBranch.setOnClickListener(new View.OnClickListener() {
+        selectBranchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SelectBranchForClient.class);
+                Intent intent = new Intent(getApplicationContext(), ViewAllBranchesForClient.class);
                 intent.putExtra("email",email);
+                startActivity(intent);
+            }
+        });
+
+        selectServiceBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ViewAllServicesForClient.class);
+                intent.putExtra("email", email);
                 startActivity(intent);
             }
         });

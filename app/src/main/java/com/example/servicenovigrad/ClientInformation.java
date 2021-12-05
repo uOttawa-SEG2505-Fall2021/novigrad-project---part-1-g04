@@ -3,12 +3,14 @@ package com.example.servicenovigrad;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -32,7 +34,7 @@ public class ClientInformation extends AppCompatActivity {
     private EditText dateOfBirthText, addressText;
     private List<String> documentList, optionsSelected;
     private DatabaseReference databaseReference;
-    private boolean photoId, proofOfResidence, proofOfStatus;
+    private boolean photoID, proofOfResidence, proofOfStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +61,11 @@ public class ClientInformation extends AppCompatActivity {
                 if(task.isSuccessful()) {
                     DataSnapshot dataSnapshot = task.getResult();
                     //Check if documents for service are TRUE
-                    photoId = Boolean.valueOf((Boolean) dataSnapshot.child("photoID").getValue());
+                    photoID = Boolean.valueOf((Boolean) dataSnapshot.child("photoID").getValue());
                     proofOfResidence = Boolean.valueOf((Boolean) dataSnapshot.child("proofOfResidence").getValue());
                     proofOfStatus = Boolean.valueOf((Boolean) dataSnapshot.child("proofOfStatus").getValue());
                     //If document is required (true), add it to array to then add it to listview
-                    if(photoId) {
+                    if(photoID) {
                         documentList.add("Photo ID");
                     }
                     if(proofOfResidence) {
@@ -84,7 +86,6 @@ public class ClientInformation extends AppCompatActivity {
 
                 //attaching adapter to the ListView
                     documentsForServiceListView.setAdapter(adapter);
-
                 }
             }
         });
@@ -92,35 +93,88 @@ public class ClientInformation extends AppCompatActivity {
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Request request;
+                String dateOfBirth = dateOfBirthText.getText().toString().trim();
+                String address = addressText.getText().toString().trim();
+                optionsSelected.clear();
+                // reset boolean values
+                proofOfResidence = proofOfStatus = photoID = false;
 
+                //Add selected options to arraylist
+                for (int i = 0; i < documentsForServiceListView.getCount(); i++) {
+                    if (documentsForServiceListView.isItemChecked(i)) {
+                        optionsSelected.add(documentsForServiceListView.getItemAtPosition(i).toString());
+                    }
+                }
+
+                if(dateOfBirth.isEmpty()) {
+                    dateOfBirthText.setError("Please enter your date of birth");
+                    dateOfBirthText.requestFocus();
+                    return;
+                } else if(address.isEmpty()) {
+                    addressText.setError("Please enter your address");
+                    addressText.requestFocus();
+                    return;
+                } else if(!validateAddress(address)) {
+                    addressText.setError("Please enter a valid address");
+                    addressText.requestFocus();
+                    return;
+                } //TODO check date of birth (regex)
+
+                //Check if all options have been selected
+                if(optionsSelected.size() == documentList.size()) {
+                    //Set boolean allDocuments to true if all documents have been selected
+                    request = new Request(email, branchName, serviceName, dateOfBirth, address, false, true);
+                } else {
+                    //Set boolean allDocuments to false if not all documents have been selected
+                    request = new Request(email, branchName, serviceName, dateOfBirth, address, false, false);
+                }
+
+                databaseReference = FirebaseDatabase.getInstance().getReference("Requests");
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.child(branchName).hasChild(request.getHash())) {
+                            Toast.makeText(ClientInformation.this, "You already submitted a request for this service.", Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            //Add request to database
+                            databaseReference.child(Objects.requireNonNull(branchName)).child(request.getHash()).
+                                    setValue(request);
+                            Toast.makeText(ClientInformation.this, "Submitted request successfully.", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(ClientInformation.this, WelcomePageClient.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {}
+                });
             }
         });
 
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                finish();
             }
         });
-
     }
 
     public boolean validateAddress(String address) {
         Pattern pattern = Pattern.compile("^(\\d+) ([A-Za-zÀ-ÿ '-]+), ([A-Za-zÀ-ÿ '-]+), ([A-Za-zÀ-ÿ '-]+)$");
         Matcher matcher = pattern.matcher(address);
-
         if (matcher.find()) {
             String street = Objects.requireNonNull(matcher.group(2)).trim();
             String city = Objects.requireNonNull(matcher.group(3)).trim();
             String province = Objects.requireNonNull(matcher.group(4)).trim();
-
             // Return false if street, city or province is empty
             if (street.isEmpty() || city.isEmpty() || province.isEmpty()) {
                 return false;
             }
         }
-
         return matcher.matches();
     }
+
 
 }
