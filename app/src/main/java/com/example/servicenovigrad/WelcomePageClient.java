@@ -64,5 +64,28 @@ public class WelcomePageClient extends AppCompatActivity {
             }
         });
 
+        selectTimeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        selectAddressBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ViewAllAddressesForClient.class);
+                intent.putExtra("email", email);
+                startActivity(intent);
+            }
+        });
+
+        rateBranchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
 }

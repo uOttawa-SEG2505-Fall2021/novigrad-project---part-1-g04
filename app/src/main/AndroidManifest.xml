@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.servicenovigrad"
-    android:installLocation="preferExternal" >
+    android:installLocation="preferExternal">
 
     <application
         android:allowBackup="true"
@@ -11,7 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ServiceNovigrad"
-        tools:ignore="AllowBackup" >
+        tools:ignore="AllowBackup">
+        <activity
+            android:name=".ViewAllAddressesForClient"
+            android:exported="true" />
         <activity
             android:name=".ViewBranchesFromServiceForClient"
             android:exported="true" />
@@ -99,7 +102,7 @@
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

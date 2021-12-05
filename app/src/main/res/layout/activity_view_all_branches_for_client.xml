@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="65dp"
-        android:text="Select the branch to then select the services"
+        android:text="Select a branch to then select a service"
         android:textAlignment="center"
         android:textSize="16sp"
         android:textStyle="bold" />
