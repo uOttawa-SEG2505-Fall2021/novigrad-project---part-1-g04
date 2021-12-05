@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SelectServiceForClient">
+    tools:context=".ViewServicesFromBranchForClient">
 
     <TextView
         android:id="@+id/textView19"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="65dp"
-        android:text="Long press the service to request access"
+        android:text="Press on the service to request access"
         android:textAlignment="center"
         android:textSize="16sp"
         android:textStyle="bold"
