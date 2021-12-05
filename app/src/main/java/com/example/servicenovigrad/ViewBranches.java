@@ -26,7 +26,6 @@ public class ViewBranches extends AppCompatActivity {
     Button goBackButton;
 
     private List<Branch> branchList;
-    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +35,8 @@ public class ViewBranches extends AppCompatActivity {
         branchListView = findViewById(R.id.branchListView);
         goBackButton = findViewById(R.id.goBackButton);
         branchList = new ArrayList<>();
-        databaseReference = FirebaseDatabase.getInstance().getReference("Branches");
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Branches");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override

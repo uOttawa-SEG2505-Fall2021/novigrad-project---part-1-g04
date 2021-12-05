@@ -157,7 +157,7 @@ public class SignUp extends AppCompatActivity {
                                         } else {
                                             intent = new Intent(getApplicationContext(), WelcomePageEmployee.class);
                                         }
-                                        intent.putExtra("USERNAME", firstName);
+                                        intent.putExtra("USERNAME", username);
                                         intent.putExtra("email", email);
                                         startActivityForResult(intent, 0);
                                     } else {

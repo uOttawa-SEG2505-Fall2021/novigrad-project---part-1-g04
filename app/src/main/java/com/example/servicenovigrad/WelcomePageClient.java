@@ -86,7 +86,7 @@ public class WelcomePageClient extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), RateBranch.class);
-                intent.putExtra("email", email);
+                intent.putExtra("username", username);
                 startActivity(intent);
             }
         });
