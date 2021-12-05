@@ -117,9 +117,6 @@ public class AddBranch extends AppCompatActivity {
                         public void onCancelled(@NonNull DatabaseError error) {}
                     });
                 }
-
-
-
             }
         });
 
