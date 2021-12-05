@@ -50,7 +50,7 @@ public class WelcomePageClient extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ViewAllBranchesForClient.class);
-                intent.putExtra("email",email);
+                intent.putExtra("email", email);
                 startActivity(intent);
             }
         });
@@ -67,7 +67,9 @@ public class WelcomePageClient extends AppCompatActivity {
         selectTimeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getApplicationContext(), SearchBranchByTime.class);
+                intent.putExtra("email", email);
+                startActivity(intent);
             }
         });
 
@@ -83,7 +85,9 @@ public class WelcomePageClient extends AppCompatActivity {
         rateBranchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getApplicationContext(), RateBranch.class);
+                intent.putExtra("username", username);
+                startActivity(intent);
             }
         });
 

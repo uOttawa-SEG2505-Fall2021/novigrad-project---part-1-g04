@@ -53,6 +53,7 @@ public class ViewRequests extends AppCompatActivity {
                 //Add request info to list view
                 for(DataSnapshot userDatasnap : snapshot.getChildren()) {
                     Request request = userDatasnap.getValue(Request.class);
+                    assert request != null;
                     if (!request.getStatus()) {
                         requestList.add("Request by " + request.getEmail() + " for service " + request.getServiceName()
                                 + ". All documents: " + request.allDocuments);

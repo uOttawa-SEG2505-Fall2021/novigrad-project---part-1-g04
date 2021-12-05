@@ -7,8 +7,7 @@ public class Service {
 
     public Service() {}
 
-    public Service(String serviceName, boolean proofOfResidence,
-                   boolean proofOfStatus, boolean photoID) {
+    public Service(String serviceName, boolean proofOfResidence, boolean proofOfStatus, boolean photoID) {
         this.serviceName = serviceName;
         this.proofOfResidence = proofOfResidence;
         this.proofOfStatus = proofOfStatus;

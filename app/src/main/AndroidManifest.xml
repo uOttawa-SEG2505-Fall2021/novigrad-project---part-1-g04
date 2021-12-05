@@ -13,6 +13,15 @@
         android:theme="@style/Theme.ServiceNovigrad"
         tools:ignore="AllowBackup">
         <activity
+            android:name=".ViewBranchesFromTimeForClient"
+            android:exported="false" />
+        <activity
+            android:name=".RateBranch"
+            android:exported="false" />
+        <activity
+            android:name=".SearchBranchByTime"
+            android:exported="false" />
+        <activity
             android:name=".ViewAllAddressesForClient"
             android:exported="true" />
         <activity

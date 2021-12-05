@@ -58,7 +58,7 @@ public class ViewServicesFromBranchForClient extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if(task.isSuccessful()) {
-                    if(Objects.requireNonNull(task.getResult().exists())) {
+                    if(Objects.requireNonNull(task.getResult()).exists()) {
                         DataSnapshot dataSnapshot = task.getResult();
                         //Get string of selected string
                         branchServices = String.valueOf(dataSnapshot.child("services").getValue());

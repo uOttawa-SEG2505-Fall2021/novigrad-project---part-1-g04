@@ -40,7 +40,7 @@ public class WelcomePageEmployee extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivityForResult(intent, 0);
+                startActivity(intent);
                 Toast.makeText(WelcomePageEmployee.this, "Signed out successfully.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -81,7 +81,7 @@ public class WelcomePageEmployee extends AppCompatActivity {
 
     public void onAddBranch(View view) {
         Intent intent = new Intent(getApplicationContext(), AddBranch.class);
-        startActivityForResult(intent, 0);
+        startActivity(intent);
     }
 
     public void onDeleteBranch(View view) {

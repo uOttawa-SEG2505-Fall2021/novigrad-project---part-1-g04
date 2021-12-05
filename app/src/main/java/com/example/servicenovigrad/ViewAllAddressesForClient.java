@@ -55,6 +55,7 @@ public class ViewAllAddressesForClient extends AppCompatActivity {
 
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Branch branch = dataSnapshot.getValue(Branch.class);
+                    assert branch != null;
                     addressList.add(branch.getAddress());
                     branchList.add(branch.getBranchName());
                 }
@@ -77,10 +78,9 @@ public class ViewAllAddressesForClient extends AppCompatActivity {
                 String branchName = branchList.get(position).trim();
                 Intent intent = new Intent(ViewAllAddressesForClient.this, ViewServicesFromBranchForClient.class);
                 intent.putExtra("branchName", branchName);
-                intent.putExtra("email",email);
+                intent.putExtra("email", email);
                 startActivity(intent);
             }
         });
-
     }
 }

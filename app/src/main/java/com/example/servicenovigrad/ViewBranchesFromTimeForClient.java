@@ -20,20 +20,27 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewBranches extends AppCompatActivity {
+public class ViewBranchesFromTimeForClient extends AppCompatActivity {
 
     ListView branchListView;
-    Button goBackButton;
+    Button goBackBtn;
 
+    private String email;
+    private int selectedHourBranch, selectedMinuteBranch;
+    private String selectedDayBranch;
     private List<Branch> branchList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_branches);
+        setContentView(R.layout.activity_view_branches_with_time_for_client);
 
         branchListView = findViewById(R.id.branchListView);
-        goBackButton = findViewById(R.id.goBackButton);
+        goBackBtn = findViewById(R.id.goBackButton);
+
+        selectedHourBranch = getIntent().getIntExtra("selectedHourBranch", selectedHourBranch);
+        selectedMinuteBranch = getIntent().getIntExtra("selectedMinuteBranch", selectedMinuteBranch);
+        selectedDayBranch = getIntent().getStringExtra("selectedDayBranch");
         branchList = new ArrayList<>();
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Branches");
@@ -48,12 +55,27 @@ public class ViewBranches extends AppCompatActivity {
                 for (DataSnapshot branchDatasnap : snapshot.getChildren()) {
                     //getting branch
                     Branch branch = branchDatasnap.getValue(Branch.class);
-                    //adding branch to the List
-                    branchList.add(branch);
+                    assert branch != null;
+                    //getting openDays
+                    ArrayList<String> openDays = branch.getOpenDays();
+                    //getting open hours
+                    int startHour = branch.getStartHour();
+                    int startMinute = branch.getStartMinute();
+                    int endHour = branch.getEndHour();
+                    int endMinute = branch.getEndMinute();
+
+                    if (openDays.contains(selectedDayBranch)) {
+                        if (selectedHourBranch >= startHour && selectedHourBranch <= endHour) {
+                            if (selectedMinuteBranch >= startMinute && selectedMinuteBranch <= endMinute) {
+                                //adding branch to the List
+                                branchList.add(branch);
+                            }
+                        }
+                    }
                 }
 
                 //creating adapter
-                ListAdapter adapter = new BranchListAdapter(ViewBranches.this, branchList);
+                ListAdapter adapter = new BranchListAdapter(ViewBranchesFromTimeForClient.this, branchList);
                 //attaching adapter to the ListView
                 branchListView.setAdapter(adapter);
             }
@@ -69,14 +91,16 @@ public class ViewBranches extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Branch branch = (Branch) branchListView.getItemAtPosition(position);
                 String branchName = branch.getBranchName().trim();
-                Intent intent = new Intent(ViewBranches.this, ConnectToBranch.class);
+                Intent intent = new Intent(ViewBranchesFromTimeForClient.this,
+                        ViewServicesFromBranchForClient.class);
                 intent.putExtra("branchName", branchName);
+                intent.putExtra("email", email);
                 startActivity(intent);
             }
         });
 
         //GO BACK TO ADMIN WELCOME PAGE AFTER CLICKING "GO BACK"
-        goBackButton.setOnClickListener(new View.OnClickListener() {
+        goBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

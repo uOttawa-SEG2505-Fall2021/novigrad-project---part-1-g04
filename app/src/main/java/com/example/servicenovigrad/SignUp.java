@@ -30,8 +30,7 @@ import java.util.Objects;
 public class SignUp extends AppCompatActivity {
 
     Spinner spinner;
-    EditText emailField, usernameField, passwordField,
-            confirmPasswordField, firstNameField, lastNameField;
+    EditText emailField, usernameField, passwordField, confirmPasswordField, firstNameField, lastNameField;
     Button signUpButton;
 
     private DatabaseReference databaseUsers;
@@ -158,7 +157,7 @@ public class SignUp extends AppCompatActivity {
                                         } else {
                                             intent = new Intent(getApplicationContext(), WelcomePageEmployee.class);
                                         }
-                                        intent.putExtra("USERNAME", firstName);
+                                        intent.putExtra("USERNAME", username);
                                         intent.putExtra("email", email);
                                         startActivityForResult(intent, 0);
                                     } else {
