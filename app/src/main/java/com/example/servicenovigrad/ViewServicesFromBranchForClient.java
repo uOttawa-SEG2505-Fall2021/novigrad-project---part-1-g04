@@ -27,7 +27,7 @@ public class ViewServicesFromBranchForClient extends AppCompatActivity {
     private ListView servicesListView;
     private Button goBackBtn;
     private TextView displayBranchName;
-    private String branchName, test, email;
+    private String branchName, branchServices, email;
     private List<String> serviceList;
     private DatabaseReference databaseReference;
 
@@ -61,13 +61,13 @@ public class ViewServicesFromBranchForClient extends AppCompatActivity {
                     if(Objects.requireNonNull(task.getResult().exists())) {
                         DataSnapshot dataSnapshot = task.getResult();
                         //Get string of selected string
-                        test = String.valueOf(dataSnapshot.child("services").getValue());
+                        branchServices = String.valueOf(dataSnapshot.child("services").getValue());
                         //Remove first character "["
-                        test = test.substring(1);
+                        branchServices = branchServices.substring(1);
                         //Remove last character "]"
-                        test = test.substring(0, test.length() - 1);
+                        branchServices = branchServices.substring(0, branchServices.length() - 1);
                         //Convert string to arrayList
-                        String[] serviceArray = test.split(", ");
+                        String[] serviceArray = branchServices.split(", ");
 
                         ArrayAdapter adapter = new ArrayAdapter(ViewServicesFromBranchForClient.this, android.R.layout.simple_list_item_1, serviceArray);
                         servicesListView.setAdapter(adapter);
