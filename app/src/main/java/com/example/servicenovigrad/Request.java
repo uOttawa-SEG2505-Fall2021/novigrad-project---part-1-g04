@@ -1,7 +1,7 @@
 package com.example.servicenovigrad;
 
 public class Request {
-    String email, branchName, serviceName, dateOfBirth, address, hash;
+    private String email, branchName, serviceName, dateOfBirth, address, hash;
     //Status il false if request is still pending, true if request has been accepted. If request is denied, it's removed from Firebase
     boolean status, allDocuments;
 

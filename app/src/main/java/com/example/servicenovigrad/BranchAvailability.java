@@ -24,7 +24,6 @@ public class BranchAvailability extends AppCompatActivity {
     private final String[] daysOfTheWeek = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
     private boolean mon, tue, wed, thu, fri, sat, sun;
     private ArrayList<String> openDays;
-    private ArrayAdapter<String> adapter;
     private ArrayList<String> optionsSelected;
     private String branchName, phoneNumber, address;
 
@@ -45,10 +44,10 @@ public class BranchAvailability extends AppCompatActivity {
         phoneNumber = getIntent().getStringExtra("phoneNumber");
         address = getIntent().getStringExtra("address");
 
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, daysOfTheWeek);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, daysOfTheWeek);
         daysListView.setAdapter(adapter);
-        openDays = new ArrayList<String>();
-        optionsSelected = new ArrayList<String>();
+        openDays = new ArrayList<>();
+        optionsSelected = new ArrayList<>();
 
         continueBtn.setOnClickListener(new View.OnClickListener() {
             @Override

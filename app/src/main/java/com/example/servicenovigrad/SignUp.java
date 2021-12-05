@@ -30,8 +30,7 @@ import java.util.Objects;
 public class SignUp extends AppCompatActivity {
 
     Spinner spinner;
-    EditText emailField, usernameField, passwordField,
-            confirmPasswordField, firstNameField, lastNameField;
+    EditText emailField, usernameField, passwordField, confirmPasswordField, firstNameField, lastNameField;
     Button signUpButton;
 
     private DatabaseReference databaseUsers;

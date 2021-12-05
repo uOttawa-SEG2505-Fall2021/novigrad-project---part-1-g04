@@ -26,7 +26,6 @@ public class AddBranch extends AppCompatActivity {
     private Button continueBtn, cancelBtn;
     private EditText branchNameText, phoneNumberText, addressText;
     private String branchName, phoneNumber, address, getBranchName, getPhoneNumber, getAddress, username;
-    private final String spacesAndHyphenRegex = "^(1-)?\\d{3}-\\d{3}-\\d{4}$";
     private DatabaseReference databaseReference;
     private List<String> branchList;
     private boolean match, confirm;
@@ -147,7 +146,7 @@ public class AddBranch extends AppCompatActivity {
 
     //Check if phone number is the following format: XXX-XXX-XXXX
     public boolean validatePhoneNumber(String phoneNumber) {
-        Pattern PHONE_REGEX = Pattern.compile(spacesAndHyphenRegex);
+        Pattern PHONE_REGEX = Pattern.compile("^(1-)?\\d{3}-\\d{3}-\\d{4}$");
         final Matcher matcher = PHONE_REGEX.matcher(phoneNumber);
         return matcher.matches();
     }
