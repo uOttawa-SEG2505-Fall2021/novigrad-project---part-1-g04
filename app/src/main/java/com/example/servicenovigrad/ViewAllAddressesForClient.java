@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -20,22 +21,23 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectBranchForClient extends AppCompatActivity {
+public class ViewAllAddressesForClient extends AppCompatActivity {
 
-    private ListView branchesListView;
+    private ListView addressesListView;
     private Button goBackBtn;
-    private List<Branch> branchList;
-    private DatabaseReference databaseReference;
     private String email;
+    private List<String> addressList, branchList;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_branch_for_client);
+        setContentView(R.layout.activity_view_all_addresses_for_client);
 
-        branchesListView = findViewById(R.id.BranchesForClientsListView);
+        addressesListView = findViewById(R.id.AddressesForClientsListView);
         goBackBtn = findViewById(R.id.goBack_button);
         email = getIntent().getStringExtra("email");
+        addressList = new ArrayList<>();
         branchList = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference("Branches");
 
@@ -49,35 +51,31 @@ public class SelectBranchForClient extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //clearing the previous List
-                branchList.clear();
+                addressList.clear();
 
-                //iterating through all the nodes
-                for (DataSnapshot branchDatasnap : snapshot.getChildren()) {
-                    //getting branch
-                    Branch branch = branchDatasnap.getValue(Branch.class);
-                    //adding branch to the List
-                    branchList.add(branch);
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Branch branch = dataSnapshot.getValue(Branch.class);
+                    addressList.add(branch.getAddress());
+                    branchList.add(branch.getBranchName());
                 }
 
-                //creating adapter
-                ListAdapter adapter = new BranchListAdapter(SelectBranchForClient.this, branchList);
-                //attaching adapter to the ListView
-                branchesListView.setAdapter(adapter);
-            }
+                String[] addressArray = new String[addressList.size()];
+                for (int i = 0; i < addressList.size(); i++) {
+                    addressArray[i] = addressList.get(i);
+                }
 
+                ArrayAdapter adapter = new ArrayAdapter(ViewAllAddressesForClient.this, android.R.layout.simple_list_item_1, addressArray);
+                addressesListView.setAdapter(adapter);
+            }
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
 
-        branchesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        addressesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Branch branch = (Branch) branchesListView.getItemAtPosition(position);
-                String branchName = branch.getBranchName().trim();
-                Intent intent = new Intent(SelectBranchForClient.this, SelectServiceForClient.class);
+                String branchName = branchList.get(position).trim();
+                Intent intent = new Intent(ViewAllAddressesForClient.this, ViewServicesFromBranchForClient.class);
                 intent.putExtra("branchName", branchName);
                 intent.putExtra("email",email);
                 startActivity(intent);

@@ -92,25 +92,32 @@ public class AddBranch extends AppCompatActivity {
                                     branchList.add(branch.getBranchName());
 
                                     String confirmPhoneNumber = String.valueOf(branchDatasnap.child("phoneNumber").getValue());
+                                    String confirmAddress = String.valueOf(branchDatasnap.child("address").getValue());
+                                    //Check if phone number is unique
                                     if (confirmPhoneNumber.equals(phoneNumber)) {
                                         phoneNumberText.setError("Phone number is already associated with a branch.");
                                         phoneNumberText.requestFocus();
+                                        match = true;
+                                        break;
+                                        //Check if address is unique
+                                    } else if(confirmAddress.equals(address)) {
+                                        addressText.setError("Address is already associated with a branch.");
+                                        addressText.requestFocus();
                                         match = true;
                                         break;
                                     }
 
                                 }
 
+                                //Check if all fields have been verified
                                 if(!match && confirm) {
                                     Intent intent = new Intent(AddBranch.this, BranchAvailability.class);
                                     //Save of the information for time and date
                                     intent.putExtra("branchName", branchName);
                                     intent.putExtra("phoneNumber", phoneNumber);
                                     intent.putExtra("address", address);
-                                    //Toast.makeText(AddBranch.this, "Works.", Toast.LENGTH_SHORT).show();
                                     startActivity(intent);
                                 }
-
                             }
                         }
                         @Override
@@ -160,7 +167,6 @@ public class AddBranch extends AppCompatActivity {
                 return false;
             }
         }
-
         return matcher.matches();
     }
 }

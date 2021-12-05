@@ -13,16 +13,25 @@
         android:theme="@style/Theme.ServiceNovigrad"
         tools:ignore="AllowBackup">
         <activity
+            android:name=".ViewAllAddressesForClient"
+            android:exported="true" />
+        <activity
+            android:name=".ViewBranchesFromServiceForClient"
+            android:exported="true" />
+        <activity
+            android:name=".ViewAllServicesForClient"
+            android:exported="true" />
+        <activity
             android:name=".ClientInformation"
             android:exported="true" />
         <activity
             android:name=".ConnectToViewRequest"
             android:exported="true" />
         <activity
-            android:name=".SelectServiceForClient"
+            android:name=".ViewServicesFromBranchForClient"
             android:exported="true" />
         <activity
-            android:name=".SelectBranchForClient"
+            android:name=".ViewAllBranchesForClient"
             android:exported="true" />
         <activity
             android:name=".ConnectToBranch"
