@@ -117,9 +117,6 @@ public class AddBranch extends AppCompatActivity {
                         public void onCancelled(@NonNull DatabaseError error) {}
                     });
                 }
-
-
-
             }
         });
 
@@ -163,7 +160,6 @@ public class AddBranch extends AppCompatActivity {
                 return false;
             }
         }
-
         return matcher.matches();
     }
 }
