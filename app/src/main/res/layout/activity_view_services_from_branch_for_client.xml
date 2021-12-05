@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="65dp"
-        android:text="Press on the service to request access"
+        android:text="Press on a service to request access"
         android:textAlignment="center"
         android:textSize="16sp"
         android:textStyle="bold"
