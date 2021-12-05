@@ -13,6 +13,9 @@
         android:theme="@style/Theme.ServiceNovigrad"
         tools:ignore="AllowBackup">
         <activity
+            android:name=".ViewBranchesFromTimeForClient"
+            android:exported="false" />
+        <activity
             android:name=".RateBranch"
             android:exported="false" />
         <activity

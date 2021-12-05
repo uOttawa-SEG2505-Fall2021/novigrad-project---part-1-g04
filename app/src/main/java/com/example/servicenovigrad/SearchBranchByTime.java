@@ -87,7 +87,12 @@ public class SearchBranchByTime extends AppCompatActivity {
                 if (selectTimeBtn.getText().toString().equalsIgnoreCase("select time")) {
                     Toast.makeText(SearchBranchByTime.this, "Please select the time.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(SearchBranchByTime.this, "Nice", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(SearchBranchByTime.this, ViewBranchesFromTimeForClient.class);
+                    intent.putExtra("email", email);
+                    intent.putExtra("selectedHourBranch", selectedHourBranch);
+                    intent.putExtra("selectedMinuteBranch", selectedMinuteBranch);
+                    intent.putExtra("selectedDayBranch", selectedDayBranch);
+                    startActivity(intent);
                 }
             }
         });
