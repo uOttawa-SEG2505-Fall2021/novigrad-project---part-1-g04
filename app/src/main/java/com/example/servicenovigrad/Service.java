@@ -2,7 +2,7 @@ package com.example.servicenovigrad;
 
 public class Service {
 
-    private String serviceName, userFirstName, userLastName, userDateOfBirth, userAddress;;
+    private String serviceName;;
     private boolean proofOfResidence, proofOfStatus, photoID;
 
     public Service() {}
@@ -20,38 +20,6 @@ public class Service {
 
     public void setServiceName(String serviceName) {
         this.serviceName = serviceName;
-    }
-
-    public String getUserFirstName() {
-        return userFirstName;
-    }
-
-    public void setUserFirstName(String userFirstName) {
-        this.userFirstName = userFirstName;
-    }
-
-    public String getUserLastName() {
-        return userLastName;
-    }
-
-    public void setUserLastName(String userLastName) {
-        this.userLastName = userLastName;
-    }
-
-    public String getUserDateOfBirth() {
-        return userDateOfBirth;
-    }
-
-    public void setUserDateOfBirth(String userDateOfBirth) {
-        this.userDateOfBirth = userDateOfBirth;
-    }
-
-    public String getUserAddress() {
-        return userAddress;
-    }
-
-    public void setUserAddress(String userAddress) {
-        this.userAddress = userAddress;
     }
 
     public boolean getProofOfResidence() {
