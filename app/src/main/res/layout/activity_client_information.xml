@@ -112,7 +112,7 @@
         android:layout_marginEnd="101dp"
         android:onClick="openDatePicker"
         android:text="Select date of birth"
-        android:textColor="@color/black"
+        android:textColor="#03DAC5"
         android:textSize="16sp" />
 
 
