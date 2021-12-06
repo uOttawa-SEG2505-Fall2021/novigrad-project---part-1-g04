@@ -3,11 +3,14 @@ package com.example.servicenovigrad;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -21,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -28,10 +32,11 @@ import java.util.regex.Pattern;
 
 public class ClientInformation extends AppCompatActivity {
 
-    private String serviceName, branchName, email;
+    private String serviceName, branchName, email, dateOfBirth;
     private ListView documentsForServiceListView;
-    private Button confirmBtn, cancelBtn;
-    private EditText dateOfBirthText, addressText;
+    private Button confirmBtn, cancelBtn, dateBtn;
+    private EditText addressText;
+    private DatePickerDialog datePickerDialog;
     private List<String> documentList, optionsSelected;
     private DatabaseReference databaseReference;
     private boolean photoID, proofOfResidence, proofOfStatus;
@@ -44,15 +49,16 @@ public class ClientInformation extends AppCompatActivity {
         documentsForServiceListView = findViewById(R.id.documentForServiceListView);
         confirmBtn = findViewById(R.id.confirmRequest_button);
         cancelBtn = findViewById(R.id.cancelRequest_button);
-        dateOfBirthText = findViewById(R.id.dateOfBirth_text);
         addressText = findViewById(R.id.clientAddress_text);
+        dateBtn = findViewById(R.id.datePickerButton);
 
-        //Get email of client, branchName selected and serviceName selected
+        //Get email of client, branchName selected, serviceName selected and datePicker
         email = getIntent().getStringExtra("email");
         branchName = getIntent().getStringExtra("branchName");
         serviceName = getIntent().getStringExtra("serviceName");
         documentList = new ArrayList<>();
         optionsSelected = new ArrayList<>();
+        initDatePicker();
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Services");
         databaseReference.child(Objects.requireNonNull(serviceName)).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -90,11 +96,11 @@ public class ClientInformation extends AppCompatActivity {
             }
         });
 
+
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Request request;
-                String dateOfBirth = dateOfBirthText.getText().toString().trim();
                 String address = addressText.getText().toString().trim();
                 optionsSelected.clear();
                 // reset boolean values
@@ -107,19 +113,20 @@ public class ClientInformation extends AppCompatActivity {
                     }
                 }
 
-                if(dateOfBirth.isEmpty()) {
-                    dateOfBirthText.setError("Please enter your date of birth");
-                    dateOfBirthText.requestFocus();
-                    return;
-                } else if(address.isEmpty()) {
+                //Get string from date button
+                String dateOfBirthText = dateBtn.getText().toString();
+                if(address.isEmpty()) {
                     addressText.setError("Please enter your address");
                     addressText.requestFocus();
+                    return;
+                } else if(dateOfBirthText.equalsIgnoreCase("Select date of birth")) {
+                    Toast.makeText(ClientInformation.this, "Please select your date of birth.", Toast.LENGTH_SHORT).show();
                     return;
                 } else if(!validateAddress(address)) {
                     addressText.setError("Please enter a valid address");
                     addressText.requestFocus();
                     return;
-                } //TODO check date of birth (regex)
+                }
 
                 //Check if all options have been selected
                 if(optionsSelected.size() == documentList.size()) {
@@ -161,6 +168,7 @@ public class ClientInformation extends AppCompatActivity {
         });
     }
 
+    //Validate address using regex
     public boolean validateAddress(String address) {
         Pattern pattern = Pattern.compile("^(\\d+) ([A-Za-zÀ-ÿ '-]+), ([A-Za-zÀ-ÿ '-]+), ([A-Za-zÀ-ÿ '-]+)$");
         Matcher matcher = pattern.matcher(address);
@@ -176,5 +184,63 @@ public class ClientInformation extends AppCompatActivity {
         return matcher.matches();
     }
 
+    //Code bellow is for date picker
+    private void initDatePicker() {
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                dateOfBirth = makeDateString(day, month, year);
+                dateBtn.setText(dateOfBirth);
+            }
+        };
 
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        int style = AlertDialog.THEME_HOLO_LIGHT;
+        datePickerDialog = new DatePickerDialog(this, style, dateSetListener, year, month, day);
+        //Make sure user can't pick a date in the future
+        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+
+    }
+
+    private String makeDateString(int day, int month, int year) {
+        return getMonthFormat(month) + " " + day + " " + year;
+    }
+
+    private String getMonthFormat(int month) {
+        if(month == 1)
+            return "JAN";
+        if(month == 2)
+            return "FEB";
+        if(month == 3)
+            return "MAR";
+        if(month == 4)
+            return "APR";
+        if(month == 5)
+            return "MAY";
+        if(month == 6)
+            return "JUN";
+        if(month == 7)
+            return "JUL";
+        if(month == 8)
+            return "AUG";
+        if(month == 9)
+            return "SEP";
+        if(month == 10)
+            return "OCT";
+        if(month == 11)
+            return "NOV";
+        if(month == 12)
+            return "DEC";
+
+        //Default, should never happen
+        return "JAN";
+    }
+
+    public void openDatePicker(View view) {
+        datePickerDialog.show();
+    }
 }

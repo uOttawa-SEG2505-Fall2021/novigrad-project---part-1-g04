@@ -33,46 +33,18 @@
         android:id="@+id/clientAddress_text"
         android:layout_width="251dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView28"
+        android:layout_below="@+id/textView35"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_gravity="center"
         android:layout_marginStart="80dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="80dp"
         android:ems="10"
         android:hint="Address"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:textAlignment="center" />
-
-    <EditText
-        android:id="@+id/dateOfBirth_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView25"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_gravity="center"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginEnd="101dp"
-        android:ems="10"
-        android:hint="Date of birth"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:textAlignment="center" />
-
-    <TextView
-        android:id="@+id/textView28"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/dateOfBirth_text"
-        android:layout_gravity="center"
-        android:layout_marginTop="0dp"
-        android:text="(Use this format: DD/MM/YYYY)"
-        android:textAlignment="center"
-        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/textView29"
@@ -90,8 +62,8 @@
         android:layout_width="match_parent"
         android:layout_height="241dp"
         android:layout_above="@+id/buttons"
-        android:layout_below="@+id/textView29"
-        android:layout_marginTop="40dp"
+        android:layout_below="@+id/textView35"
+        android:layout_marginTop="241dp"
         android:layout_marginBottom="30dp"
         android:cacheColorHint="#00000000"
         android:choiceMode="multipleChoice" />
@@ -126,6 +98,22 @@
             android:text="Cancel" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/datePickerButton"
+        style="?android:spinnerStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView29"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="102dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="101dp"
+        android:onClick="openDatePicker"
+        android:text="Select date of birth"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
 
 
 </RelativeLayout>
