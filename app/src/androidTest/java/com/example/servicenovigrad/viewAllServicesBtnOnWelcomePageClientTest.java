@@ -12,11 +12,11 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class modifyServiceBtnOnServicePageTest {
+public class viewAllServicesBtnOnWelcomePageClientTest {
 
     @Rule
-    public ActivityTestRule<ServicePage> mActivityTestRule = new ActivityTestRule<ServicePage>(ServicePage.class);
-    private ServicePage mActivity = null;
+    public ActivityTestRule<WelcomePageClient> mActivityTestRule = new ActivityTestRule<WelcomePageClient>(WelcomePageClient.class);
+    private WelcomePageClient mActivity = null;
 
     @Before
     public void setUp() throws Exception {
@@ -25,8 +25,8 @@ public class modifyServiceBtnOnServicePageTest {
 
     @Test
     public void launchOfServiceActivityOnButtonClick() {
-        assertNotNull(mActivity.findViewById(R.id.connectButton));
-        onView(withId(R.id.connectButton)).perform(click());
+        assertNotNull(mActivity.findViewById(R.id.viewAllServices_button));
+        onView(withId(R.id.viewAllServices_button)).perform(click());
     }
 
     @After
